@@ -72,7 +72,6 @@ class PageItem extends Component {
               <button 
                 type="submit" 
                 className="button blue-500 cart-button"
-                tc-event={`{"eventId": "add_to_cart", "data": "${name}"}`}
               >
                 Add to Cart
               </button>

@@ -1,20 +1,28 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import Total from "./Total";
-
+import TC_Wrapper from 'react-tag-commander'
 
 class Panier extends Component {
 
-  handleAddQuantityItem = index => { 
+  constructor(props) {
+    super(props);
+    this.wrapper = new TC_Wrapper();
+  }
+
+  handleAddQuantityItem = (index, event, data) => {
+    this.wrapper.captureEvent('add_to_cart', event.currentTarget, data);
     this.props.addQuantityItem(index);
   };
 
-  handleRemoveQuantityItem = index => { 
+  handleRemoveQuantityItem = (index, event, data) => { 
+    this.wrapper.captureEvent('remove_from_cart', event.currentTarget, data);
     this.props.removeQuantityItem(index);
   };
 
-  onClicCheckOut = e => {
-    e.preventDefault();
+  onClicCheckOut = (event, data) => {
+    event.preventDefault();
+    this.wrapper.captureEvent('cart_checkout', event.currentTarget, data);
     this.props.checkOut();
   };
 
@@ -32,14 +40,12 @@ class Panier extends Component {
               value={item.quantity} 
               name="quantity" 
               key={item.id} 
-              onClick={() => this.handleRemoveQuantityItem(index)}
-              tc-event={`{"eventId": "remove_from_cart", "data": "${item.name}"}`}
+              onClick={(event) => this.handleRemoveQuantityItem(index, event, item.name)}
             > - </button>
             <span>{item.quantity}</span>
             <button 
-              className="sm-button green-500" 
-              onClick={() => this.handleAddQuantityItem(index)}
-              tc-event={`{"eventId": "add_to_cart", "data": "${item.name}"}`}
+              className="sm-button green-500"
+              onClick={(event) => this.handleAddQuantityItem(index, event, item.name)}
             > + </button>
             </div>
             <div className="cart-item-price">
@@ -62,8 +68,7 @@ class Panier extends Component {
             <button
               className="button green-500 buy-button"
               type="submit"
-              onClick={this.onClicCheckOut}
-              tc-event={`"eventId": "cart_checkout", "data": "${items}"`}
+              onClick={(event) =>this.onClicCheckOut(event, items)}
             >
               Buy
             </button>         
