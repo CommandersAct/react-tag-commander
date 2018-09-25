@@ -79,17 +79,19 @@ const RouteWithSubRoutes = (route) => (
     />
 );
 
+const wrapper = TC_Wrapper.getInstance();
+wrapper.setDebug(true);
+
+// setting the tags for the current and prevous URL
+wrapper.trackRoutes(true);
+
+// to set the TagCommander container provide the id
+wrapper.addContainer('container_head', '/tag-commander-head.js', 'head');
+wrapper.addContainer('container_body', '/tag-commander-body.js', 'body');
+
 class App extends Component {
+
   render() {
-
-    const wrapper = new TC_Wrapper();
-    wrapper.setDebug(true);
-    // setting the tags for the current and prevous URL
-    // wrapper.trackRoutes(true);
-
-    // to set the TagCommander container provide the id
-    wrapper.addContainer('container_head', '/tag-commander-head.js', 'head');
-    wrapper.addContainer('container_body', '/tag-commander-body.js', 'body');
 
     return (
       <Router>

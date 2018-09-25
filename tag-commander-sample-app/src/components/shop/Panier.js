@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import Total from "./Total";
+import TcVars from "../TcVars"
 import TC_Wrapper from 'react-tag-commander'
 
 class Panier extends Component {
 
   constructor(props) {
     super(props);
-    this.wrapper = new TC_Wrapper();
+    this.wrapper = TC_Wrapper.getInstance();
   }
 
   handleAddQuantityItem = (index, event, data) => {
@@ -57,6 +58,7 @@ class Panier extends Component {
     
     return (
       <div className="right-container">
+        <TcVars env_template="toto" env_work="titi" />
         <div className="cart tag-50">
           <h3>Cart</h3>
             <ul>

@@ -3,8 +3,16 @@ export default class TC_Wrapper {
     constructor() {
         this.logger = window.console;
         this.tcContainers = [];
-        this.trackRoutes = false;
+        this.isTracking = false;
+        this.instance = null;
     };
+    
+    static getInstance() {
+        if(!TC_Wrapper.instance) {
+            TC_Wrapper.instance = new TC_Wrapper();
+        }
+        return this.instance;
+    }
     
     /**
      * Add a container
@@ -86,7 +94,7 @@ export default class TC_Wrapper {
      * @param {boolean} boolean will read routes if set to true
      */
     trackRoutes(boolean) {
-        this.trackRoutes = !!boolean;
+        this.isTracking = !!boolean;
     };
 
     /**
@@ -95,7 +103,12 @@ export default class TC_Wrapper {
      * @param {*} tcVar
      */
     setTcVar(tcKey, tcVar) {
-        window.tcVars[tcKey] = tcVar;
+        if(!window.tc_vars) {
+            return setTimeout(() => {
+                this.setTcVar(tcKey, tcVar);
+            }, 1000);
+        }
+        window.tc_vars[tcKey] = tcVar;
     };
 
     /**
