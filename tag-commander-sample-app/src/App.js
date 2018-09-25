@@ -81,6 +81,8 @@ const RouteWithSubRoutes = (route) => (
 
 class App extends Component {
   render() {
+    console.log(TC_Wrapper);
+    
     return (
       <Router>
         <div className="App">
