@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
-// import TC_Wrapper from './TC_Wrapper';
+import TC_Wrapper from 'react-tag-commander';
 
 // Components
 import Navbar from "./components/layout/navbar/Navbar";

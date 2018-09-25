@@ -16,16 +16,16 @@ export default class TC_Wrapper {
     addContainer(id, uri, node) {
 
         if(!id) {
-            return logger.error('You should define the container id.');
+            return this.logger.error('You should define the container id.');
         }
         if(typeof id !== 'string') {
-            logger.warn('The container id should be a string.');
+            this.logger.warn('The container id should be a string.');
         }
         if(!uri) {
-            return logger.error('You should define the container id.');
+            return this.logger.error('You should define the container id.');
         }
         if(typeof uri !== 'string') {
-            logger.warn('The container uri should be a string.');
+            this.logger.warn('The container uri should be a string.');
         }
 
         this.tcContainers.push({
@@ -41,7 +41,7 @@ export default class TC_Wrapper {
         if(!node || typeof node !== 'string' || node.toLowerCase() === 'head'
             || typeof window.document.getElementsByTagName(node.toLowerCase())[0] === 'undefined') {
 
-            logger.warn('The script will be placed in the head by default.');
+            this.logger.warn('The script will be placed in the head by default.');
             return window.document.getElementsByTagName('head')[0].appendChild(tagContainer);
         }
 
@@ -125,7 +125,7 @@ export default class TC_Wrapper {
      * @param {string} tcKey
      */
     removeTcVar(tcKey) {
-        logger.log('removeTcVar', tcKey);
+        this.logger.log('removeTcVar', tcKey);
         delete window.tc_vars[tcKey];
     };
 
@@ -146,9 +146,9 @@ export default class TC_Wrapper {
      * @param {number} idc
      * @param {object} options can contain some options in a form of an object
      */
-    reloadContainer(ids, idc, options) {
-        let options = options || {};
-        logger.log('Reload container ids: ' + ids + ' idc: ' + idc, typeof options === 'object' ? 'with options: ' + options : '');
+    reloadContainer(ids, idc, opt) {
+        let options = opt || {};
+        this.logger.log('Reload container ids: ' + ids + ' idc: ' + idc, typeof options === 'object' ? 'with options: ' + options : '');
         window['container_' + ids + '_' + idc].reload(options);
     };
 
