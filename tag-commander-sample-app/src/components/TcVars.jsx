@@ -9,12 +9,7 @@ export default class TcVars extends React.Component {
     }
 
     componentDidMount() {
-        
-        // setTimeout(() => {
-            console.log(window.tc_vars)
-            this.wrapper.setTcVars(this.props);
-            // this.wrapper.
-        // }, 1000);
+        this.wrapper.setTcVars(this.props);
     }
 
     render() {
