@@ -9,7 +9,7 @@ import Navbar from "./components/layout/navbar/Navbar";
 import Dashboard from "./components/dashboard/index.js";
 import Home from "./components/home/index.js";
 import Shop from "./components/shop/index.js";
-import withTracker from "./components/shop/withTracker";
+import withTracker from "./components/withTracker";
 
 
 const wrapper = TC_Wrapper.getInstance();
