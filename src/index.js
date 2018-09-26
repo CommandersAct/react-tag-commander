@@ -120,7 +120,7 @@ export default class TC_Wrapper {
         this.logger.log('setTcVars', vars);
         let listOfVars = Object.keys(vars);
         for(let i = 0, j = listOfVars.length; i < j ; i++) {
-          this.setTcVar(listOfVars[i], vars[listOfVars[i]]);
+            this.setTcVar(listOfVars[i], vars[listOfVars[i]]);
         }
     };
 
@@ -162,7 +162,7 @@ export default class TC_Wrapper {
     reloadContainer(ids, idc, opt) {
         let options = opt || {};
         this.logger.log('Reload container ids: ' + ids + ' idc: ' + idc, typeof options === 'object' ? 'with options: ' + options : '');
-        window['container_' + ids + '_' + idc].reload(options);
+        window.tC['container_' + ids + '_' + idc].reload(options);
     };
 
     /**
