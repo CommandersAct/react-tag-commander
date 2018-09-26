@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import Total from "./Total";
-import TcVars from "../TcVars"
-import TC_Wrapper from 'react-tag-commander'
+import TcVars from "../TcVars";
+import TC_Wrapper from 'react-tag-commander';
 
 class Panier extends Component {
 
