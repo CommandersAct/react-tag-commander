@@ -156,6 +156,8 @@ export default class TC_Wrapper {
                 window.tC.container.reload(options);
             },100);
         }
+
+        window.tC.container.reload(options);
     };
 
     /**
