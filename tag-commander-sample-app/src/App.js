@@ -46,6 +46,11 @@ class App extends Component {
                 ] 
                 })} />
                 <Route exact path="/dashboard" component={Dashboard} />
+                <Route exact path="" component={withTracker(Home, 
+                {tcReloadOnly: [
+                  {ids :'4056', idc: '12'}
+                ]
+                })} />
               </Switch>
             </div>
         </div>
