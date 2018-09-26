@@ -5,7 +5,6 @@ import TcVars from "../TcVars";
 import TC_Wrapper from 'react-tag-commander';
 
 class Panier extends Component {
-
   constructor(props) {
     super(props);
     this.wrapper = TC_Wrapper.getInstance();

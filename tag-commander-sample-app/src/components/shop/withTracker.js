@@ -3,12 +3,11 @@ import TC_Wrapper from "react-tag-commander";
 
 const wrapper = TC_Wrapper.getInstance();
 
-const withTracker = (WrappedComponent, tcReloadOnly = {}) => {
-  
+const withTracker = (WrappedComponent, options = {}) => {
   const trackPage = page => {
-    console.log(wrapper);
-    
-    wrapper.setTcVars(tcReloadOnly);
+    console.log('BEFORE',wrapper);
+    wrapper.setTcVars(options.tcReloadOnly);
+    console.log('AFTER', wrapper)
   };
 
   // eslint-disable-next-line
