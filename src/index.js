@@ -150,7 +150,7 @@ export default class TC_Wrapper {
         this.logger.log('reloadAllContainers', options);
         options = options || {};
         this.logger.log('Reload all containers ', typeof options === 'object' ? 'with options ' + options : '');
-        window.container.reload(options);
+        window.tC.container.reload(options);
     };
 
     /**
