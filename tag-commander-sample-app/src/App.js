@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import TC_Wrapper from 'react-tag-commander';
-import withTracker from 'react-tag-commander';
+import TC_Wrapper, { withTracker } from 'react-tag-commander';
 
 // Components
 import Navbar from "./components/layout/navbar/Navbar";
 import Dashboard from "./components/dashboard/index.js";
 import Home from "./components/home/index.js";
 import Shop from "./components/shop/index.js";
-// import withTracker from "./components/withTracker";
 
 const wrapper = TC_Wrapper.getInstance();
 wrapper.setDebug(true);
