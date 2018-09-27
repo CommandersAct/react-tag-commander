@@ -189,6 +189,7 @@ export default class TC_Wrapper {
 export function withTracker(WrappedComponent, options = {}) {
     
     const trackPage = page => {
+        const wrapper = TC_Wrapper.getInstance();
         console.log(wrapper);
         
         wrapper.setTcVars(options.tcReloadOnly);
@@ -214,7 +215,7 @@ export function withTracker(WrappedComponent, options = {}) {
         }
 
         render() {
-            return (<WrappedComponent {...this.props} />);
+            return React.createElement(WrappedComponent, this.props)
         }
     };
 
