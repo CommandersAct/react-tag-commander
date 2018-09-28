@@ -1,50 +1,60 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Home extends Component {
+const Home = () => {
+  return (
+   <div>
+     <h1>react-tag-commander</h1>
+       This service lets you integrate Tag Commander in your React applications easily.
+        <a href="https://www.commandersact.com/fr/produits/tagcommander/">Official website</a>
+      <h2>Features</h2>
+        <ul>
+         <li>automatic page tracking</li>
+         <li>event catching</li>
+         <li>multiple containers</li>
+        </ul>
+      
+      <h2>Installation and Quick Start</h2>
+        <p>The quick start is designed to give you a simple, working example for the most common usage scenario. There are numerous other ways to configure and use this library as explained in the documentation.</p>
+      
+      <h3>1- Installation:</h3>
+        <p>You can install the module from a package manager of your choice directly from the command line</p>
+      <h4># Bower</h4>
+        <pre>bower install react-tag-commander</pre>
+      <h4># NPM</h4>
+        <pre>npm i react-tag-commander</pre>
+          <p>Or alternatively, grab the dist/index.js and include it in your project</p>
+          <p>In your application, declare the ngx-tag-commander module dependency.</p>
+      
+      {/* <h3>2- In your application, get an TC_Wrapper instance:</h3> */}
+        <pre>&lt;script src="nodes_components/react-tag-commander/dist/index.es5.min.js"&gt;&lt;/script&gt;</pre>
+          or if you are using es6, import it like so
+        <pre>{`import TC_Wrapper, { withTracker } from 'react-tag-commander';`}</pre>
 
-    render() {
-        
-    return (
-        <div>
-        <h1>react-tag-commander</h1>
+      <h3>2- In your application, get an TC_Wrapper instance:
+          {/* Add your Tag commander containers and start tracking: */}
+          </h3>
+            <pre>{`const wrapper = TC_Wrapper.getInstance();`}</pre>
+      
+      <h3>3- In your application, get an TC_Wrapper instance: Add your Tag commander containers and start tracking:</h3>
+        <pre>
+          <code className="method">import TC_Wrapper,</code><code></code>/n{ withTracker }/n</pre> from 'react-tag-commander';</code>
+          
+          const wrapper = TC_Wrapper.getInstance();
+          
+          <code className="comment">//you need to provide URIS to load containers script.</code>
+          <code className="comment">// function addContainer (id, uri, node)</code>
+          <code className="method">wrapper.addContainer('a_name_for_the_container_id', '/the/path/to/tag-commander-container.js', 'head');</code>
 
-          This service lets you integrate Tag Commander in your React applications easily.
+          // you can add as many container as you like
+          // but you can also remove them
+          wrapper.removeContainer('my_tag_container_id');
+          
+          // you can set debug by setting this to true
+          wrapper.setDebug(true);
 
-          Official website
-          <h2>Features</h2>
-          <ul>
-              <li>automatic page tracking</li>
-              <li>event catching</li>
-              <li>multiple containers</li>
-          </ul>
-
-          <h2>Installation and Quick Start</h2>
-
-          The quick start is designed to give you a simple, working example for the most common usage scenario. There are numerous other ways to configure and use this library as explained in the documentation.
-
-          <h3>1- Installation:</h3>
-
-          You can install the module from a package manager of your choice directly from the command line
-
-          <h4># Bower</h4>
-          <pre>
-          bower install react-tag-commander
-          </pre>
-
-          <h4># NPM</h4>
-          <pre>
-          npm i react-tag-commander
-          </pre>
-          <p>
-              Or alternatively, grab the dist/index.js and include it in your project
-          </p>
-          <p>
-              **** In your application, declare the ngx-tag-commander module dependency. in your app module:
-          </p>
-
-          <h3>2- Add your Tag commander containers and start tracking:</h3>
-          <pre>
-          </pre>
+          // you can track the url of your app by setting this
+          wrapper.trackRoutes(true);
+        </pre>
           <p>
               Congratulations! react-tag-commander is ready
           </p>
@@ -176,6 +186,6 @@ class Home extends Component {
       </div>
         );
   }
-}
+
 
 export default Home;
