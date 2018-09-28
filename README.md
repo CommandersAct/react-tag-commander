@@ -111,7 +111,7 @@ var myVar = wrapper.removeTcVar('VarKey');
 ## Capture Events
 ### In a controller
 ```js
-TagCommander.captureEvent(eventLabel, htmlElement, data);
+wrapper.captureEvent(eventLabel, htmlElement, data);
 ```
 ### In JSX
 ```html
