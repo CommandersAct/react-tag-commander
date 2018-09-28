@@ -13,8 +13,9 @@ gulp.task('build-es5', function() {
     // converting to ES5
     gulp.src('src/*.js')
         .pipe(babel({
-            presets: ['env']
-        })).pipe(minify({
+            presets: ['env', 'es2015', 'react']
+        }))
+        .pipe(minify({
         ext:{
             min:'.es5.min.js'
         },

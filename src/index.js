@@ -155,8 +155,8 @@ export default class TC_Wrapper {
         
         if(!window.tC) {
             return setTimeout(() => {
-                window.tC.container.reload(options);
-            },100);
+                this.reloadAllContainers(options);
+            },1000);
         }
 
         window.tC.container.reload(options);
@@ -180,15 +180,16 @@ export default class TC_Wrapper {
      * @param {HTMLElement} element the HTMLelement on witch the event is attached
      * @param {object} data the data you want to transmit
      */
-    captureEvent(eventLabel, element, data) {
-        this.logger.log('captureEvent', eventLabel, element, data);
-        window.tC.event[eventLabel](element, data);
+    captureEvent(eventLabel, htmlElement, data) {
+        this.logger.log('captureEvent', eventLabel, htmlElement, data);
+        window.tC.event[eventLabel](htmlElement, data);
     };
 };
 
 export function withTracker(WrappedComponent, options = {}) {
     
     const trackPage = page => {
+        const wrapper = TC_Wrapper.getInstance();
         console.log(wrapper);
         
         wrapper.setTcVars(options.tcReloadOnly);
@@ -214,7 +215,7 @@ export function withTracker(WrappedComponent, options = {}) {
         }
 
         render() {
-            return (<WrappedComponent {...this.props} />);
+            return React.createElement(WrappedComponent, this.props);
         }
     };
 

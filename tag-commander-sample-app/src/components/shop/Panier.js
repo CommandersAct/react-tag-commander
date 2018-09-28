@@ -58,7 +58,7 @@ class Panier extends Component {
     
     return (
       <div className="right-container">
-        <TcVars env_template="toto" env_work="titi" />
+        <TcVars env_language="fr" env_template="super_shop" />
         <div className="cart tag-50">
           <h3>Cart</h3>
             <ul>
