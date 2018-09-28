@@ -93,7 +93,7 @@ wrapper.removeTcVars('env_template');
 }
 ```
 ### In render function (JSX)
-You can use the directive tcSetVars direcly on any html node
+You can use the directive tcSetVars direcly on any render function
 ```html
 <TcVars env_language="fr" env_template="super_shop" />
 ```
