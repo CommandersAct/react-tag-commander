@@ -155,7 +155,7 @@ export default class TC_Wrapper {
         
         if(!window.tC) {
             return setTimeout(() => {
-                reloadAllContainers(options);
+                this.reloadAllContainers(options);
             },1000);
         }
 
