@@ -155,8 +155,8 @@ export default class TC_Wrapper {
         
         if(!window.tC) {
             return setTimeout(() => {
-                window.tC.container.reload(options);
-            },100);
+                reloadAllContainers(options);
+            },1000);
         }
 
         window.tC.container.reload(options);
@@ -215,7 +215,7 @@ export function withTracker(WrappedComponent, options = {}) {
         }
 
         render() {
-            return React.createElement(WrappedComponent, this.props)
+            return React.createElement(WrappedComponent, this.props);
         }
     };
 
