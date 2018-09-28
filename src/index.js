@@ -180,9 +180,9 @@ export default class TC_Wrapper {
      * @param {HTMLElement} element the HTMLelement on witch the event is attached
      * @param {object} data the data you want to transmit
      */
-    captureEvent(eventLabel, element, data) {
-        this.logger.log('captureEvent', eventLabel, element, data);
-        window.tC.event[eventLabel](element, data);
+    captureEvent(eventLabel, htmlElement, data) {
+        this.logger.log('captureEvent', eventLabel, htmlElement, data);
+        window.tC.event[eventLabel](htmlElement, data);
     };
 };
 
