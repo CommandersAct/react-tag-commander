@@ -1,6 +1,8 @@
 {
   "name": "react-tag-commander",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "repository": "https://github.com/jeremielenoir/react-tag-commander.git",
+  "author": "Lenoir jérémie",
   "private": true,
   "dependencies": {
     "autoprefixer": "7.1.6",
