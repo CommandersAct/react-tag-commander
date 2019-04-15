@@ -17,6 +17,7 @@ wrapper.trackRoutes(true);
 // to set the TagCommander container provide the id
 wrapper.addContainer('container_head', '/tag-commander-head.js', 'head');
 wrapper.addContainer('container_body', '/tag-commander-body.js', 'body');
+wrapper.removeContainer('container_body')
 
 class App extends Component {
 
