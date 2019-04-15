@@ -48,7 +48,7 @@ export default class TC_Wrapper {
         tagContainer.setAttribute('src', uri);
         tagContainer.setAttribute('id', id);
         
-        if(!node || typeof node !== 'string' || node.toLowerCase() === 'head'
+        if(!node || typeof node !== 'string' || node.toLowerCase() === 'head' || node.toLowerCase() === "body"
             || typeof window.document.getElementsByTagName(node.toLowerCase())[0] === 'undefined') {
 
             this.logger.warn('The script will be placed in the head by default.');
@@ -180,10 +180,26 @@ export default class TC_Wrapper {
      * @param {HTMLElement} element the HTMLelement on witch the event is attached
      * @param {object} data the data you want to transmit
      */
-    captureEvent(eventLabel, htmlElement, data) {
-        this.logger.log('captureEvent', eventLabel, htmlElement, data);
-        window.tC.event[eventLabel](htmlElement, data);
-    };
+    captureEvent(eventLabel, htmlElement, data,reloadCapture=false) {
+        if (reloadCapture===true){
+        //   console.log("in clear")
+          clearTimeout(reloadFunction)
+        }
+        else{
+          this.logger.log("captureEvent", eventLabel, htmlElement, data);
+          if (typeof window.tC !== "undefined") {
+            if (eventLabel in window.tC.event) {
+              window.tC.event[eventLabel](htmlElement, data);
+            }
+            if (!(eventLabel in window.tC.event)) {
+              var reloadFunction = setTimeout(() => {
+                // console.log("in Set");
+                this.captureEvent(eventLabel, htmlElement, data,reloadCapture=true);
+              }, 1000);
+            }
+          }
+        }
+      }
 };
 
 export function withTracker(WrappedComponent, options = {}) {
