@@ -112,13 +112,15 @@ var myVar = wrapper.removeTcVar('VarKey');
 wrapper.captureEvent(eventLabel, htmlElement, data);
 ```
 ### In JSX
+[Example onClick Method `handleAddQuantityItem`](https://github.com/TagCommander/react-tag-commander/blob/master/tag-commander-sample-app/src/components/shop/Panier.js#L14-L17).
+
 ```html
 <button 
-    className="sm-button green-500"
-    onClick={(event) => this.handle(index, event, item.name)}
+  className="sm-button green-500"
+  onClick={(event) => this.handleAddQuantityItem(index, event, item.name)}
 > + </button>
-
 ```
+
 
 ## How to reload your container
 When you update your varible you also need to update your container to propagate the changes
