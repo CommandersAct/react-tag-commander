@@ -52,7 +52,7 @@ wrapper.addContainer('a_name_for_the_container_id', '/the/path/to/tag-commander-
 // you can add as many container as you like
 
 // but you can also remove them
-wrapper.removeContainer('my_tag_container_id');
+wrapper.removeContainer('a_name_for_the_container_id');
 
 // you can set debug by setting this to true
 wrapper.setDebug(true);
