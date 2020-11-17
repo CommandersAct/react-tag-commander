@@ -57,7 +57,7 @@ export default class TC_Wrapper {
             node: updatedNode
         });
 
-        window.document.getElementsByTagName(node.toLowerCase())[0].appendChild(tagContainer);
+        window.document.getElementsByTagName(updatedNode.toLowerCase())[0].appendChild(tagContainer);
     };
 
     /**
