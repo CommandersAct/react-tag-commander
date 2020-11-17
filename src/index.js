@@ -38,22 +38,24 @@ export default class TC_Wrapper {
             this.logger.warn('The container uri should be a string.');
         }
 
-        this.tcContainers.push({
-            id: id,
-            uri: uri
-        });
-
         let tagContainer = document.createElement('script');
         tagContainer.setAttribute('type', 'text/javascript');
         tagContainer.setAttribute('src', uri);
         tagContainer.setAttribute('id', id);
+        let updatedNode = node;
         
         if(!node || typeof node !== 'string'
             || typeof window.document.getElementsByTagName(node.toLowerCase())[0] === 'undefined') {
 
             this.logger.warn('The script will be placed in the head by default.');
-            return window.document.getElementsByTagName('head')[0].appendChild(tagContainer);
+            updatedNode = 'head';
         }
+
+        this.tcContainers.push({
+            id: id,
+            uri: uri,
+            node: updatedNode
+        });
 
         window.document.getElementsByTagName(node.toLowerCase())[0].appendChild(tagContainer);
     };
@@ -66,10 +68,10 @@ export default class TC_Wrapper {
         let container = document.getElementById(id);
         let containers = this.tcContainers.slice(0);
     
-        document.getElementsByTagName('head')[0].removeChild(container);
-    
         for(let i = 0; i < containers.length; i++) {
           if(containers[i].id === id) {
+            let node = containers[i].node.toLowerCase();
+            document.getElementsByTagName(node)[0].removeChild(container);
             this.tcContainers.splice(i, 1);
           }
         }
