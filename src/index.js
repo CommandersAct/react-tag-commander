@@ -48,7 +48,7 @@ export default class TC_Wrapper {
         tagContainer.setAttribute('src', uri);
         tagContainer.setAttribute('id', id);
         
-        if(!node || typeof node !== 'string' || node.toLowerCase() === 'head' || node.toLowerCase() === "body"
+        if(!node || typeof node !== 'string'
             || typeof window.document.getElementsByTagName(node.toLowerCase())[0] === 'undefined') {
 
             this.logger.warn('The script will be placed in the head by default.');
