@@ -71,7 +71,10 @@ export default class TC_Wrapper {
         for(let i = 0; i < containers.length; i++) {
           if(containers[i].id === id) {
             let node = containers[i].node.toLowerCase();
-            document.getElementsByTagName(node)[0].removeChild(container);
+            let parent = document.getElementsByTagName(node)[0];
+            if (parent && container && parent.includes(container)) {
+                parent.removeChild(container);
+            }
             this.tcContainers.splice(i, 1);
           }
         }
