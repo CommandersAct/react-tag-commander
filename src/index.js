@@ -72,7 +72,7 @@ export default class TC_Wrapper {
           if(containers[i].id === id) {
             let node = containers[i].node.toLowerCase();
             let parent = document.getElementsByTagName(node)[0];
-            if (parent && container && parent.includes(container)) {
+            if (parent && container && container.parentNode === parent) {
                 parent.removeChild(container);
             }
             this.tcContainers.splice(i, 1);
