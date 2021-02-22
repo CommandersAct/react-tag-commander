@@ -113,15 +113,17 @@ wrapper.captureEvent(eventLabel, htmlElement, data);
 ```
 ### In JSX
 ```html
+
 <button 
     className="sm-button green-500"
-    onClick={(event) => this.handle(index, event, item.name)}
+    onClick={(event) => wrapper.captureEvent('add_to_cart', event.currentTarget, { item: item.name })}
 > + </button>
+
 
 ```
 
 ## How to reload your container
-When you update your varible you also need to update your container to propagate the changes
+When you update your variable you also need to update your container to propagate the changes
 ```js
 var idc = '1234';
 var ids = '1234';
