@@ -208,14 +208,6 @@ export function withTracker(WrappedComponent, options = {}) {
             trackPage();
         }
 
-        componentDidUpdate(prevProps) {
-            const currentPage = prevProps.location.pathname + prevProps.location.search;
-            const nextPage = this.props.location.pathname + this.props.location.search;
-            if (currentPage !== nextPage) {
-                trackPage();
-            }
-        }
-
         render() {
             return React.createElement(WrappedComponent, this.props);
         }
