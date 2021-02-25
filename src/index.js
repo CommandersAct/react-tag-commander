@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 export default class TC_Wrapper {
 
     constructor() {
-        this.logger = window.console;
+        this.setDebug(false);
         this.tcContainers = [];
-        this.isTracking = false;
         this.instance = null;
+        this.captureEvent = this.triggerEvent
     };
     
     static getInstance() {
@@ -20,44 +20,42 @@ export default class TC_Wrapper {
      * Add a container
      * The script URI correspond to the tag-commander script URL, it can either be a CDN URL or the path of your script
      * @param {string} id the id the script node will have
-     * @param {string} uri the source of the script
-     * @param {string} node the node on witch the script will be placed, it can either be head or body
+     * @param {string} url the source of the script
+     * @param {string} node the node on which the script will be placed, it can either be head or body
      */
-    addContainer(id, uri, node) {
-
+    addContainer(id, url, node) {
         if(!id) {
-            return this.logger.error('You should define the container id.');
+            throw new Error('[react-tag-commander]You should define the container id.')
         }
         if(typeof id !== 'string') {
-            this.logger.warn('The container id should be a string.');
+            throw new Error('[react-tag-commander]The container id should be a string.')
         }
-        if(!uri) {
-            return this.logger.error('You should define the container id.');
+        if(!url || typeof url !== 'string') {
+            throw new Error('[react-tag-commander]Invalid container URL.')
         }
-        if(typeof uri !== 'string') {
-            this.logger.warn('The container uri should be a string.');
-        }
-
-        let tagContainer = document.createElement('script');
-        tagContainer.setAttribute('type', 'text/javascript');
-        tagContainer.setAttribute('src', uri);
-        tagContainer.setAttribute('id', id);
-        let updatedNode = node;
-        
-        if(!node || typeof node !== 'string'
-            || typeof window.document.getElementsByTagName(node.toLowerCase())[0] === 'undefined') {
-
-            this.logger.warn('The script will be placed in the head by default.');
-            updatedNode = 'head';
-        }
-
-        this.tcContainers.push({
-            id: id,
-            uri: uri,
-            node: updatedNode
-        });
-
-        window.document.getElementsByTagName(updatedNode.toLowerCase())[0].appendChild(tagContainer);
+        return new Promise(resolve => {
+            let tagContainer = document.createElement('script');
+            tagContainer.onload = () => resolve();
+            tagContainer.setAttribute('type', 'text/javascript');
+            tagContainer.setAttribute('src', url);
+            tagContainer.setAttribute('id', id);
+            let updatedNode = node;
+            
+            if(!node || typeof node !== 'string'
+                ||  window.document.getElementsByTagName(node.toLowerCase())[0] == null) {
+    
+                this.logger.warn('The script will be placed in the head by default.');
+                updatedNode = 'head';
+            }
+    
+            this.tcContainers.push({
+                id: id,
+                uri: url,
+                node: updatedNode
+            });
+    
+            window.document.getElementsByTagName(updatedNode.toLowerCase())[0].appendChild(tagContainer);
+        })
     };
 
     /**
@@ -97,30 +95,20 @@ export default class TC_Wrapper {
     };
 
     /**
-     * Allows the router to be tracked
-     * @param {boolean} boolean will read routes if set to true
-     */
-    trackRoutes(boolean) {
-        this.isTracking = !!boolean;
-    };
-
-    /**
      * Set or update the value of the var
      * @param {string} tcKey
      * @param {*} tcVar
      */
     setTcVar(tcKey, tcVar) {
         if(!window.tc_vars) {
-            return setTimeout(() => {
-                this.setTcVar(tcKey, tcVar);
-            }, 1000);
+            throw new Error('[react-tag-commander] Data layer was not initialized');
         }
         window.tc_vars[tcKey] = tcVar;
     };
 
     /**
-     * Set your varibles for the different providers, when called the first time it
-     * instantiate the external varible
+     * Set your variables for the different providers, when called the first time it
+     * instantiate the external variable
      * @param {object} vars
      */
     setTcVars(vars) {
@@ -153,53 +141,47 @@ export default class TC_Wrapper {
      * Will reload all the containers
      * @param {object} options can contain some options in a form of an object
      */
-    reloadAllContainers(options) {
-        this.logger.log('reloadAllContainers', options);
-        options = options || {};
-        this.logger.log('Reload all containers ', typeof options === 'object' ? 'with options ' + options : '');
+    reloadAllContainers(options = {}) {
+        this.logger.log('Reload all containers ', options);
         
-        if(!window.tC) {
-            return setTimeout(() => {
-                this.reloadAllContainers(options);
-            },1000);
+        if(!window.tC && !window.tC.container) {
+            throw new Error('[react-tag-commander]No container to reload')
         }
 
         window.tC.container.reload(options);
     };
 
     /**
-     * Will reload a specifique container
-     * @param {number} ids
-     * @param {number} idc
+     * Will reload the specified container
+     * @param {number} siteId
+     * @param {number} containerId
      * @param {object} options can contain some options in a form of an object
      */
-    reloadContainer(ids, idc, opt) {
+    reloadContainer(siteId, containerId, opt) {
         let options = opt || {};
-        this.logger.log('Reload container ids: ' + ids + ' idc: ' + idc, typeof options === 'object' ? 'with options: ' + options : '');
-        window.tC['container_' + ids + '_' + idc].reload(options);
+        this.logger.log('Reload container ids: ' + siteId + ' idc: ' + containerId, typeof options === 'object' ? 'with options: ' + options : '');
+        window.tC['container_' + siteId + '_' + containerId].reload(options);
     };
 
     /**
      * Will set a TC_Wrapper event
      * @param {string} eventLabel the name of your event
-     * @param {HTMLElement} element the HTMLelement on witch the event is attached
+     * @param {HTMLElement} element the HTMLelement on which the event is attached
      * @param {object} data the data you want to transmit
      */
-    captureEvent(eventLabel, htmlElement, data,reloadCapture=false) {
+    triggerEvent(eventLabel, htmlElement, data,reloadCapture=false) {
         if (reloadCapture===true){
-        //   console.log("in clear")
           clearTimeout(reloadFunction)
         }
         else{
-          this.logger.log("captureEvent", eventLabel, htmlElement, data);
-          if (typeof window.tC !== "undefined") {
+          this.logger.log("triggerEvent", eventLabel, htmlElement, data);
+          if (window.tC != null) {
             if (eventLabel in window.tC.event) {
               window.tC.event[eventLabel](htmlElement, data);
             }
             if (!(eventLabel in window.tC.event)) {
               var reloadFunction = setTimeout(() => {
-                // console.log("in Set");
-                this.captureEvent(eventLabel, htmlElement, data,reloadCapture=true);
+                this.triggerEvent(eventLabel, htmlElement, data,reloadCapture=true);
               }, 1000);
             }
           }
@@ -209,29 +191,29 @@ export default class TC_Wrapper {
 
 export function withTracker(WrappedComponent, options = {}) {
     
-    const trackPage = page => {
+    const trackPage = () => {
         const wrapper = TC_Wrapper.getInstance();
-        console.log(wrapper);
-        
-        wrapper.setTcVars(options.tcReloadOnly);
+        if(options.tcVars){
+            wrapper.setTcVars(options.tcVars);
+        }
         wrapper.reloadAllContainers();
+        if(options.event){
+            wrapper.triggerEvent(options.event.label, options.event.context || this, options.variables || {})
+        }
     };
 
     // eslint-disable-next-line
     const HighOrderComponent = class extends Component {
 
         componentDidMount() {
-            // eslint-disable-next-line
-            const page = this.props.location.pathname + this.props.location.search;
-            trackPage(page);
+            trackPage();
         }
 
         componentDidUpdate(prevProps) {
             const currentPage = prevProps.location.pathname + prevProps.location.search;
             const nextPage = this.props.location.pathname + this.props.location.search;
-
             if (currentPage !== nextPage) {
-                trackPage(nextPage);
+                trackPage();
             }
         }
 
