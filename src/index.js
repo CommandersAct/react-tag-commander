@@ -143,9 +143,8 @@ export default class TC_Wrapper {
      */
     reloadAllContainers(options = {}) {
         this.logger.log('Reload all containers ', options);
-        
-        if(!window.tC && !window.tC.container) {
-            throw new Error('[react-tag-commander]No container to reload')
+        if(!window.tC || !window.tC.container) {
+            throw new Error('[react-tag-commander]No container available')
         }
 
         window.tC.container.reload(options);
@@ -207,14 +206,6 @@ export function withTracker(WrappedComponent, options = {}) {
 
         componentDidMount() {
             trackPage();
-        }
-
-        componentDidUpdate(prevProps) {
-            const currentPage = prevProps.location.pathname + prevProps.location.search;
-            const nextPage = this.props.location.pathname + this.props.location.search;
-            if (currentPage !== nextPage) {
-                trackPage();
-            }
         }
 
         render() {
