@@ -259,15 +259,6 @@ class App extends Component {
 
 export default App;
 ```
-
-
-```js
-// reload a container in particular
-wrapper.reloadContainer(ids, idc, options);
-// or you can reload all the containers
-wrapper.reloadAllContainer(options);
-```
-
 ## Sample app
 To help you with your implementation we provided a sample application. to run it
 ```bash

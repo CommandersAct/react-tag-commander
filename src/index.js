@@ -143,9 +143,8 @@ export default class TC_Wrapper {
      */
     reloadAllContainers(options = {}) {
         this.logger.log('Reload all containers ', options);
-        
-        if(!window.tC && !window.tC.container) {
-            throw new Error('[react-tag-commander]No container to reload')
+        if(!window.tC || !window.tC.container) {
+            throw new Error('[react-tag-commander]No container available')
         }
 
         window.tC.container.reload(options);
