@@ -19,5 +19,8 @@
   },
   "dependencies": {
     "natives": "^1.1.6"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2"
   }
 }
