@@ -33,9 +33,10 @@ export default class TC_Wrapper {
         if(!url || typeof url !== 'string') {
             throw new Error('[react-tag-commander]Invalid container URL.')
         }
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
             let tagContainer = document.createElement('script');
             tagContainer.onload = () => resolve();
+            tagContainer.onerror = () => reject();
             tagContainer.setAttribute('type', 'text/javascript');
             tagContainer.setAttribute('src', url);
             tagContainer.setAttribute('id', id);
