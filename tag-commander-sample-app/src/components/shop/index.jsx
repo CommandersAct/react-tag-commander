@@ -1,40 +1,35 @@
 import React, { Component } from "react";
-
 import PageItem from "./PageItem";
 import Panier from "./Panier";
 
-class Shop extends Component {
-
+export class Shop extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       items: [{ id: 0, name: "TagCommander", price: 20, quantity: 1 }],
       defaultStoreCurrency: "€",
-      isMsgDisplayed: false
+      isMsgDisplayed: false,
     };
     this.currentId = 1;
-  };
+  }
 
-  addToItems = item => {
+  addToItems = (item) => {
+    item.id = "item_" + this.currentId++;
 
-    item.id = 'item_'+(this.currentId++);
-
-    let itemsName = this.state.items.map((item)  => {
+    let itemsName = this.state.items.map((item) => {
       return item.name;
     });
 
     let items = [];
 
-    if(itemsName.indexOf(item.name) < 0 && item.quantity) { 
+    if (itemsName.indexOf(item.name) < 0 && item.quantity) {
       items = [...this.state.items, item];
       this.setState({ items: items });
-    }
-    else {
+    } else {
       // update quantity
-      this.state.items.forEach(elem => {
-
-        if(item.name === elem.name) {
+      this.state.items.forEach((elem) => {
+        if (item.name === elem.name) {
           elem.quantity += item.quantity;
         }
 
@@ -46,39 +41,42 @@ class Shop extends Component {
   };
 
   checkOut = () => {
-
     this.setState({
       items: [],
-      isMsgDisplayed : true
+      isMsgDisplayed: true,
     });
   };
 
-  addQuantityItem = index => {
+  addQuantityItem = (index) => {
     let newItems = this.state.items;
-    if(newItems[index].quantity) {
+    if (newItems[index].quantity) {
       newItems[index].quantity++;
-      this.setState({items: newItems});
+      this.setState({ items: newItems });
     }
   };
 
-  removeQuantityItem = index => {
+  removeQuantityItem = (index) => {
     let newItems = this.state.items;
-    if(newItems[index].quantity > 1) {
+    if (newItems[index].quantity > 1) {
       newItems[index].quantity--;
-    }
-    else {
+    } else {
       delete newItems[index];
     }
-    this.setState({items: newItems});
+    this.setState({ items: newItems });
   };
 
   render() {
-
     const { items, isMsgDisplayed, defaultStoreCurrency } = this.state;
 
     return (
       <main>
-        <div className={ isMsgDisplayed ? "msg-card-displayed" : "msg-card-not-displayed"}>thanks you for your purchase</div>
+        <div
+          className={
+            isMsgDisplayed ? "msg-card-displayed" : "msg-card-not-displayed"
+          }
+        >
+          thanks you for your purchase
+        </div>
         <div>
           <h1 className="main-eshop-title">E-commerce page</h1>
           <div className="article-container">
@@ -86,18 +84,16 @@ class Shop extends Component {
               addToItems={this.addToItems}
               defaultStoreCurrency={defaultStoreCurrency}
             />
-            <Panier 
-              items={items} 
+            <Panier
+              items={items}
               addQuantityItem={this.addQuantityItem}
               removeQuantityItem={this.removeQuantityItem}
               defaultStoreCurrency={defaultStoreCurrency}
               checkOut={this.checkOut}
             />
           </div>
-        </div>  
+        </div>
       </main>
     );
-  };
-};
-
-export default Shop;
+  }
+}

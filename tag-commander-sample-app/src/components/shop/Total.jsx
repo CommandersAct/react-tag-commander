@@ -5,7 +5,7 @@ class Total extends Component {
   render() {
     let prix = 0;
     const total = this.props.items.forEach(item => {
-      if(item) {
+      if (item) {
         prix += item.price * item.quantity;
       }
     });

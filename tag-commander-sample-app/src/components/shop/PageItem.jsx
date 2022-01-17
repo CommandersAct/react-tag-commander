@@ -15,7 +15,7 @@ class PageItem extends Component {
 
   removeQuantityPageItem = e => {
     e.preventDefault();
-    if(this.state.quantity > 0) {
+    if (this.state.quantity > 0) {
       this.setState({ quantity: this.state.quantity - 1 });
     }
   };
@@ -54,23 +54,23 @@ class PageItem extends Component {
           <h5>Quantity</h5>
           <form onSubmit={this.handleSubmitItem}>
             <div className="quantity-handler-container">
-            <div className="grouped">
-              <button 
-                className="sm-button red-500" 
-                onClick={this.removeQuantityPageItem}
-              > - </button>
-              <span>{quantity}</span>
-              <button 
-                className="sm-button green-500" 
-                onClick={this.addQuantityPageItem}
-              > + </button>        
-            </div>
+              <div className="grouped">
+                <button
+                  className="sm-button red-500"
+                  onClick={this.removeQuantityPageItem}
+                > - </button>
+                <span>{quantity}</span>
+                <button
+                  className="sm-button green-500"
+                  onClick={this.addQuantityPageItem}
+                > + </button>
+              </div>
               <span className="price">
                 {price * quantity}{" "}
                 {defaultStoreCurrency}{" "}
               </span>
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="button blue-500 cart-button"
               >
                 Add to Cart
