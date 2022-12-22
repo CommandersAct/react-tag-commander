@@ -36,7 +36,7 @@ export default class TC_Wrapper {
         return new Promise((resolve, reject) => {
             let tagContainer = document.createElement('script');
             tagContainer.onload = () => resolve();
-            tagContainer.onerror = () => reject();
+            tagContainer.onerror = (error) => reject(error);
             tagContainer.setAttribute('type', 'text/javascript');
             tagContainer.setAttribute('src', url);
             tagContainer.setAttribute('id', id);
