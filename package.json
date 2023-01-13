@@ -15,7 +15,7 @@
     "gulp-babel": "^7.0.1",
     "gulp-concat": "^2.6.1",
     "gulp-minify": "^2.1.0",
-    "webpack-cli": "^3.0.8"
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "natives": "^1.1.6"
