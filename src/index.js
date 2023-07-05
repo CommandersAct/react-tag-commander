@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component, useEffect } from 'react';
 
 export default class TC_Wrapper {
 
@@ -8,14 +8,14 @@ export default class TC_Wrapper {
         this.instance = null;
         this.captureEvent = this.triggerEvent
     };
-    
+
     static getInstance() {
         if(!TC_Wrapper.instance) {
             TC_Wrapper.instance = new TC_Wrapper();
         }
         return this.instance;
     }
-    
+
     /**
      * Add a container
      * The script URI correspond to the tag-commander script URL, it can either be a CDN URL or the path of your script
@@ -40,20 +40,20 @@ export default class TC_Wrapper {
             tagContainer.setAttribute('src', url);
             tagContainer.setAttribute('id', id);
             let updatedNode = node;
-            
+
             if(!node || typeof node !== 'string'
                 ||  window.document.getElementsByTagName(node.toLowerCase())[0] == null) {
-    
+
                 this.logger.warn('The script will be placed in the head by default.');
                 updatedNode = 'head';
             }
-    
+
             this.tcContainers.push({
                 id: id,
                 uri: url,
                 node: updatedNode
             });
-    
+
             window.document.getElementsByTagName(updatedNode.toLowerCase())[0].appendChild(tagContainer);
         })
     };
@@ -65,7 +65,7 @@ export default class TC_Wrapper {
     removeContainer(id) {
         let container = document.getElementById(id);
         let containers = this.tcContainers.slice(0);
-    
+
         for(let i = 0; i < containers.length; i++) {
           if(containers[i].id === id) {
             let node = containers[i].node.toLowerCase();
@@ -189,7 +189,7 @@ export default class TC_Wrapper {
 };
 
 export function withTracker(WrappedComponent, options = {}) {
-    
+
     const trackPage = () => {
         const wrapper = TC_Wrapper.getInstance();
         if(options.tcVars){
@@ -215,3 +215,16 @@ export function withTracker(WrappedComponent, options = {}) {
 
     return HighOrderComponent;
 };
+
+export function useTracker(options = {}) {
+    useEffect(() => {
+        const wrapper = TC_Wrapper.getInstance();
+        if(options.tcVars){
+            wrapper.setTcVars(options.tcVars);
+        }
+        wrapper.reloadAllContainers();
+        if(options.event){
+            wrapper.triggerEvent(options.event.label, options.event.context || this, options.variables || {})
+        }
+    }, [options])
+}
