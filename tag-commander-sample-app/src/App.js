@@ -1,6 +1,5 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import TC_Wrapper, { withTracker } from 'react-tag-commander';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import TC_Wrapper from 'react-tag-commander';
 
 // Components
 import Navbar from "./components/layout/navbar/Navbar";
@@ -12,45 +11,28 @@ const wrapper = TC_Wrapper.getInstance();
 wrapper.setDebug(true);
 
 // setting the tags for the current and prevous URL
-wrapper.trackRoutes(true);
 
 // to set the TagCommander container provide the id
 wrapper.addContainer('container_head', '/tag-commander-head.js', 'head');
 wrapper.addContainer('container_body', '/tag-commander-body.js', 'body');
 wrapper.removeContainer('container_body')
 
-class App extends Component {
-
-  render() {
-    return (
-      <Router>
-        <div className="App">
-          <Navbar />
-            <div className="container">
-              <Switch>
-                <Route exact path="/home" component={withTracker(Home, 
-                {tcReloadOnly: [
-                  {ids :'4056', idc: '12'}
-                ]
-                })} />
-                <Route exact path="/shop" component={withTracker(Shop, 
-                {tcReloadOnly:[
-                  {ids :'4056', idc: '12'}, 
-                  {ids :'4056', idc: '11', options:["datastorage", "deduplication"]}
-                ] 
-                })} />
-                <Route exact path="/dashboard" component={Dashboard} />
-                <Route exact path="" component={withTracker(Home, 
-                {tcReloadOnly: [
-                  {ids :'4056', idc: '12'}
-                ]
-                })} />
-              </Switch>
-            </div>
-        </div>
-      </Router>
-    );
-  }
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Navbar />
+          <div className="container">
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route exact path="/shop" element={<Shop />} />
+              <Route exact path="/dashboard" element={<Dashboard />} />
+              <Route exact path="" element={<Home />} />
+            </Routes>
+          </div>
+      </div>
+    </Router>
+  );
 }
 
 export default App;

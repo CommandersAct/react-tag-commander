@@ -1,103 +1,89 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
 import PageItem from "./PageItem";
 import Panier from "./Panier";
+import { useTracker } from "react-tag-commander";
 
-class Shop extends Component {
+const Shop = () => {
+  useTracker({
+    tcReloadOnly: [
+      { ids: '4056', idc: '12' },
+      { ids: '4056', idc: '11', options: ["datastorage", "deduplication"] }
+    ]
+  });
 
-  constructor(props) {
-    super(props);
+  const [items, setItems] = useState([{ id: 0, name: "TagCommander", price: 20, quantity: 1 }]);
+  const defaultStoreCurrency = "€";
+  const [isMsgDisplayed, setIsMsgDisplayed] = useState(false);
+  const [currentId, setCurrentId] = useState(1);
 
-    this.state = {
-      items: [{ id: 0, name: "TagCommander", price: 20, quantity: 1 }],
-      defaultStoreCurrency: "€",
-      isMsgDisplayed: false
-    };
-    this.currentId = 1;
-  };
+  function addToItems(item) {
 
-  addToItems = item => {
+    item.id = 'item_' + currentId;
+    setCurrentId(currentId + 1);
 
-    item.id = 'item_'+(this.currentId++);
-
-    let itemsName = this.state.items.map((item)  => {
+    const itemsName = items.map((item) => {
       return item.name;
     });
 
-    let items = [];
-
-    if(itemsName.indexOf(item.name) < 0 && item.quantity) { 
-      items = [...this.state.items, item];
-      this.setState({ items: items });
-    }
-    else {
+    if (!itemsName.includes(item.name) && item.quantity) {
+      setItems([...items, item]);
+    } else {
       // update quantity
-      this.state.items.forEach(elem => {
-
-        if(item.name === elem.name) {
+      const updatedItems = items.map((elem) => {
+        if (item.name === elem.name) {
           elem.quantity += item.quantity;
         }
-
-        items.push(elem);
+        return elem;
       });
+      setItems(updatedItems);
     }
 
-    this.setState({ items: items });
-  };
+  }
 
-  checkOut = () => {
+  function checkOut() {
+    setItems([]);
+    setIsMsgDisplayed(true);
+  }
 
-    this.setState({
-      items: [],
-      isMsgDisplayed : true
-    });
-  };
-
-  addQuantityItem = index => {
-    let newItems = this.state.items;
-    if(newItems[index].quantity) {
+  function addQuantityItem(index) {
+    const newItems = [...items];
+    if (newItems[index].quantity) {
       newItems[index].quantity++;
-      this.setState({items: newItems});
+      setItems(newItems);
     }
-  };
+  }
 
-  removeQuantityItem = index => {
-    let newItems = this.state.items;
-    if(newItems[index].quantity > 1) {
-      newItems[index].quantity--;
-    }
-    else {
-      delete newItems[index];
-    }
-    this.setState({items: newItems});
-  };
+  function removeQuantityItem(index) {
+    let newItems = [...items];
+    newItems[index].quantity--;
+    setItems(newItems.filter(e => e.quantity > 0));
+  }
+  console.log(items);
 
-  render() {
-
-    const { items, isMsgDisplayed, defaultStoreCurrency } = this.state;
-
-    return (
-      <main>
-        <div className={ isMsgDisplayed ? "msg-card-displayed" : "msg-card-not-displayed"}>thanks you for your purchase</div>
-        <div>
-          <h1 className="main-eshop-title">E-commerce page</h1>
-          <div className="article-container">
-            <PageItem
-              addToItems={this.addToItems}
-              defaultStoreCurrency={defaultStoreCurrency}
-            />
-            <Panier 
-              items={items} 
-              addQuantityItem={this.addQuantityItem}
-              removeQuantityItem={this.removeQuantityItem}
-              defaultStoreCurrency={defaultStoreCurrency}
-              checkOut={this.checkOut}
-            />
-          </div>
-        </div>  
-      </main>
-    );
-  };
+  return (
+    <main>
+      <div className={ isMsgDisplayed ? "msg-card-displayed" : "msg-card-not-displayed" }>thanks you for your
+        purchase
+      </div>
+      <div>
+        <h1 className="main-eshop-title">E-commerce page</h1>
+        <div className="article-container">
+          <PageItem
+            addToItems={ addToItems }
+            defaultStoreCurrency={ defaultStoreCurrency }
+          />
+          <Panier
+            items={ items }
+            addQuantityItem={ addQuantityItem }
+            removeQuantityItem={ removeQuantityItem }
+            defaultStoreCurrency={ defaultStoreCurrency }
+            checkOut={ checkOut }
+          />
+        </div>
+      </div>
+    </main>
+  );
 };
 
 export default Shop;

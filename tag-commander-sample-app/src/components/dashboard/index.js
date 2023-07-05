@@ -2,7 +2,7 @@ import React from "react";
 
 const Dashboard = () => {
   return (
-   <main> 
+   <main>
     <section className="section section-text-illustration-horizontal img-bg-center inner-sm">
 	    <div className="container">
         <div className="row">
@@ -26,9 +26,9 @@ const Dashboard = () => {
             <div className="illustration">
               <img width={440}
                 height={330}
-                src="https://www.commandersact.com/wp-content/uploads/2016/10/cycle.png" 
-                className="attachment-full size-full" 
-                alt="Tag lifecycle management"/>				
+                src="https://www.commandersact.com/wp-content/uploads/2016/10/cycle.png"
+                className="attachment-full size-full"
+                alt="Tag lifecycle management"/>
             </div>
           </div>
 		    </div>
