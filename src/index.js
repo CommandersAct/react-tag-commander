@@ -101,9 +101,12 @@ export default class TC_Wrapper {
      */
     setTcVar(tcKey, tcVar) {
         if(!window.tc_vars) {
-            throw new Error('[react-tag-commander] Data layer was not initialized');
+            return setTimeout(() => {
+                this.setTcVar(tcKey, tcVar);
+            }, 1000);
+        } else {
+            window.tc_vars[tcKey] = tcVar;
         }
-        window.tc_vars[tcKey] = tcVar;
     };
 
     /**
@@ -142,12 +145,14 @@ export default class TC_Wrapper {
      * @param {object} options can contain some options in a form of an object
      */
     reloadAllContainers(options = {}) {
-        this.logger.log('Reload all containers ', options);
         if(!window.tC || !window.tC.container) {
-            throw new Error('[react-tag-commander]No container available')
+            return setTimeout(() => {
+                this.reloadAllContainers(options);
+            },1000);
+        } else {
+            this.logger.log('Reload all containers ', options);
+            window.tC.container.reload(options);
         }
-
-        window.tC.container.reload(options);
     };
 
     /**
