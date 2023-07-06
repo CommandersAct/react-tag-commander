@@ -193,34 +193,6 @@ export default class TC_Wrapper {
       }
 };
 
-export function withTracker(WrappedComponent, options = {}) {
-
-    const trackPage = () => {
-        const wrapper = TC_Wrapper.getInstance();
-        if(options.tcVars){
-            wrapper.setTcVars(options.tcVars);
-        }
-        wrapper.reloadAllContainers();
-        if(options.event){
-            wrapper.triggerEvent(options.event.label, options.event.context || this, options.variables || {})
-        }
-    };
-
-    // eslint-disable-next-line
-    const HighOrderComponent = class extends Component {
-
-        componentDidMount() {
-            trackPage();
-        }
-
-        render() {
-            return React.createElement(WrappedComponent, this.props);
-        }
-    };
-
-    return HighOrderComponent;
-};
-
 export function useTracker(options = {}) {
     useEffect(() => {
         const wrapper = TC_Wrapper.getInstance();
