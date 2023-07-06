@@ -161,8 +161,7 @@ export default class TC_Wrapper {
      * @param {number} containerId
      * @param {object} options can contain some options in a form of an object
      */
-    reloadContainer(siteId, containerId, opt) {
-        let options = opt || {};
+    reloadContainer(siteId, containerId, options = {}) {
         this.logger.log('Reload container ids: ' + siteId + ' idc: ' + containerId, typeof options === 'object' ? 'with options: ' + options : '');
         window.tC['container_' + siteId + '_' + containerId].reload(options);
     };
@@ -170,7 +169,7 @@ export default class TC_Wrapper {
     /**
      * Will set a TC_Wrapper event
      * @param {string} eventLabel the name of your event
-     * @param {HTMLElement} element the HTMLelement on which the event is attached
+     * @param {HTMLElement} htmlElement the HTMLelement on which the event is attached
      * @param {object} data the data you want to transmit
      */
     triggerEvent(eventLabel, htmlElement, data,reloadCapture=false) {
