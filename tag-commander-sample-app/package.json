@@ -1,75 +1,24 @@
 {
   "name": "react-tag-commander",
   "version": "1.0.0",
-  "repository": "https://github.com/jeremielenoir/react-tag-commander.git",
-  "author": "Lenoir jérémie",
+  "repository": "https://github.com/commandersact/react-tag-commander.git",
+  "author": "CommandersAct",
   "private": true,
   "dependencies": {
-    "autoprefixer": "10.4.14",
-    "chalk": "5.3.0",
-    "dotenv": "16.3.1",
-    "dotenv-expand": "10.0.0",
-    "eslint": "8.44.0",
-    "eslint-config-react-app": "^7.0.1",
-    "eslint-loader": "1.9.0",
-    "eslint-plugin-flowtype": "8.0.3",
-    "eslint-plugin-import": "2.27.5",
-    "eslint-plugin-jsx-a11y": "6.7.1",
-    "eslint-plugin-react": "7.32.2",
-    "jest": "29.6.0",
-    "node-sass": "^9.0.0",
-    "object-assign": "4.1.1",
-    "postcss-flexbugs-fixes": "5.0.2",
-    "promise": "8.3.0",
-    "raf": "3.4.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
-    "react-dev-utils": "^12.0.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.1",
-    "react-scripts": "^5.0.1",
-    "resolve": "1.22.2",
-    "web-vitals": "^3.3.2",
-    "whatwg-fetch": "3.6.2"
+    "react-scripts": "5.0.1",
+    "react-tag-commander": "^1.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
-    ],
-    "setupFiles": [
-      "<rootDir>/config/polyfills.js"
-    ],
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
-      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
-    ],
-    "testEnvironment": "node",
-    "testURL": "http://localhost",
-    "transform": {
-      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
-      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
-    },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
-    ],
-    "moduleNameMapper": {
-      "^react-native$": "react-native-web"
-    },
-    "moduleFileExtensions": [
-      "web.js",
-      "js",
-      "json",
-      "web.jsx",
-      "jsx",
-      "node",
-      "mjs"
-    ]
   },
   "eslintConfig": {
     "extends": [
