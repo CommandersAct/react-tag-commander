@@ -1,4 +1,4 @@
-import { Component, useEffect } from 'react';
+import { useEffect } from 'react';
 
 export default class TC_Wrapper {
 
@@ -189,18 +189,16 @@ export default class TC_Wrapper {
             }
           }
         }
-      }
-};
+      };
 
-export function useTracker(options = {}) {
-    useEffect(() => {
-        const wrapper = TC_Wrapper.getInstance();
-        if(options.tcVars){
-            wrapper.setTcVars(options.tcVars);
-        }
-        wrapper.reloadAllContainers();
-        if(options.event){
-            wrapper.triggerEvent(options.event.label, options.event.context || this, options.variables || {})
-        }
-    }, [options])
-}
+      trackPageLoad(options = {}) {
+          const wrapper = TC_Wrapper.getInstance();
+          if(options.tcVars){
+              wrapper.setTcVars(options.tcVars);
+          }
+          wrapper.reloadAllContainers();
+          if(options.event){
+              wrapper.triggerEvent(options.event.label, options.event.context || this, options.variables || {})
+          }
+      };
+};
