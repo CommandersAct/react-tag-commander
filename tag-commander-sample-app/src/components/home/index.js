@@ -1,10 +1,13 @@
-import React from "react";
-import { useTracker } from "react-tag-commander";
+import React, { useEffect } from "react";
+import TC_Wrapper from "react-tag-commander";
 
 const Home = () => {
-  useTracker({tcReloadOnly: [
-      {ids :'4056', idc: '12'}
-    ]});
+  useEffect(() => {
+    const wrapper = TC_Wrapper.getInstance();
+    wrapper.trackPageLoad({tcReloadOnly: [
+        {ids :'4056', idc: '12'}
+      ]})
+  }, []);
 
   return (
    <div>

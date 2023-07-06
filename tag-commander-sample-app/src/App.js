@@ -10,8 +10,6 @@ import Shop from "./components/shop/index.js";
 const wrapper = TC_Wrapper.getInstance();
 wrapper.setDebug(true);
 
-// setting the tags for the current and prevous URL
-
 // to set the TagCommander container provide the id
 wrapper.addContainer('container_head', '/tag-commander-head.js', 'head');
 wrapper.addContainer('container_body', '/tag-commander-body.js', 'body');
