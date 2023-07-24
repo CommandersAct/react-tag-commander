@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import PageItem from "./PageItem";
 import Panier from "./Panier";
-import { useTracker } from "react-tag-commander";
+import TC_Wrapper from "react-tag-commander";
 
 const Shop = () => {
-  useTracker({
-    tcReloadOnly: [
-      { ids: '4056', idc: '12' },
-      { ids: '4056', idc: '11', options: ["datastorage", "deduplication"] }
-    ]
-  });
+  useEffect(() => {
+    const wrapper = TC_Wrapper.getInstance();
+    wrapper.trackPageLoad({tcReloadOnly: [
+        { ids: '4056', idc: '12' },
+        { ids: '4056', idc: '11', options: ["datastorage", "deduplication"] }
+      ]})
+  }, []);
 
   const [items, setItems] = useState([{ id: 0, name: "TagCommander", price: 20, quantity: 1 }]);
   const defaultStoreCurrency = "€";
