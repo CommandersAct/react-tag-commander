@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 export default class TC_Wrapper {
 
     constructor() {
