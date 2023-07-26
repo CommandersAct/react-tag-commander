@@ -14,5 +14,5 @@ export default class TcVars extends React.Component {
 
     render() {
         return null;
-    };
+    }
 }

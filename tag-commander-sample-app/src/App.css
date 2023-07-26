@@ -120,7 +120,6 @@ button.button:focus {
 
 button.button:active {
   box-shadow: 0 0 2px 0 #555;
-  -webkit-transform: translate(2px, 2px);
   transform: translate(2px, 2px)
 }
 
@@ -142,7 +141,6 @@ button.sm-button:focus {
 
 button.sm-button:active {
   box-shadow: 0 0 2px 0 #555;
-  -webkit-transform: translate(2px, 2px);
   transform: translate(2px, 2px)
 }
 
