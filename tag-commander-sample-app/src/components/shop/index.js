@@ -60,7 +60,6 @@ const Shop = () => {
     newItems[index].quantity--;
     setItems(newItems.filter(e => e.quantity > 0));
   }
-  console.log(items);
 
   return (
     <main>
