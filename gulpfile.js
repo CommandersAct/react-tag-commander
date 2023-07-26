@@ -1,44 +1,49 @@
-var gulp = require('gulp');
-var minify = require('gulp-minify');
-var babel = require('gulp-babel');
-var concat = require('gulp-concat');
- 
-gulp.task('scripts', function() {
-  return gulp.src('./lib/*.js')
-    .pipe(gulp.dest('./dist/'));
-});
+const { src, dest, series } = require('gulp');
+const minify = require('gulp-minify');
+const babel = require('gulp-babel');
+const concat = require('gulp-concat');
+const babelConfig = require('./babel.config.json');
 
-gulp.task('build-es5', function() {
+function scripts(cb) {
+    src('./lib/*.js')
+      .pipe(dest('./dist/'));
+    cb();
+}
+
+function buildEs5(cb) {
     console.log("building es5 lib");
     // converting to ES5
-    gulp.src('src/*.js')
-        .pipe(babel({
-            presets: ['env', 'es2015', 'react']
-        }))
-        .pipe(minify({
-        ext:{
-            min:'.es5.min.js'
-        },
-        exclude: ['tasks'],
-        noSource: true
-    }))
-    .pipe(concat('index.es5.min.js'))
-    .pipe(gulp.dest('dist'));
-});
+    src('src/*.js')
+      .pipe(babel(babelConfig))
+      .pipe(minify({
+          ext:{
+              min:'.es5.min.js'
+          },
+          exclude: ['tasks'],
+          noSource: true
+      }))
+      .pipe(concat('index.es5.min.js'))
+      .pipe(dest('dist'));
+    cb();
+}
 
-gulp.task('build-es6', function() {
+function buildEs6(cb) {
     console.log("building es6 lib");
     // converting to ES5
-    gulp.src('src/*.js')
-        .pipe(minify({
-        ext:{
-            min:'.es6.min.js'
-        },
-        exclude: ['tasks'],
-        noSource: true
-    }))
-    .pipe(concat('index.es6.min.js'))
-    .pipe(gulp.dest('dist'));
-});
+    src('src/*.js')
+      .pipe(minify({
+          ext:{
+              min:'.es6.min.js'
+          },
+          exclude: ['tasks'],
+          noSource: true
+      }))
+      .pipe(concat('index.es6.min.js'))
+      .pipe(dest('dist'));
+    cb();
+}
 
-gulp.task('default', ['build-es5', 'build-es6']);
+exports.scripts = scripts;
+exports.buildEs5 = buildEs5;
+exports.buildEs6 = buildEs6;
+exports.default = series(scripts, buildEs5, buildEs6);
