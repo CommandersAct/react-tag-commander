@@ -5,7 +5,7 @@ const Navbar = () => {
     <div className="container">
       <nav className="tag-50 navbar">
         <ul>
-          <li className="brand"><Link to="/home"><img src={logo} alt=""/></Link></li>
+          <li className="brand"><Link to="/"><img src={logo} alt=""/></Link></li>
           <li><Link to="/shop">E-commerce page</Link></li>
           <li><Link to="/dashboard">Simple page</Link></li>
         </ul>
