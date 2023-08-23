@@ -4,7 +4,7 @@ This service lets you integrate Tag Commander in your React applications easily.
 - [Official website](https://www.commandersact.com/fr/produits/tagcommander/)
 
 
-This documentation is specific to the react wrapper. You should read the documentation about [Tag Commander](https://community.commandersact.com/tagcommander/) first for the concepts
+This documentation is specific to the React wrapper. You should read the documentation about [Tag Commander](https://community.commandersact.com/tagcommander/) first for the concepts
 
 ## Features
 
@@ -20,7 +20,6 @@ The quick start is designed to give you a simple, working example for the most c
 You can install the module from a package manager of your choice directly from the command line
 
 ```sh
-
 # NPM
 npm i react-tag-commander
 ```
@@ -30,15 +29,15 @@ Or alternatively, grab the dist/index.es5.min.js and include it in your project
 In your application, declare the react-tag-commander module dependency.
 
 ```html
-<script src="nodes_components/react-tag-commander/dist/index.es5.min.js"></script>
+<script src="react-tag-commander/dist/index.es5.min.js"></script>
 ```
 or if you are using ES6, import it like so
 ```javascript
-import TC_Wrapper, { withTracker } from 'react-tag-commander';
+import TC_Wrapper from 'react-tag-commander';
 ```
 ### 2- Initialize your datalayer
 
-The plugin doesn't replace the standard setup of a container because you may need to use the containers outside of the plugin.
+The plugin doesn't replace the standard setup of a container because you may need to use the containers outside the plugin.
 
 Initialize your datalayer so that it's ready for the container and plugin, without losing any data. Do it as soon as possible on your website like in a `<script>` block in the head of your webapp.
 
@@ -48,7 +47,8 @@ tc_vars = [];
 
 ### 3- Adding a container
 
-There is 2 way to add your container. Either you include with a a `<script>` tag before your webapp, or you use the addContainer method of the wrapper. It should be noted however that the later will be asynchronous, so your application should also render asynchronously to ensure that the containers are loaded.
+There is 2 way to add your container. Either you include with a `<script>` tag before your webapp, or you use the addContainer method of the wrapper. 
+It should be noted however that the later will be asynchronous, so your application should also render asynchronously to ensure that the containers are loaded.
 
 
 
@@ -58,27 +58,21 @@ import TC_Wrapper from "react-tag-commander";
 
 const wrapper = TC_Wrapper.getInstance();
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { tcReady: false };
-  }
+function App() {
 
-  componentDidMount() {
+  const [tcReady, setTcReady] = useState(false);
+
+  useEffect(() => {
     Promise.all([
-      wrapper.addContainer("container_head", "/tag-commander-head.js", "head"),
-      wrapper.addContainer("container_body", "/tag-commander-body.js", "body"),
+      wrapper.addContainer('container_head', '/tag-commander-head.js', 'head'),
+      wrapper.addContainer('container_body', '/tag-commander-body.js', 'body')
     ]).then(() => {
-      this.setState({ tcReady: true });
+      setIsReady(true);
     });
-  }
-  render() {
-    if (!this.state.tcReady) {
-      return <div>Now loading</div>;
-    }  else {
-      return <div>Containers loaded</div>;
-    }
-  }
+  }, []);
+
+
+  return ( tcReady ? <div>Containers loaded</div> : <div>Now loading</div> );
 }
 ```
 # Methods
@@ -121,25 +115,23 @@ wrapper.setTcVar('env_template', 'super_shop');
 
 // you can also remove a var
 wrapper.removeTcVars('env_template');
-}
 ```
 ## Get Var
 
 ```js
-var myVar = wrapper.getTcVar('VarKey');
+const myVar = wrapper.getTcVar('VarKey');
 ```
 ## Remove Var
 
 ```js
-var myVar = wrapper.removeTcVar('VarKey');
+const myVar = wrapper.removeTcVar('VarKey');
 ```
 
 ## Events
 
-You should check the [base documentation](https://community.commandersact.com/tagcommander/user-manual/container-management/events) about events in general
+You should check the [base documentation](https://community.commandersact.com/tagcommander/user-manual/container-management/events) about events in general.
 
-In the context of an SPA, the events defined in a container can't be bound to the standard HTML event as a SPA has its own lifecycle.
-
+In the context of an SPA, the events defined in a container can't be bound to the standard HTML event as an SPA has its own lifecycle.
 
 The method "triggerEvent" is the new name of the old method "captureEvent"; an alias has been added to ensure backward compatibility.
 
@@ -153,7 +145,7 @@ Trigger the event in any part of a component
 wrapper.triggerEvent(eventLabel, htmlElement, data);
 ```
 ### In JSX on DOM event
-```html
+```jsx
 
 <button 
     className="sm-button green-500"
@@ -182,16 +174,19 @@ wrapper.reloadContainer(siteId, containerId, options);
 // or you can reload all the containers
 wrapper.reloadAllContainers(options);
 ```
-## Automatic reload of your containers by tracking Routes
+## Reloading your container on route change
+
 ### The configuration
 
-In order to automatically reload all the container when routing different views, you can use the higher order component `withTracker`, which will wrap your view component with the appropriate lifecycle.
+In order to reload the page on route change, you need to use the  `trackPageLoad` function from the wrapper. We recommend
+to call it in the `useEffect` hook of your component to avoid unnecessary reloads.
 
-`withTracker` also accept an optionnal object as its second parameter:
+The `trackPageLoad` function takes an object as parameter with the following properties:
 
 ```js
 {
-  tcVars: { //update the datalayer before reloading all container. Equivalent to wrapper.setTcVars
+  tcVars: {
+    //update the datalayer before reloading all container. Equivalent to wrapper.setTcVars
   },
   event: {
     label: 'eventLabel'
@@ -208,59 +203,23 @@ In order to automatically reload all the container when routing different views,
 }
 ```
 
+An example component could look like this:
+
 ```js
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import TC_Wrapper, { withTracker } from 'react-tag-commander';
+function SampleView() {
+  
+  /* States and other effects */
+  
+  useEffect(() => {
+    const wrapper = TC_Wrapper.getInstance();
+    wrapper.trackPageLoad({ tcVars: { page: 'home' }})
+  }, []);
 
-// Components
-import Navbar from "./components/layout/navbar/Navbar";
-import Dashboard from "./components/dashboard/index.js";
-import Home from "./components/home/index.js";
-import Shop from "./components/shop/index.js";
-
-const wrapper = TC_Wrapper.getInstance();
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { tcReady: false };
-  }
-
-  componentDidMount() {
-    Promise.all([
-      wrapper.addContainer("container_head", "/tag-commander-head.js", "head"),
-      wrapper.addContainer("container_body", "/tag-commander-body.js", "body"),
-    ]).then(() => {
-      this.setState({ tcReady: true });
-    });
-  }
-  render() {
-    if (!this.state.tcReady) {
-      return <div>Now loading</div>;
-    }  else {
-    return (
-      <Router>
-        <div className="App">
-          <Navbar />
-            <div className="container">
-              <Switch>
-                <Route exact path="/home" component={withTracker(Home, { tcVars: { page: 'home' }})} />
-                <Route exact path="/shop" component={withTracker(Shop, { event: { label: 'page_view'}})} />
-                <Route exact path="/dashboard" component={Dashboard} />
-              </Switch>
-            </div>
-        </div>
-      </Router>
-      );
-    }
-  }
+  /* Render & other custom code */
 }
-
-export default App;
 ```
 ## Sample app
-To help you with your implementation we provided a sample application. to run it
+To help you with your implementation we provided a sample application. To run it clone the repo then run:
 ```bash
 cd tag-commander-sample-app
 yarn start
@@ -274,10 +233,10 @@ As React itself, this module is released under the permissive [MIT License](http
 
 ## Development
 
-After forking you will need to run the following from a command line to get your environment setup:
+After forking, you will need to run the following from a command line to get your environment setup:
 
-1. ```yarn install```
+1. ```npm install```
 
-After install you have the following commands available to you from a command line:
+After install, you have the following commands available to you from a command line:
 
 1. ```gulp```
