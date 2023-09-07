@@ -1,18 +1,12 @@
-import React from 'react';
+import { useEffect } from 'react';
 import TC_Wrapper from 'react-tag-commander';
 
-export default class TcVars extends React.Component {
+function TcVars(props) {
+    const wrapper = TC_Wrapper.getInstance();
 
-    constructor(props) {
-        super(props);
-        this.wrapper = TC_Wrapper.getInstance();
-    }
-
-    componentDidMount() {
-        this.wrapper.setTcVars(this.props);
-    }
-
-    render() {
-        return null;
-    };
+    useEffect(() => {
+        wrapper.setTcVars(props);
+    }, [props, wrapper]); // Depend on props and wrapper, although in most cases `wrapper` might not change.
 }
+
+export default TcVars;

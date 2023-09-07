@@ -1,5 +1,3 @@
-import React, { Component } from 'react';
-
 export default class TC_Wrapper {
 
     constructor() {
@@ -8,14 +6,14 @@ export default class TC_Wrapper {
         this.instance = null;
         this.captureEvent = this.triggerEvent
     };
-    
+
     static getInstance() {
         if(!TC_Wrapper.instance) {
             TC_Wrapper.instance = new TC_Wrapper();
         }
         return this.instance;
     }
-    
+
     /**
      * Add a container
      * The script URI correspond to the tag-commander script URL, it can either be a CDN URL or the path of your script
@@ -40,20 +38,20 @@ export default class TC_Wrapper {
             tagContainer.setAttribute('src', url);
             tagContainer.setAttribute('id', id);
             let updatedNode = node;
-            
+
             if(!node || typeof node !== 'string'
                 ||  window.document.getElementsByTagName(node.toLowerCase())[0] == null) {
-    
+
                 this.logger.warn('The script will be placed in the head by default.');
                 updatedNode = 'head';
             }
-    
+
             this.tcContainers.push({
                 id: id,
                 uri: url,
                 node: updatedNode
             });
-    
+
             window.document.getElementsByTagName(updatedNode.toLowerCase())[0].appendChild(tagContainer);
         })
     };
@@ -65,7 +63,7 @@ export default class TC_Wrapper {
     removeContainer(id) {
         let container = document.getElementById(id);
         let containers = this.tcContainers.slice(0);
-    
+
         for(let i = 0; i < containers.length; i++) {
           if(containers[i].id === id) {
             let node = containers[i].node.toLowerCase();
@@ -101,9 +99,12 @@ export default class TC_Wrapper {
      */
     setTcVar(tcKey, tcVar) {
         if(!window.tc_vars) {
-            throw new Error('[react-tag-commander] Data layer was not initialized');
+            return setTimeout(() => {
+                this.setTcVar(tcKey, tcVar);
+            }, 1000);
+        } else {
+            window.tc_vars[tcKey] = tcVar;
         }
-        window.tc_vars[tcKey] = tcVar;
     };
 
     /**
@@ -142,12 +143,14 @@ export default class TC_Wrapper {
      * @param {object} options can contain some options in a form of an object
      */
     reloadAllContainers(options = {}) {
-        this.logger.log('Reload all containers ', options);
         if(!window.tC || !window.tC.container) {
-            throw new Error('[react-tag-commander]No container available')
+            return setTimeout(() => {
+                this.reloadAllContainers(options);
+            },1000);
+        } else {
+            this.logger.log('Reload all containers ', options);
+            window.tC.container.reload(options);
         }
-
-        window.tC.container.reload(options);
     };
 
     /**
@@ -156,8 +159,7 @@ export default class TC_Wrapper {
      * @param {number} containerId
      * @param {object} options can contain some options in a form of an object
      */
-    reloadContainer(siteId, containerId, opt) {
-        let options = opt || {};
+    reloadContainer(siteId, containerId, options = {}) {
         this.logger.log('Reload container ids: ' + siteId + ' idc: ' + containerId, typeof options === 'object' ? 'with options: ' + options : '');
         window.tC['container_' + siteId + '_' + containerId].reload(options);
     };
@@ -165,7 +167,7 @@ export default class TC_Wrapper {
     /**
      * Will set a TC_Wrapper event
      * @param {string} eventLabel the name of your event
-     * @param {HTMLElement} element the HTMLelement on which the event is attached
+     * @param {HTMLElement} htmlElement the HTMLelement on which the event is attached
      * @param {object} data the data you want to transmit
      */
     triggerEvent(eventLabel, htmlElement, data,reloadCapture=false) {
@@ -185,33 +187,16 @@ export default class TC_Wrapper {
             }
           }
         }
-      }
-};
+      };
 
-export function withTracker(WrappedComponent, options = {}) {
-    
-    const trackPage = () => {
-        const wrapper = TC_Wrapper.getInstance();
-        if(options.tcVars){
-            wrapper.setTcVars(options.tcVars);
-        }
-        wrapper.reloadAllContainers();
-        if(options.event){
-            wrapper.triggerEvent(options.event.label, options.event.context || this, options.variables || {})
-        }
-    };
-
-    // eslint-disable-next-line
-    const HighOrderComponent = class extends Component {
-
-        componentDidMount() {
-            trackPage();
-        }
-
-        render() {
-            return React.createElement(WrappedComponent, this.props);
-        }
-    };
-
-    return HighOrderComponent;
+      trackPageLoad(options = {}) {
+          const wrapper = TC_Wrapper.getInstance();
+          if(options.tcVars){
+              wrapper.setTcVars(options.tcVars);
+          }
+          wrapper.reloadAllContainers();
+          if(options.event){
+              wrapper.triggerEvent(options.event.label, options.event.context || this, options.variables || {})
+          }
+      };
 };

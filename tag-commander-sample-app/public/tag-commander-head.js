@@ -1,10 +1,10 @@
 /*
- * tagContainer Generator v5
- * Copyright Tag Commander
- * http://www.tagcommander.com/
- * Generated: 2018-05-24 17:13:19 Europe/Paris
+ * tagContainer Generator v82.0
+ * Copyright Commanders Act
+ * https://www.commandersact.com/fr/
+ * Generated: 2023-03-15 15:14:00 Europe/Paris
  * ---
- * Version	: 1.00
+ * Version	: 1.04
  * IDTC 	: 11
  * IDS		: 4056
  */
@@ -25,38 +25,38 @@ if(typeof tC == 'undefined'){
 
     (function(window, undefined) {
         var
-        roottC,
-        readyList,
-        document         = window.document, 
-        location         = window.location, 
-        navigator         = window.navigator, 
-        _tC             = window.tC,
-        _$                 = window.$,
-        core_push         = Array.prototype.push, 
-        core_slice         = Array.prototype.slice, 
-        core_indexOf     = Array.prototype.indexOf, 
-        core_toString     = Object.prototype.toString, 
-        core_hasOwn     = Object.prototype.hasOwnProperty, 
-        core_trim         = String.prototype.trim, 
-        tC = function(selector, context) {
-            return new tC.fn.init(selector, context, roottC);
-        }, 
-        core_pnum        = /[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/.source,
-        core_rnotwhite    = /\S/, 
-        core_rspace        = /\s+/,
-        rtrim            = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,
-        rquickExpr        = /^(?:[^#<]*(<[\w\W]+>)[^>]*$|#([\w\-]*)$)/,
-        rsingleTag        = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
-        rvalidchars        = /^[\],:{}\s]*$/,
-        rvalidbraces    = /(?:^|:|,)(?:\s*\[)+/g,
-        rvalidescape    = /\\(?:["\\\/bfnrt]|u[\da-fA-F]{4})/g,
-        rvalidtokens    = /"[^"\\\r\n]*"|true|false|null|-?(?:\d\d*\.|)\d+(?:[eE][\-+]?\d+|)/g,
-        rmsPrefix        = /^-ms-/,
-        rdashAlpha        = /-([\da-z])/gi, fcamelCase = function(all, letter) {
-            return (letter + "").toUpperCase();
-        }, 
-        class2type = {};
-    
+          roottC,
+          readyList,
+          document         = window.document,
+          location         = window.location,
+          navigator         = window.navigator,
+          _tC             = window.tC,
+          _$                 = window.$,
+          core_push         = Array.prototype.push,
+          core_slice         = Array.prototype.slice,
+          core_indexOf     = Array.prototype.indexOf,
+          core_toString     = Object.prototype.toString,
+          core_hasOwn     = Object.prototype.hasOwnProperty,
+          core_trim         = String.prototype.trim,
+          tC = function(selector, context) {
+              return new tC.fn.init(selector, context, roottC);
+          },
+          core_pnum        = /[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/.source,
+          core_rnotwhite    = /\S/,
+          core_rspace        = /\s+/,
+          rtrim            = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,
+          rquickExpr        = /^(?:[^#<]*(<[\w\W]+>)[^>]*$|#([\w\-]*)$)/,
+          rsingleTag        = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
+          rvalidchars        = /^[\],:{}\s]*$/,
+          rvalidbraces    = /(?:^|:|,)(?:\s*\[)+/g,
+          rvalidescape    = /\\(?:["\\\/bfnrt]|u[\da-fA-F]{4})/g,
+          rvalidtokens    = /"[^"\\\r\n]*"|true|false|null|-?(?:\d\d*\.|)\d+(?:[eE][\-+]?\d+|)/g,
+          rmsPrefix        = /^-ms-/,
+          rdashAlpha        = /-([\da-z])/gi, fcamelCase = function(all, letter) {
+              return (letter + "").toUpperCase();
+          },
+          class2type = {};
+
         tC.fn = tC.prototype = {
             constructor : tC,
             init : function(selector, context, roottC) {
@@ -122,7 +122,7 @@ if(typeof tC == 'undefined'){
                 return this;
             }
         };
-    
+
         tC.fn.init.prototype = tC.fn;
         tC.extend = tC.fn.extend = function() {
             var options, name, src, copy, copyIsArray, clone, target = arguments[0] || {}, i = 1, length = arguments.length, deep = false;
@@ -163,31 +163,31 @@ if(typeof tC == 'undefined'){
         };
 
         tC.extend({
-            ssl : (("https:" == document.location.protocol) ? "https://manager." : "http://redirect4056."), //UTILISE ... mais du coup par contre on se retrouve avec des redirectXXX.XXX@tagcommander.com, � nettoyer
+            ssl : "https://manager.",
             randOrd : function(){
                 return (Math.round(Math.random())-0.5);
             },
             nodeNames : "abbr|article|aside|audio|bdi|canvas|data|datalist|details|figcaption|figure|footer|" +
-                "header|hgroup|mark|meter|nav|output|progress|section|summary|time|video",
+              "header|hgroup|mark|meter|nav|output|progress|section|summary|time|video",
             rnocache : /<(?:script|object|embed|option|style)/i,
             rnoshimcache : new RegExp("<(?:" + tC.nodeNames + ")[\\s/>]", "i"),
             rchecked : /checked\s*(?:[^=]|=\s*.checked.)/i,
             containersLaunched  : {}
         });
-    
+
         tC.extend({
             inArray: function( elem, arr, i ) {
                 var len,
-                    core_indexOf     = Array.prototype.indexOf;
-    
+                  core_indexOf     = Array.prototype.indexOf;
+
                 if ( arr ) {
                     if ( core_indexOf ) {
                         return core_indexOf.call( arr, elem, i );
                     }
-    
+
                     len = arr.length;
                     i = i ? i < 0 ? Math.max( 0, len + i ) : i : 0;
-    
+
                     for ( ; i < len; i++ ) {
                         if ( i in arr && arr[ i ] === elem ) {
                             return i;
@@ -250,14 +250,14 @@ if(typeof tC == 'undefined'){
                 }catch(e) {}
             }
         });
-    
+
         tC.each("Boolean Number String Function Array Date RegExp Object".split(" "), function(i, name) {
             class2type["[object " + name + "]"] = name.toLowerCase();
         });
-        
+
         roottC = tC(document);
         var optionsCache = {};
-    
+
         function createOptions(options) {
             var object = optionsCache[options] = {};
             tC.each(options.split(core_rspace), function(_, flag) {
@@ -265,69 +265,56 @@ if(typeof tC == 'undefined'){
             });
             return object;
         }
-    
+
         tC.buildFragment = function( args, context, scripts ) {
             var fragment, cacheable, cachehit,
-                first = args[ 0 ];
-    
+              first = args[ 0 ];
+
             // Set context from what may come in as undefined or a jQuery collection or a node
             // Updated to fix #12266 where accessing context[0] could throw an exception in IE9/10 &
             // also doubles as fix for #8950 where plain objects caused createDocumentFragment exception
             context = context || document;
             context = !context.nodeType && context[0] || context;
             context = context.ownerDocument || context;
-    
+
             // Only cache "small" (1/2 KB) HTML strings that are associated with the main document
             // Cloning options loses the selected state, so don't cache them
             // IE 6 doesn't like it when you put <object> or <embed> elements in a fragment
             // Also, WebKit does not clone 'checked' attributes on cloneNode, so don't cache
             // Lastly, IE6,7,8 will not correctly reuse cached fragments that were created from unknown elems #10501
             if ( args.length === 1 && typeof first === "string" && first.length < 512 && context === document &&
-                first.charAt(0) === "<" && !tC.rnocache.test( first ) &&
-                (tC.support.checkClone || !tC.rchecked.test( first )) &&
-                (tC.support.html5Clone || !tC.rnoshimcache.test( first )) ) {
-    
+              first.charAt(0) === "<" && !tC.rnocache.test( first ) &&
+              (tC.support.checkClone || !tC.rchecked.test( first )) &&
+              (tC.support.html5Clone || !tC.rnoshimcache.test( first )) ) {
+
                 // Mark cacheable and look for a hit
                 cacheable = true;
                 fragment = jQuery.fragments[ first ];
                 cachehit = fragment !== undefined;
             }
-    
+
             if ( !fragment ) {
                 fragment = context.createDocumentFragment();
                 tC.clean( args, context, fragment, scripts );
-    
+
                 // Update the cache, but only store false
                 // unless this is a second parsing of the same content
                 if ( cacheable ) {
                     tC.fragments[ first ] = cachehit && fragment;
                 }
             }
-    
+
             return { fragment: fragment, cacheable: cacheable };
         };
 
-        var hostname = location.hostname,
-            tb = hostname.split('.'),
-            ipregexp = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$";
-        //if local domain without extension or domain is one ip
-        if(
-            tb.length  < 2 || hostname.match(ipregexp)
-        ){
-            tC.maindomain = hostname;
-        //else it's one other domain    
-        }else{
-            tC.maindomain = tb[tb.length - 2] + '.' + tb[tb.length - 1];
-        }
-    
         window.tC = tC;
-    })(window); 
-    
+    })(window);
+
     /*NON utilisée - SF/MG 17/12/2013
     function createSafeFragment( document ) {
         var list = nodeNames.split( "|" ),
         safeFrag = document.createDocumentFragment();
-    
+
         if ( safeFrag.createElement ) {
             while ( list.length ) {
                 safeFrag.createElement(
@@ -338,30 +325,55 @@ if(typeof tC == 'undefined'){
         return safeFrag;
     }*/
 }
+// Unique timestamp for first container loaded
+tC.containerStart = tC.containerStart || Date.now();
+
+if (!tC.maindomain) {
+    (function() {
+        var hostname = location.hostname;
+        var tb = hostname.split('.');
+        // eslint-disable-next-line no-useless-escape
+        var ipregexp = '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$';
+        //if local domain without extension or domain is one ip
+        if(
+          tb.length  < 2 || hostname.match(ipregexp)
+        ){
+            tC.maindomain = hostname;
+            //else it's one other domain
+        }else{
+            tC.maindomain = tb[tb.length - 2] + '.' + tb[tb.length - 1];
+        }
+    })();
+}
 
 tC.extend({
-    internalvars           : typeof tC.internalvars != "undefined" ? tC.internalvars : {},
-    internalFunctions      : typeof tC.internalFunctions != "undefined" ? tC.internalFunctions : {},
-    privacyVersion         : '',
-    containerVersion       : '1.00',
-    id_container           : '11',
-    id_site                : '4056',
+    internalvars           : typeof tC.internalvars !== 'undefined' ? tC.internalvars : {},
+    internalFunctions      : typeof tC.internalFunctions !== 'undefined' ? tC.internalFunctions : {},
+    privacyVersion         : tC.privacyVersion || '',
+    containerVersion       : String(1.04),
+    id_container           : String(11),
+    id_site                : String(4056),
     generatorVersion       : '1.0.0',
-    dedup_done             : typeof tC.dedup_done != "undefined" ? tC.dedup_done : false,
-    internalvars_4056 : typeof tC.internalvars_4056 != "undefined" ? tC.internalvars_4056 : {}
-
+    dedup_done             : typeof tC.dedup_done !== 'undefined' ? tC.dedup_done : false,
 });
 
-tC_4056_11 = {
-    id_container           : '11',
-    id_site                : '4056',
-    frequency              : '1000',
-    containerVersion       : '1.00',
+(function() {
+    var internalvarsSite = {};
+    internalvarsSite['internalvars_' + 4056] = typeof tC['internalvars_' + 4056] !== 'undefined' ? tC['internalvars_' + 4056] : {};
+    tC.extend(internalvarsSite);
+})();
+
+window['tC_' + 4056 + '_' + 11] = {
+    id_container           : String(11),
+    id_site                : String(4056),
+    frequency              : String(20),
+    containerVersion       : String(1.04),
+    generatorVersion       : '82.0'
 };
 
 tC.extend({
     launchTag           : function (id, label, template, idSite, idContainer, idTrigger) {
-        if(typeof idTrigger == "undefined"){
+        if(typeof idTrigger === 'undefined'){
             idTrigger = 0;
         }
 
@@ -374,196 +386,316 @@ tC.extend({
             idTpl   : template
         });
 
-        window.top.postMessage("TC.EX:{\"id\":\""+id+"\",\"idc\":\""+idContainer+"\",\"idt\":\""+template+"\",\"ids\":\""+idSite+"\",\"lb\":\""+label.replace(/"/g, '\\"')+"\",\"idtr\":\""+idTrigger+"\"}", '*');
+        window.top.postMessage('TC.EX:{"id":"'+id+'","idc":"'+idContainer+'","idt":"'+template+'","ids":"'+idSite+'","lb":"'+label.replace(/"/g, '\\"')+'","idtr":"'+idTrigger+'"}', '*');
 
     }
 });
 
-if (tC.containersLaunched === undefined) {
+if (typeof tC.containersLaunched === 'undefined') {
     tC.containersLaunched = {};
 }
 
-if (tC.containersLaunched[4056] === undefined) {
+if (typeof tC.containersLaunched[4056] === 'undefined') {
     tC.containersLaunched[4056] = {};
 }
 
-tC.containersLaunched[4056][11] = {v:'1.00', t:[]};
+tC.containersLaunched[4056][11] = {v:String(1.04), t:[], g:'82.0'};
 
 /*extends*/
-/*
 
-tC.extend({
-	isReady : false,
-	readyWait : 1,
-	ready : function(wait) {
-		if (wait === true ? --tC.readyWait : tC.isReady)
-			return;
-		if (!document.body)
-			return setTimeout(tC.ready, 1);
-		tC.isReady = true;
-		if (wait !== true && --tC.readyWait > 0)
-			return;
-		readyList.resolveWith(document, [tC]);
-		if (tC.fn.trigger)
-			tC(document).trigger("ready").off("ready");
-	}
-});
+tC.coreReadyStandalone = true;
+if (tC.isDOMReady) {
+    tC.coreReadyStandalone = false;
+}
 
+tC.domReady = tC.domReady || false;
 
-tC.ready.promise = function(fn){
-    if ( document.addEventListener ) {
-        // Use the handy event callback
-        document.addEventListener( "DOMContentLoaded", function(){
-            document.removeEventListener( "DOMContentLoaded", arguments.callee, false );
-            fn();
-        }, false );
+tC.isDOMReady = tC.isDOMReady || function() {
+    if (document.readyState === 'complete' || document.readyState === 'loaded')
+        return true;
+    if (document.readyState !== 'interactive')
+        return false;
+    if (!document.documentElement.doScroll)
+        return true;
+    try {
+        document.documentElement.doScroll('left');
+        return true;
+    } catch (e) {
+        return false;
+    }
+};
 
+tC.waitingOnDomReadyCallBacks = tC.waitingOnDomReadyCallBacks || [];
+
+tC.excuteOnDomReadyCallBacks = tC.excuteOnDomReadyCallBacks || function() {
+    for (var i = 0; i < tC.waitingOnDomReadyCallBacks.length; i++) {
+        tC.waitingOnDomReadyCallBacks[i]();
+    }
+    tC.waitingOnDomReadyCallBacks = [];
+};
+
+tC.onDomReady = tC.onDomReady || function(callback) {
+
+    if(this.domReady){
+        callback();
+        return;
+    }
+
+    tC.waitingOnDomReadyCallBacks.push(callback);
+    var browserTypeSet = false;
+    /* Mozilla, Chrome, Opera */
+    if (document.addEventListener) {
+        browserTypeSet = true;
+        document.addEventListener('DOMContentLoaded', function() {
+            document.removeEventListener('DOMContentLoaded', arguments.callee, false);
+            tC.excuteOnDomReadyCallBacks();
+        }, false);
+    }
     // If IE event model is used
-    } else if ( document.attachEvent ) {
+    else if (document.attachEvent) {
+        browserTypeSet = true;
         // ensure firing before onload,
         // maybe late but safe also for iframes
-        document.attachEvent("onreadystatechange", function(){
-            if ( document.readyState === "complete" ) {
-                document.detachEvent( "onreadystatechange", arguments.callee );
-                fn();
+        document.attachEvent('onreadystatechange', function() {
+            if (document.readyState === 'complete') {
+                document.detachEvent('onreadystatechange', arguments.callee);
+                tC.excuteOnDomReadyCallBacks();
             }
         });
 
         // If IE and not an iframe
         // continually check to see if the document is ready
-        if ( document.documentElement.doScroll && window == window.top ) (function(){
-            try {
-                // If IE is used, use the trick by Diego Perini
-                // http://javascript.nwbox.com/IEContentLoaded/
-                document.documentElement.doScroll("left");
-            } catch( error ) {
-                setTimeout( arguments.callee, 0 );
-                return;
+        if (document.documentElement.doScroll && window === window.top)
+            (function() {
+                if (tC.domReady)
+                    return;
+
+                try {
+                    // If IE is used, use the trick by Diego Perini
+                    // http://javascript.nwbox.com/IEContentLoaded/
+                    document.documentElement.doScroll('left');
+                } catch( error ) {
+                    setTimeout(arguments.callee, 0);
+                    return;
+                }
+
+                // and execute any waiting functions
+                tC.excuteOnDomReadyCallBacks();
+            })();
+    }
+    /* Other web browsers */
+    if (!browserTypeSet) {
+        window.onload = tC.excuteOnDomReadyCallBacks;
+    }
+};
+
+if (tC.coreReadyStandalone === true) {
+    if(tC.isDOMReady()){
+        tC.domReady = true;
+    }else{
+        tC.onDomReady(function() {
+            tC.domReady = true;
+        });
+    }
+}
+
+(function() {
+    'use strict';
+    tC.cactUtils = {};
+
+    var defaultCallback = function() {};
+    tC.cactUtils.formatArgumentsV2 = function(args) {
+        var message = {};
+        var nextArg = 0;
+
+        if (typeof args[nextArg] === 'string') {
+            message.event = args[nextArg++];
+        }
+        if (typeof args[nextArg] === 'object') {
+            message.properties = Object.assign({}, args[nextArg++]); // eslint-disable-line es/no-object-assign
+        }
+        if (typeof args[nextArg] === 'object') {
+            message.config = Object.assign({}, args[nextArg++]); // eslint-disable-line es/no-object-assign
+        }
+        if (typeof args[nextArg] === 'function') {
+            message.callback = args[nextArg++];
+        }
+        message.properties = message.properties || {};
+        message.config = message.config || {};
+        message.callback = message.callback || defaultCallback;
+        return message;
+    };
+})();
+
+(function() {
+    'use strict';
+
+    var tC = window.tC;
+    var apiVersion = 2;
+
+    if (tC == null || (tC.cact && tC.cactInfo && tC.cactInfo.apiVersion >= apiVersion)) {
+        return;
+    }
+
+    var isArrayLike = function(message) {
+        return message.toString() === '[object Arguments]' || Array.isArray(message);
+    };
+
+    var formatOldQueue = function(queue) {
+        return queue.map(function(message) {
+            if (isArrayLike(message)) {
+                return message;
             }
 
-            // and execute any waiting functions
-            fn();
-        })();
+            var args = JSON.parse(JSON.stringify(message));
+            var _done = args._done;
+            delete args.event;
+            delete args.callback;
+            delete args._done;
+
+            var newMessage;
+            if (Object.keys(args).length !== 0) {
+                newMessage = [ message.event, args, message.callback ];
+            } else {
+                newMessage = [ message.event, message.callback ];
+            }
+            if (_done) {
+                newMessage._tc_meta = { done: _done };
+            }
+            return newMessage;
+        });
+    };
+
+    window.caReady = window.caReady || [];
+    window.cact = window.cact || function() {
+        window.caReady.push(arguments);
+    };
+
+    if (tC.cact) { // there is a version to override
+        window.caReady = formatOldQueue(window.caReady); // this will also remove the push override
     }
-}
- 
-DOMContentLoaded = function() {
-	if(typeof tC.ready != 'undefined'){
-		if (document.addEventListener) {
-			document.removeEventListener("DOMContentLoaded", DOMContentLoaded, false);
-			tC.ready();
-		} else if (document.readyState === "complete") {
-			document.detachEvent("onreadystatechange", DOMContentLoaded);
-			tC.ready();
-		}
-	}
-};
-*/
 
+    tC.cact = tC.cact || {}; // namespace for container apis
+    tC.cactInfo = { apiVersion: apiVersion };
 
-
-tC.extend({
-    domReady : false,
-    isDOMReady : function() {
-        if (document.readyState == 'complete' || document.readyState == 'loaded')
-            return true;
-        if (document.readyState != 'interactive')
-            return false;
-        if (!document.documentElement.doScroll)
-            return true;
-        try {
-            document.documentElement.doScroll('left');
-            return true;
-        } catch (e) {
-            return false;
-        }
-    },
-    waitingOnDomReadyCallBacks : tC.waitingOnDomReadyCallBacks || [],
-    excuteOnDomReadyCallBacks : function() {
-        for (var i = 0; i < tC.waitingOnDomReadyCallBacks.length; i++) {
-            tC.waitingOnDomReadyCallBacks[i]();
-        }
-        tC.waitingOnDomReadyCallBacks = [];
-    },
-    onDomReady : function(callback) {
-        
-        if(this.domReady){
-            callback();
+    var processEvent = function(message) {
+        message._tc_meta = message._tc_meta || {};
+        var command = message[0];
+        if (message._tc_meta.done || tC.cact[command] == null) {
             return;
         }
-        
-        tC.waitingOnDomReadyCallBacks.push(callback);
-        var browserTypeSet = false;
-        /* Mozilla, Chrome, Opera */
-        if (document.addEventListener) {
-            browserTypeSet = true;
-            document.addEventListener('DOMContentLoaded', function() {
-                document.removeEventListener("DOMContentLoaded", arguments.callee, false);
-                tC.excuteOnDomReadyCallBacks();
-            }, false);
-        }
-        // If IE event model is used
-        else if (document.attachEvent) {
-            browserTypeSet = true;
-            // ensure firing before onload,
-            // maybe late but safe also for iframes
-            document.attachEvent("onreadystatechange", function() {
-                if (document.readyState === "complete") {
-                    document.detachEvent("onreadystatechange", arguments.callee);
-                    tC.excuteOnDomReadyCallBacks();
-                }
-            });
 
-            // If IE and not an iframe
-            // continually check to see if the document is ready
-            if (document.documentElement.doScroll && window == window.top)
-                (function() {
-                    if (tC.domReady)
-                        return;
+        // preserve from infinite recursion
+        message._tc_meta = message._tc_meta || {};
+        message._tc_meta.done = true;
 
-                    try {
-                        // If IE is used, use the trick by Diego Perini
-                        // http://javascript.nwbox.com/IEContentLoaded/
-                        document.documentElement.doScroll("left");
-                    } catch( error ) {
-                        setTimeout(arguments.callee, 0);
-                        return;
-                    }
+        var version = tC.cact[command]._tc_version;
+        message = Array.prototype.slice.call(message, version == null ? 0 : 1); // from version 2, strip command
+        if (version == null) {
+            var formatedMessage = formatArgumentsV1(message);
+            tC.cact[command](formatedMessage, formatedMessage.callback);
+        } else {
+            tC.cact[command].apply(tC.cact, message);
+        }
+    };
 
-                    // and execute any waiting functions
-                    tC.excuteOnDomReadyCallBacks();
-                })();
+    var defaultCallback = function() {};
+    var formatArgumentsV1 = function(args) {
+        var message;
+        var callback;
+        if (typeof args[1] === 'object') {
+            message = args[1];
+            callback = args[2];
+        } else if (typeof args[1] === 'function') {
+            message = {};
+            callback = args[1];
+        } else {
+            message = {};
         }
-        /* Other web browsers */
-        if (!browserTypeSet) {
-            window.onload = tC.excuteOnDomReadyCallBacks;
+        message.event = args[0];
+        message.callback = callback || defaultCallback;
+        return message;
+    };
+
+    var processAllEvents = function() {
+        for (var i = 0; i < window.caReady.length; ++i) {
+            processEvent(window.caReady[i]);
         }
-    }
-});
-if(tC.isDOMReady()){
-    tC.domReady = true;
-}else{
-    tC.onDomReady(function() {
-        tC.domReady = true;
-    });
-}
+        var message = tC.cactUtils.formatArgumentsV2(arguments);
+        if (message && message.callback) message.callback(); // mostly for test purposes on the "exec" command
+    };
+    tC.cact.exec = processAllEvents;
+
+    var pushEvent = function(message) {
+        Array.prototype.push.call(window.caReady, message);
+        processEvent(message);
+    };
+    Object.defineProperty(window.caReady, 'push', { configurable: true, value: pushEvent });
+
+    tC.cact.exec();
+})();
+
+(function () {
+    'use strict';
+
+    tC.config = tC.config || {};
+    tC.cact.config = function () {
+        var args = tC.cactUtils.formatArgumentsV2(arguments);
+        var callback = args.callback;
+
+        Object.assign(tC.config, args.properties); // eslint-disable-line es/no-object-assign
+        callback();
+    };
+
+    tC.cact.config._tc_version = 2;
+
+})();
+
+(function () {
+    'use strict';
+
+    tC.cact.trigger = function () {
+        var args = tC.cactUtils.formatArgumentsV2(arguments);
+        var event = args.event;
+        var properties = args.properties;
+        var config = args.config;
+        var callback = args.callback;
+
+        if (typeof event !== 'string' || event === '') {
+            return;
+        }
+        tC.trigger({
+            event: event,
+            properties: properties,
+            config: config,
+        });
+        callback();
+        return tC.uniqueEventIndex;
+    };
+
+    tC.cact.trigger._tc_version = 2;
+})();
+
 /*
- * 
+ *
  */
 tC.extend({
-	isCurrentVersion:function(){
-    	/*
-    	 * return true :
-    	 * - if bm is disable, 
-    	 * - if bm is enable but the container is loaded by the bookmarklet
-    	 * else return false
-    	 */
-    	var v = tC.getCookie('tc_mode_test'),
-    		t = 'testModeIncludeReplaceThisByTrue' ;
-    	/*
-    	 * info : 'testModeIncludeReplaceThisByTrue' is replaced by "true" by the test mode include script
-    	 */
-    	return v != '1' || (v == '1' && t == 'true');
+    isCurrentVersion:function(){
+        if (Boolean(tC.bypassBookmarklet) === true) {
+            return true;
+        }
+        /*
+         * return true :
+         * - if bm is disable,
+         * - if bm is enable but the container is loaded by the bookmarklet
+         * else return false
+         */
+        var v = tC.getCookie('tc_mode_test');
+        var t = 'testModeIncludeReplaceThisByTrue' ;
+        /*
+         * info : 'testModeIncludeReplaceThisByTrue' is replaced by "true" by the test mode include script
+         */
+        return v !== '1' || (v === '1' && t === 'true');
     }
 });
 
@@ -571,285 +703,749 @@ tC.extend({
 
 /*
  * Extension pixelTrack
- * 
- * @vars 
+ *
+ * @vars
  */
 
-tC.extend({
-    pixelTrack : {
-        add : function(u, t) {
-            u = u || 0;
-            t = t || 'img';
-            tC.onDomReady(function() {
-                if(t == "iframe"){
-                    var d = document.createElement(t);
-                    d.src = u;
-                    d.width = 1;
-                    d.height = 1;
-                    d.style.display = "none"
-                    document.body.appendChild(d);
-                }else{
-                    var d = new Image();
-                    d.src = u;
-                }
-            });
-        }
+tC.pixelTrack = tC.pixelTrack || {
+    add : function(u, t) {
+        u = u || 0;
+        t = t || 'img';
+        tC.onDomReady(function() {
+            var d;
+            if(t === 'iframe'){
+                d = document.createElement(t);
+                d.src = u;
+                d.width = 1;
+                d.height = 1;
+                d.style.display = 'none';
+                document.body.appendChild(d);
+            }else{
+                d = new Image();
+                d.src = u;
+            }
+        });
     }
-});
+};
+
+tC.setCookie = tC.setCookie || function(name, value, expires, path, domain, secure, sameSite) {
+    if (!domain) {
+        domain = tC.domain();
+    }
+
+    tC.cookieForceSameSite = tC.cookieForceSameSite || '';
+    sameSite = sameSite || tC.cookieForceSameSite;
+
+    if (!tC.isSameSiteContext()) {
+        sameSite = 'None'; // 'Lax' and 'Strict' will not work in cross-site context iframes
+    }
+    if (!sameSite) {
+        sameSite = tC.isSubdomain(domain) ? 'Lax': 'None';
+    }
+
+    tC.cookieForceSecure = tC.cookieForceSecure != null ? tC.cookieForceSecure : '';// "first container wins"
+    secure = secure == null ? Boolean(Number(tC.cookieForceSecure)) : secure; // double-cast to handle properly '0' value (0 as a string)
+
+    if (sameSite.toLowerCase() === 'none') {// even if we want to force secure setting, SameSite=None must not be set withtout secure flag (or popular browsers may not set cookie)
+        secure = true;
+    }
+
+    var today = new Date();
+    today.setTime(today.getTime());
+    if (expires)
+        expires = expires * 1000 * 60 * 60 * 24;
+    var expires_date = new Date(today.getTime() + (expires));
+
+    var cookieString = name + '=' + tC.cookieEncode(value)
+      + ((expires) ? ';expires=' + expires_date.toGMTString() : '' )
+      + ((path) ? ';path=' + path : ';path=/' )
+      + ((domain) ? ';domain=' + domain : '' )
+      + ((secure) ? ';secure' : '' )
+      + ';SameSite=' + sameSite;
+    document.cookie = cookieString;
+};
+
+tC.cookieEncode = tC.cookieEncode || function (value) {
+    var specialChars = {
+        '!': '%21',
+        "'": '%27',
+        '(': '%28',
+        ')': '%29',
+        '~': '%7E',
+    };
+    var encoded = encodeURIComponent(value)
+      .replace(/[!~'()]/g, function(x) {
+          return specialChars[x];
+      });
+    return encoded;
+};
+
+tC.getCookie = tC.getCookie || function(key) {
+    if (key == null) {
+        return '';
+    }
+    var whitelist = '@$'.split('');
+    var hasWhitelistChars = whitelist.some(function(c) {
+        return key.indexOf(c) !== -1;
+    });
+    if (!hasWhitelistChars) {
+        key = encodeURIComponent(key);
+    } else {
+        key = key.replace('$', '\\$');
+    }
+    var result = new RegExp('(?:^|; )' + key + '=([^;]*)').exec(document.cookie);
+    if (result) {
+        var decodedValue = '';
+        try {
+            decodedValue = decodeURIComponent(result[1]);
+        } catch(e) {
+            decodedValue = unescape(result[1]);
+        }
+        return decodedValue;
+    }
+
+    return '';
+};
+
+tC.cookieCheck = function(options) {
+    var domain = options.domain ? ';domain=' + options.domain : '';
+    var samesite = options.samesite ? ';samesite=' + options.samesite : '';
+    var cookieName = 'tc_test_cookie';
+    var cookieValue = Math.random().toString(36).substr(2, 9);
+
+    var cookieSet;
+    var cookieString =
+      cookieName + '=' + cookieValue + ';expires=0;path=/;' + samesite + domain;
+    document.cookie = cookieString;
+
+    var match = new RegExp('(?:^|; )' + cookieName + '=([^;]*)').exec(document.cookie);
+    if (match) match = match[1];
+    cookieSet = match === cookieValue;
+    if (cookieSet) {
+        cookieString =
+          cookieName + '=;expires=' + new Date(0).toUTCString() + ';path=/;' + samesite + domain;
+        document.cookie = cookieString;
+    }
+    return cookieSet;
+};
+
+tC._samesite = tC._samesite || null;
+tC.isSameSiteContext = tC.isSameSiteContext || function() {
+    if (tC._samesite != null) {
+        return tC._samesite;
+    }
+    if (tC.isCrossDomainContext()) {
+        tC._samesite = false;
+    } else {
+        tC._samesite = tC.cookieCheck({ samesite: 'lax' });
+    }
+    return tC._samesite;
+};
+
+tC.isCookieEnabled = function () {
+    // Quick test if browser has cookieEnabled host property
+    if (navigator.cookieEnabled && window.navigator.userAgent.indexOf('MSIE') === -1) {
+        return true;
+    }
+    return tC.cookieCheck();
+};
+
+tC.removeCookie = tC.removeCookie || function (name, domain) {
+    this.setCookie(name, '', -1, '/', domain);
+};
+
 /*
  * Extension domain
  */
 
-tC.extend({
-    tc_hdoc : false,
-    domain : function() {
-        this.tc_hdoc = document;
-        try {
-            try{
-                this.tc_hdoc = top.document;
-            }catch(e){
-                //iframe with different domain/alias => get domain of the iframe
-                this.tc_hdoc = document;
-            }
-            var my_dom_temp = typeof this.tc_hdoc.domain != 'undefined' ? this.tc_hdoc.domain.toLowerCase().split(".") : false,
-                ipregexp = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$";
-            if (my_dom_temp.length < 2 || this.tc_hdoc.domain.match(ipregexp)) {
-                return "";
+tC._domain = tC._domain || null;
+tC.domain = tC.domain || function() {
+    if (tC._domain != null) {
+        return tC._domain;
+    }
+
+    var domainParts = (tC.tc_hdoc.domain || '').toLowerCase().split('.');
+    var domainLength = domainParts.length;
+    if (domainLength === 0) {
+        return '';
+    }
+
+    var cookieCheck = false;
+    var domain;
+    for (var domainLevel = 2; !cookieCheck && domainLevel <= domainLength; ++domainLevel) {
+        domain = '.' + domainParts.slice(domainLength - domainLevel, domainLength).join('.');
+        cookieCheck = tC.cookieCheck({ domain: domain });
+    }
+
+    tC._domain = domain || '';
+    return tC._domain;
+};
+
+tC.isSubdomain = tC.isSubdomain || function(domain) {
+    if (domain && domain[0] === '.') {
+        domain = domain.substr(1, domain.length - 1);
+    }
+    return new RegExp(domain + '$').test(tC.tc_hdoc.domain);
+};
+
+tC.isCrossDomainContext = tC.isCrossDomainContext || function() {
+    try{
+        window.top.document;
+        return false;
+    }catch(e){
+        return true;
+    }
+};
+
+tC.tc_hdoc = tC.tc_hdoc || false;
+if (!tC.tc_hdoc) {
+    // if iframe with different domain/alias => get domain of the iframe as fallback
+    tC.tc_hdoc = tC.isCrossDomainContext() ? window.document : window.top.document;
+}
+
+(function(){
+    tC.getClientDnsList = tC.getClientDnsList || function() {
+        return [] || [];
+    };
+
+    tC.getClientCollectDns = function() {
+        if (tC.clientCollectDns) {
+            return tC.clientCollectDns;
+        }
+        var domain = tC.domain();
+        if (domain == null) {
+            return;
+        }
+        if (domain[0] !== '.') {
+            domain = '.' + domain;
+        }
+        var clientDomains = tC.getClientDnsList();
+        var domainRegexp = new RegExp('^[\\w,\\d,\\-]*' + domain.replace('.', '\\.') + '$');
+        var matchingDomain = clientDomains.find(function(dns) {
+            return domainRegexp.test(dns);
+        });
+
+        return matchingDomain;
+    };
+    tC.clientCollectDns = tC.clientCollectDns || tC.getClientCollectDns();
+
+    tC.clientCampaignDns = tC.clientCampaignDns || 'orcanta';
+    tC.getClientCampaignDns = function() {
+        return tC.clientCampaignDns;
+    };
+
+    tC.isTcDns = function(dns) {
+        dns = dns || '';
+        if (dns === '') {
+            return false;
+        }
+        return dns.indexOf('.commander1.com') !== -1 || dns.indexOf('.tagcommander.com') !== -1;
+    };
+
+    tC.isCustomDns = function(dns) {
+        dns = dns || '';
+        if (dns === '') {
+            return false;
+        }
+        return !tC.isTcDns(dns);
+    };
+
+    tC.campaignForceCookieFirst = 0;
+})();
+
+(function() {
+    'use strict';
+
+    var tC = window.tC;
+    tC.eventTarget = tC.eventTarget || {
+        _eventTarget: document.createElement('null'),
+        addEventListener: function(type, listener, options) {
+            this._eventTarget.addEventListener(type, listener, options);
+        },
+        removeEventListener: function(type, callback) {
+            this._eventTarget.removeEventListener(type, callback);
+        },
+        dispatchEvent: function(eventType) {
+            var event;
+            if (typeof eventType !== 'string') {
+                event = eventType;
             } else {
-                var p1 = my_dom_temp[my_dom_temp.length - 3],
-                    p2 = my_dom_temp[my_dom_temp.length - 2],
-                    p3 = my_dom_temp[my_dom_temp.length - 1];
-                if ( p2 == "co" || p2 == "com" ) {
-                    return "." + p1 + "." + p2 + "." + p3;
+                event = document.createEvent('Event');
+                event.initEvent(eventType, true, true);
+            }
+            this._eventTarget.dispatchEvent(event);
+        },
+    };
+})();
+
+(function () {
+    'use strict';
+
+    tC.uniqueEventIndex = tC.uniqueEventIndex || 0;
+    //keep last event in tC
+    tC.triggeredEvents = tC.triggeredEvents || [];
+
+    tC.config = tC.config || {};
+    var containerSourceKey = 'c54126ed-16eb-4a74-a1ab-ae319ba596be' || null;
+    tC.config.collectionDomain = tC.config.collectionDomain || tC.clientCollectDns;
+
+    var emailReg = /[a-z0-9-.+_-]+@[a-z0-9-]+(\.[a-z0-9-]+)*/i;
+    var userLookingSearchParams = /(user|mail|pass(word|phrase)?|secret|((first|last)name))/i;
+    var anonymize= function(text) {
+        return (text || '').replace(emailReg, '*****');
+    };
+    var anonymizeUrl= function(url) {
+        try {
+            var safeUrl = new URL(url);
+            safeUrl.pathname = anonymize(safeUrl.pathname);
+            safeUrl.searchParams.forEach(function(paramValue, paramKey) {
+                if (emailReg.test(paramValue)) {
+                    return safeUrl.searchParams.set(paramKey, anonymize(paramValue));
+                } else if (userLookingSearchParams.test(paramKey)) {
+                    return safeUrl.searchParams.set(paramKey, '*****');
+                }
+            });
+            return safeUrl.toString();
+        } catch (e) {
+            return url;
+        }
+    };
+
+    tC.generateEventId = function() {
+        var eventId = String(Date.now()).slice(2) + Math.round(Math.random() * 10000000000000);
+        while (eventId.length < 24) {
+            eventId = eventId + '0';
+        }
+        return eventId;
+    };
+
+    //Trigger API
+    tC.trigger = function (options) {
+        var event = options.event;
+        var properties = options.properties || {};
+        var config = options.config || {};
+        var pageUrl = properties.url || anonymizeUrl(window.location.href);
+
+        tC.uniqueEventIndex++;
+        tC.uniqueEventId = tC.generateEventId();
+        //default settings
+        var siteId = config.siteId || config.idSite || tC.config.siteId || tC.id_site;
+        var defaultDomain = 'collect.commander1.com';
+        var collectionDomain = config.collectionDomain || window.tC_collect_dns || tC.config.collectionDomain || defaultDomain;
+        var collectPath = collectionDomain === defaultDomain ? '' : '/cdp';
+        var collectionUrl = 'https://' + collectionDomain + collectPath + '/events?tc_s=' + siteId;
+        var sourceKey = config.sourceKey || tC.config.sourceKey || containerSourceKey;
+        if (sourceKey) {
+            collectionUrl = collectionUrl + '&token=' + sourceKey;
+        }
+        //add automatic data
+        properties.user = properties.user || {};
+        //get consents
+        if (!properties.user.consent_categories) {
+            var consentCategories = [];
+            if ('privacy' in tC) {
+                if ('getValidCategories' in tC.privacy) {
+                    consentCategories = tC.privacy.getValidCategories();
                 } else {
-                    return "." + p2 + "." + p3;
+                    consentCategories = tC.privacy.getOptinCategories();
                 }
             }
+            //manage Trust v1 when consent categories are 'ALL'
+            var privacyCookie = tC.getCookie(tC.privacy && tC.privacy.getCN() || 'TC_PRIVACY');
+            if (/ALL/.test(privacyCookie)) {
+                consentCategories = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+            }
+            properties.user.consent_categories = consentCategories;
+        }
+        if (!properties.user.rejected_vendors) {
+            var rejectedVendors = [];
+            if (tC.privacy) {
+                if (tC.privacy.checkOptoutAllVendors && tC.privacy.checkOptoutAllVendors()) {
+                    rejectedVendors = 'ALL';
+                } else if (tC.privacy.checkOptinAllVendors && !tC.privacy.checkOptinAllVendors()) {
+                    rejectedVendors = tC.privacy.getOptoutVendors();
+                }
+            }
+            properties.user.rejected_vendors = rejectedVendors;
+        }
+        if (properties.revenue) {
+            properties.amount = properties.revenue;
+        }
+        properties.integrations = properties.integrations || {};
+        //Facebook cookies
+        // TODO: remove once it is handled properly on backend https://tagcommander.atlassian.net/browse/PTMS-6738
+        properties.integrations.facebook = properties.integrations.facebook || {};
+        properties.integrations.facebook.fbc = tC.getCookie('_fbc') || undefined; // eslint-disable-line no-undefined
+        properties.integrations.facebook.fbp = tC.getCookie('_fbp') || undefined; // eslint-disable-line no-undefined
+        properties.integrations.facebook.event_id = properties.integrations.facebook.event_id || tC.uniqueEventId;
+        properties.url = pageUrl;
+        properties.created = new Date().toJSON();
+        //specific automatic properties regarding the type of event
+        switch (event) {
+            case 'page_view':
+                properties.title = document.title;
+                properties.path = location.pathname;
+                if (document.referrer !== '') properties.referrer = document.referrer;
+                properties.type = properties.type || 'other';
+                break;
+            case 'purchase':
+                properties.status = properties.status || 'in_progress';
+                properties.type = properties.type || 'online';
+                break;
+        }
+        var timezone;
+        try {
+            timezone = window.Intl && window.Intl.DateTimeFormat().resolvedOptions().timeZone;
         } catch(e) {
-            tC.log(['tC.domain error : ',e], 'warn');
+            // browser doesn't have the feature => skip
         }
-    }
-});
-
-tC.domain();
-/*
- * Extension cookie
- * 
- * tC.setCookie(name, value, expires, path, domain, secure)
- */
-
-tC.extend({
-    removeCookie : function(name){
-        //document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        this.setCookie(name,'',-1);
-    },
-    setCookie : function(name, value, expires, path, domain, secure) {
-        if (!domain)
-            domain = tC.domain();
-        var today = new Date();
-            today.setTime(today.getTime());
-        if (expires)
-            expires = expires * 1000 * 60 * 60 * 24;
-        var expires_date = new Date(today.getTime() + (expires));
-        document.cookie = name + "=" + escape(value) + ((expires ) ? ";expires=" + expires_date.toGMTString() : "" ) + ((path ) ? ";path=" + path : ";path=/" ) + ((domain ) ? ";domain=" + domain : "" ) + ((secure ) ? ";secure" : "" );
-    },
-    getCookie : function(key) {
-        return (result = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)').exec(document.cookie)) ? unescape(result[1]) : ""
-    }/* 
-    
-    V2 soon -->
-    ,
-    setCookie(n,v,e,d){
-        var D=new Date();
-        D.setDate(e.getDate() + e);
-        var V=escape(v) + ((e===null) ? "" : "; expires="+D.toUTCString());
-        document.cookie=n + "=" + V + "; domain=" + ((d===undefined) ? "" : d);
-    }
-    
-    
-    
-    ,
-    getCookie : function(n){
-        var i,x,y,c=document.cookie.split(";");
-        for(i=0;i < c.length; i++) {
-            x=c[i].substr(0,c[i].indexOf("="));
-            y=c[i].substr(c[i].indexOf("=")+1);
-            x=x.replace(/^\s+|\s+$/g,"");
-            if (x===n)
-                return unescape(y);
+        var de = document.documentElement || {};
+        var nav = window.navigator || {};
+        var page = {
+            title: document.title,
+            url: pageUrl,
+            lang: de.lang,
+            referrer: document.referrer || (tC.storage && tC.storage.get('TC_REFERRER')),
+            viewport: {
+                width: de.clientWidth,
+                height: de.clientHeight,
+            },
+        };
+        var pickCookies = function() {
+            // Facebook: _fbp/_fbq
+            // Google: https://business.safety.google/adscookies/
+            //AT-internet: atuserid/xtidc
+            //Criteo: crto_mapped_user_id
+            //Awin: awc
+            var usefulCookies = [
+                '_fbp',
+                '_fbc',
+                /^_+(ga|gcl|opt_|utm)/,
+                /^(pm_sess|VISITOR_INFO1|FPGCL|GA_)/,
+                '__gsas',
+                'NID',
+                'DSID',
+                'test_cookie',
+                'id',
+                'GED_PLAYLIST_ACTIVITY',
+                'ACLK_DATA',
+                'aboutads_sessNNN',
+                'FPAU',
+                'ANID',
+                'AID',
+                'IDE',
+                'TAID',
+                'FLC',
+                'RUL',
+                'FCCDCF',
+                'FCNEC',
+                'CUID',
+                '1P_JAR',
+                'Conversion',
+                'YSC',
+                'FPLC',
+                '_gid',
+                'AMP_TOKEN',
+                'FPID',
+                '_dc_gtm_',
+                'PAIDCONTENT',
+                'atuserid',
+                'xtidc',
+                'crto_mapped_user_id',
+                'awc',
+                'tduid',
+                'kwks2s',
+                '_ttp',
+                /^_pk_id\./,
+                '_pcid', // piano
+                'pa_vid', // piano
+                'rmStore', // rakuten
+                '_uetmsclkid', // microsoft uet
+            ];
+            return (document.cookie || '').split('; ').filter(function(cookie) {
+                var name = cookie.split('=')[0];
+                return usefulCookies.find(function(pattern) { return pattern.test ? pattern.test(name) : (name === pattern); });
+            }).join('; ');
+        };
+        var device = {
+            cookie: pickCookies() || '',
+            lang: nav.language || nav.userLanguage,
+            screen: {
+                width: window.screen.width,
+                height: window.screen.height,
+            },
+            timezone: timezone
+        };
+        //store it as an internal vars for automatic mapping in other tags
+        tC.internalvars.caEventData = properties;
+        var eventId = config.eventId ? String(config.eventId) : tC.uniqueEventId;
+        //build event data
+        var eventObject = {
+            event: event,
+            properties: properties,
+            page: page,
+            device: device,
+            eventId: eventId,
+            version: 1,
+            generatorVersion: tC.generatorVersion,
+            containerVersion: tC.containerVersion
+        };
+        //limit history size
+        if (100 < tC.triggeredEvents.length) {
+            while (tC.triggeredEvents.length > 100) {
+                tC.triggeredEvents.shift();
+            }
         }
-    }*/
-});
+        tC.triggeredEvents.push(eventObject);
+        tC.lastTriggeredEvent = tC.triggeredEvents[tC.triggeredEvents.length - 1];
+        //SEND HIT through sendBeacon or ajax as a fallback
+        var eventData = JSON.stringify(eventObject);
+        if (typeof navigator.sendBeacon === 'function' && !navigator.sendBeacon(collectionUrl, eventData)) {
+            var httpRequest = false;
+            httpRequest = new XMLHttpRequest();
+            if (!httpRequest) {
+                return false;
+            }
+            httpRequest.open('POST', collectionUrl, true);
+            httpRequest.withCredentials = true;
+            // console.log();
+            httpRequest.send(eventData);
+        }
+        return tC.uniqueEventIndex;
+    };
+
+})();
+
 /*
  * Extension storage
  *
  * tC.storage
  */
 
-tC.extend({
-    storage : {
-        //has Storage
-        has : function () {
-            try {
-                if ('localStorage' in window && window['localStorage'] !== null){
-                    window.localStorage.setItem('TC_CHECK', '1');
-                    window.localStorage.removeItem('TC_CHECK');
-                    return true;
-                }
-                return false;
-            } catch (e) {
-                return false;
+tC.storage = {
+    // legacy function has Storage
+    has : function () {
+        try {
+            if ('localStorage' in window && window.localStorage != null) {
+                window.localStorage.setItem('TC_CHECK', '1');
+                window.localStorage.removeItem('TC_CHECK');
+                return true;
             }
-        },
-        //get storage
-        get : function (k) {
-            return this.has() ? window.localStorage.getItem(k) : false;
-        },
-        //set storage
-        set : function (k, v) {
-            return this.has() ? (window.localStorage.setItem(k, v) || true) : false;
-        },
-        //remove storage
-        remove : function (k) {
-            return this.has() ? (window.localStorage.removeItem(k) || true) : false
+            return false;
+        } catch (e) {
+            return false;
         }
-    }
-});
+    },
+    isAvailable: function() {
+        try {
+            window.localStorage;
+            return true;
+        } catch (err) {
+            return false;
+        }
+    },
+    //get storage
+    get : function (k) {
+        if (!this.isAvailable()) return;
+        return window.localStorage.getItem(k);
+    },
+    //set storage
+    set : function (k, v) {
+        if (!this.isAvailable()) return;
+        try {
+            return window.localStorage.setItem(k, v) || true;
+        } catch (e) {
+            // most likely localstorage size limit exceeded
+            return false;
+        }
+    },
+    //remove storage
+    remove : function (k) {
+        if (!this.isAvailable()) return;
+        return window.localStorage.removeItem(k) || true;
+    },
+    setWithExpiry: function (key, value, nbDays) {
+        if (!this.isAvailable()) return;
+        var now = (new Date()).getTime();
+        var ttl = nbDays * 1000 * 60 * 60 * 24;
+        var item = JSON.stringify({
+            value: value,
+            expires: now + ttl,
+        });
+        try {
+            window.localStorage.setItem(key, item);
+        } catch (e) {
+            // most likely localstorage size limit exceeded
+        }
+    },
+    getWithExpiry: function (key) {
+        if (!this.isAvailable()) return;
+        var item = window.localStorage.getItem(key);
+        if (item == null) {
+            return null;
+        }
+        var now = (new Date()).getTime();
+        item = JSON.parse(item);
+        if (item.expires < now) {
+            this.remove(key);
+            return null;
+        }
+
+        return item.value;
+    },
+};
+
 /**
  * Extension hitCounter
- * 
+ *
  * adds the hit counter for each container
  * allows to follow the usage of this container
  * will be called once in $frequency times
- * 
+ *
  * @vars id_tagcommander,id_site,version,frequency
  */
 
-tC.extend({
+(function() {
+    var hitCounterExtend = {};
+    var containerName = 4056 + '_' + 11;
     /*
-     * f = force le hit
-     * c = className du hit img
-     */
-    hitCounter_4056_11 : function() {
-        if(Math.floor(Math.random()*parseInt(tC_4056_11.frequency)) == 0){
-            tC.pixelTrack.add("//manager.tagcommander.com/utils/hit.php?id="+tC_4056_11.id_container+"&site="+tC_4056_11.id_site+"&version="+tC_4056_11.containerVersion+"&frequency="+tC_4056_11.frequency+"&position="+tC.container_position+"&rand="+Math.random());
+    * f = force le hit
+    * c = className du hit img
+    */
+    hitCounterExtend['hitCounter_' + containerName] = function() {
+        var container = window['tC_' + containerName];
+        if(Math.floor(Math.random()*parseInt(container.frequency)) === 0){
+            tC.pixelTrack.add('https://manager.tagcommander.com/utils/hit.php?id='+container.id_container+'&site='+container.id_site+'&version='+container.containerVersion+'&frequency='+container.frequency+'&position='+tC.container_position+'&rand='+Math.random());
         }
-    }
-});
+    };
 
-tC.container_position = (typeof tc_container_position !== 'undefined') ? tc_container_position : (typeof tC.container_position !== 'undefined') ? tC.container_position : 0;
-tC.container_position++;
-if(typeof tc_container_position !== 'undefined'){
-    tc_container_position++;
-}
-tC.hitCounter_4056_11();
+    tC.extend(hitCounterExtend);
+
+    /* global tc_container_position */
+    tC.container_position = (typeof tc_container_position !== 'undefined') ? tc_container_position : (typeof tC.container_position !== 'undefined') ? tC.container_position : 0;
+    tC.container_position++;
+    if(typeof tc_container_position !== 'undefined'){
+        tc_container_position++; // eslint-disable-line no-global-assign
+    }
+    tC['hitCounter_' + containerName]();
+})();
 
 /*
  * Extension script
  */
 
-tC.extend({
-    script : {
-        add : function(src,callback,abortTime){
-            var s           = (document.getElementsByTagName('body')[0] || document.getElementsByTagName('script')[0].parentNode),
-                e           = document.createElement('script');
-                e.type      = 'text/javascript';
-                e.async     = true;
-                e.src       = src;
-                e.charset   = 'utf-8';
-                e.id        = 'tc_script_' + Math.random();
-            if(s){
-                if(callback){
-                    if (e.addEventListener) { /* normal browsers (FF, Chrome,IE9+)*/
-                      e.addEventListener('load', function(){
-                         callback();
-                      }, false);
-                    }
-                     else {
-                        e.onreadystatechange = function() { /* old IEs (8-) */
-                            if (e.readyState in {loaded: 1, complete: 1}){
-                              e.onreadystatechange = null;
-                               callback();
-                            }
-                        };
-                    }
+tC.script = {
+    add: function(src,callback,abortTime){
+        var s           = (document.getElementsByTagName('body')[0] || document.getElementsByTagName('script')[0].parentNode);
+        var e           = document.createElement('script');
+        e.type      = 'text/javascript';
+        e.async     = true;
+        e.src       = src;
+        e.charset   = 'utf-8';
+        e.id        = 'tc_script_' + Math.random();
+        if(s){
+            if(callback){
+                if (e.addEventListener) { /* normal browsers (FF, Chrome,IE9+)*/
+                    e.addEventListener('load', function(){
+                        callback();
+                    }, false);
                 }
-                if(abortTime && typeof abortTime == "number"){
-                    setTimeout(function(){
-                        if ( s && e.parentNode ) {
-                            s.removeChild(e);
+                else {
+                    e.onreadystatechange = function() { /* old IEs (8-) */
+                        if (e.readyState in {loaded: 1, complete: 1}){
+                            e.onreadystatechange = null;
+                            callback();
                         }
-                    },abortTime);
+                    };
                 }
-                s.insertBefore(e, s.firstChild);
             }
-            else{
-                tC.log('tC.script error : the element <script> or <body> is not found ! the file '+src+' is not implemented !', 'warn');
+            if(abortTime && typeof abortTime === 'number'){
+                setTimeout(function(){
+                    if ( s && e.parentNode ) {
+                        s.removeChild(e);
+                    }
+                },abortTime);
             }
+            s.insertBefore(e, s.firstChild);
+        }
+        else{
+            tC.log('tC.script error : the element <script> or <body> is not found ! the file '+src+' is not implemented !', 'warn');
         }
     }
-});
+};
 
 /*
- * Extension reach
+ * Extension bypassBookmarklet
  */
 
-tC.extend({
-    //Reach
-    _R : {
-        //call reach
-        cR : function (now) {
-            tC.storage.set("tC_Sync", now); //stockage dans le localstorage
-            tC.pixelTrack.add("//engage.commander1.com/reach?tc_s=4056");
-        },
-        //run reach
-        rR : function () {
-            if (tC.storage.has()) { //si localstorage
-                var now = new Date().getTime(); //recupération de la date
-                var sync = tC.storage.get("tC_Sync") || 0; //récupération du storage existant. ce storage stocke la dernière date à laquelle on a shooté pour cet utilisateur
-                sync = parseInt(sync); //conversion en entier
-                if (sync == 0 || now - sync > 604800000) { //7 days // comparaison des dates. si > 7 jours ou si storage existe pas
-                    this.cR(now); //envoi du hit
-                }
-            }
-        }
+
+tC.bypassBookmarklet = true;
+
+tC.extend({});
+
+tC.event = tC.event || {};
+tC.event.add_to_cartListFunctions = tC.event.add_to_cartListFunctions || [];
+tC.event.add_to_cartListIdTags = tC.event.add_to_cartListIdTags || [];
+if (tC.event.add_to_cartListIdTags.indexOf("59")==-1){
+    tC.event.add_to_cartListIdTags.push("59");
+    tC.event.add_to_cartListFunctions.push(function(el, p){
+
+        tC.executeTag59_4056_11(el, p);
+        tC.launchTag(59, 'Universal Analytics - eCommerce Enhanced - Conversion', 1477, 4056, 11, 11);});
+}
+tC.event.add_to_cart=function(el, p){
+    tc_array_events=tC.container_4056_11.init_tc_array_events(p);
+    for(var i=0,x=tC.event.add_to_cartListFunctions.length;i<x;i++){
+        tC.event.add_to_cartListFunctions[i](el, p);
     }
-});
+};
 
-tC.onDomReady(function () {
-    tC._R.rR();
-});
-tC.extend({
-
-});
-
-tC.extend({
-    event: {
-        add_to_cart: function(el, p){
+tC.event.remove_from_cartListFunctions = tC.event.remove_from_cartListFunctions || [];
+tC.event.remove_from_cartListIdTags = tC.event.remove_from_cartListIdTags || [];
+if (tC.event.remove_from_cartListIdTags.indexOf("59")==-1){
+    tC.event.remove_from_cartListIdTags.push("59");
+    tC.event.remove_from_cartListFunctions.push(function(el, p){
 
         tC.executeTag59_4056_11(el, p);
-        tC.launchTag(59, 'Universal Analytics - eCommerce Enhanced - Conversion', 1477, 4056, 11, 11);        },
-remove_from_cart: function(el, p){
-
-        tC.executeTag59_4056_11(el, p);
-        tC.launchTag(59, 'Universal Analytics - eCommerce Enhanced - Conversion', 1477, 4056, 11, 12);        },
-cart_checkout: function(el, p){
-
-        tC.executeTag59_4056_11(el, p);
-        tC.launchTag(59, 'Universal Analytics - eCommerce Enhanced - Conversion', 1477, 4056, 11, 13);        }
+        tC.launchTag(59, 'Universal Analytics - eCommerce Enhanced - Conversion', 1477, 4056, 11, 12);});
+}
+tC.event.remove_from_cart=function(el, p){
+    tc_array_events=tC.container_4056_11.init_tc_array_events(p);
+    for(var i=0,x=tC.event.remove_from_cartListFunctions.length;i<x;i++){
+        tC.event.remove_from_cartListFunctions[i](el, p);
     }
-});
+};
 
+tC.event.cart_checkoutListFunctions = tC.event.cart_checkoutListFunctions || [];
+tC.event.cart_checkoutListIdTags = tC.event.cart_checkoutListIdTags || [];
+if (tC.event.cart_checkoutListIdTags.indexOf("59")==-1){
+    tC.event.cart_checkoutListIdTags.push("59");
+    tC.event.cart_checkoutListFunctions.push(function(el, p){
+
+        tC.executeTag59_4056_11(el, p);
+        tC.launchTag(59, 'Universal Analytics - eCommerce Enhanced - Conversion', 1477, 4056, 11, 13);});
+}
+tC.event.cart_checkout=function(el, p){
+    tc_array_events=tC.container_4056_11.init_tc_array_events(p);
+    for(var i=0,x=tC.event.cart_checkoutListFunctions.length;i<x;i++){
+        tC.event.cart_checkoutListFunctions[i](el, p);
+    }
+};
+;
+
+;
 tC.extend({
     container: {
         reload: function(){
             var params = arguments[0];
+            tC.reload_events = true;
             tC.container_position = 0;
 
             if(tC.containerList){
                 tC.each(tC.containerList, function(index, value) {
-                    if(typeof tC['container_'+value] == "object" && typeof tC['container_'+value].reload == "function") {
+                    if(typeof tC['container_'+value] === 'object' && typeof tC['container_'+value].reload === 'function') {
                         tC['container_' + value].reload(params, true);
+                        tC.reload_events = false;
                     }
                 });
             }
@@ -857,67 +1453,86 @@ tC.extend({
     }
 });
 
-tC.extend({
-    container_4056_11: {
+(function() {
+    var containerIdExtend = {};
+    var containerName = 4056 + '_' + 11;
+    containerIdExtend['container_' + containerName] = {
         /**
          * Load container elements
-         * @param {object} params Parameters of the load (list of exclusions, custom functions to call…) ; ex.: {exclusions:["datastorage", "internalvars"], customFunctions:[]}
+         * @param {object} params Parameters of the load (list of exclusions, tC.event functions to call…) ; ex.: {exclusions:["datastorage", "internalvars"], events:{function1:["paramF1"],function2:["param1F2", "param2F2"]}}
          * @param {boolean} [isReload] false (default) for the first load, true for a reload
          */
         load: function(params, isReload){
             tC.container_position++;
-            tC.hitCounter_4056_11();
+            tC['hitCounter_' + containerName]();
             this.datalayer();
+            tC.array_launched_tags = [];
+            tC.array_launched_tags_keys = [];
 
-            if(typeof params != "object"){
+            if(typeof params !== 'object'){
                 params = {};
             }
 
-            if(typeof isReload != "boolean"){
+            if(typeof isReload !== 'boolean'){
                 isReload = false;
             }
 
-            if(typeof params.exclusions == "undefined") {
+            if(typeof params.exclusions === 'undefined') {
                 params.exclusions = [];
             }
 
-            if (params.exclusions.indexOf('datastorage') == -1) {
+            if (params.exclusions.indexOf('datastorage') === -1) {
                 this.datastorage();
             }
 
-            if (params.exclusions.indexOf('deduplication') == -1) {
+            if (params.exclusions.indexOf('deduplication') === -1) {
                 this.deduplication();
             }
 
-            if (params.exclusions.indexOf('internalvars') == -1) {
+            if (params.exclusions.indexOf('internalvars') === -1) {
                 this.internalvars();
             }
 
-            if (params.exclusions.indexOf('privacy') == -1) {
+            if (params.exclusions.indexOf('privacy') === -1) {
                 this.privacy();
             }
 
-            if (params.exclusions.indexOf('eventlisteners') == -1) {
+            if (params.exclusions.indexOf('eventlisteners') === -1) {
                 this.eventlisteners();
             }
 
-            //TODO: manage customFunctions (events)
+            if (tC.reload_events === false || typeof params.events === 'undefined') {
+                params.events = {};
+            }
+
+            //Each params.events is an object with name of the function in key and an array of parameters in value, for example: {function1:["param1", "param2"]}
+            tC.each(params.events, function (k, v) {
+                if (tC.event && typeof tC.event[k] === 'function' && v.length > 0) {//we check if there is a tC.event corresponding, with at least 1 parameter
+                    if (typeof v[1] === 'undefined') {//2nd parameter is not set, we don't send it to the tC.event custom function
+                        tC.event[k](v[0]);
+                    } else {
+                        tC.event[k](v[0], v[1]);
+                    }
+                }
+            });
         },
 
         reload: function(params, isGlobalReload){
-            if(typeof isGlobalReload != "boolean"){
+            if(typeof isGlobalReload !== 'boolean'){
                 isGlobalReload = false;
             }
 
             if(!isGlobalReload){
                 tC.container_position = 0;
+                tC.reload_events = true;
             }
 
             this.load(arguments[0], true);
         },
 
         datalayer: function(){
-            if(typeof tc_vars=='undefined') window.tc_vars=[];
+            /* global tc_vars */
+            if(typeof tc_vars==='undefined') window.tc_vars=[];
             var l = 'product_list|product_SKU|product_cat|product_brand|order__id|affiliate|shipping|tax|env_template|env_work|env_device|user_newcustomer|product_quantity|product_id|product_name|product_unitprice|product_discount|product_url_img|order_amount'.split('|');
             for(var k in l){
                 if(!tc_vars.hasOwnProperty(l[k])){
@@ -929,7 +1544,7 @@ tC.extend({
         },
 
         datastorage: function(){
-            
+            ;
 
             window.top.postMessage('TC.EX.DATASTORAGE.RELOAD', '*');
         },
@@ -951,18 +1566,20 @@ tC.extend({
                 tC.dedup.AeA=[];
                 tC.dedup.AeC=[];
                 tC.dedup.AeV=[];
+                tC.dedup.init();
                 tC.dedup.setEventList();
             }
         },
 
         eventlisteners: function(){
-            
+            ;
         },
 
         internalvars: function(){
-            if(tC.internalvars_4056.listVar.length > 0){
-                for(var k in tC.internalvars_4056.listVar){
-                    tC.internalvars_4056.initiators['var'+tC.internalvars_4056.listVar[k]]();
+            var listInternalVars = tC['internalvars_' + containerName].listVar;
+            if(listInternalVars.length > 0){
+                for (var i = 0; i < listInternalVars.length; i++) {
+                    tC['internalvars_' + 4056].initiators['var'+listInternalVars[i]]();
                 }
             }
 
@@ -976,7 +1593,10 @@ tC.extend({
         },
 
         init_tc_array_events: function(t){
-            var l = 'product_cat1_name|product_cat2_name|product_cat3_name|product_qty|basket_id|product_name|product_unitprice|product_discount|product_url_img|product_id|id'.split('|');
+            if (typeof t === 'undefined') {
+                t = {};
+            }
+            var l = 'product_id|product_name|product_unitprice|product_discount|product_url_img|product_cat1_name|product_cat2_name|product_cat3_name|product_qty|basket_id|id'.split('|');
             for (var k in l) {
                 if (!t.hasOwnProperty(l[k])) {
                     t[l[k]] = '';
@@ -985,47 +1605,46 @@ tC.extend({
 
             return t;
         }
-    }
-});
-if(typeof tC.containerList == "undefined"){tC.containerList = [];}
-tC.containerList.push("4056_11");
-tC.onDomReady(function() {
-    tC.container_4056_11.eventlisteners();
-});
-window.tc_array_events = tC.container_4056_11.init_tc_array_events([]);
+    };
 
+    tC.extend(containerIdExtend);
 
+    if(typeof tC.containerList === 'undefined'){tC.containerList = [];}
+    tC.containerList.push(containerName);
+    window.tc_array_events = tC['container_' + containerName].init_tc_array_events([]);
+})();
 
-tC4056_11 = tC;
- 
-/* RETRO COMPATIBILITY FUNCTIONS */
+;
 
+window['tC' + 4056 + '_' + 11] = tC;
 
-tC.container_4056_11.datalayer();
+window.postMessage('TC.EX.CONTAINER:{"id":' + 11 + ',"ids":' + 4056 + ',"v":"' + 1.04 + '","g":' + '82.0' + ',"p":'+tC.container_position+',"url":"'+(document.currentScript ? document.currentScript.src : '')+'"}','*');
+
+tC.container_4056_11.datalayer();tC.array_launched_tags=[];tC.array_launched_tags_keys=[];
 
 /*DYNAMIC JS BLOCK 1*/
-
 
 /*END DYNAMIC JS BLOCK 1*/
 
 /*CUSTOM_JS_BLOCK1*/
 
 /*END_CUSTOM_JS_BLOCK1*/
-tC.array_launched_tags=[];tC.array_launched_tags_keys=[];tC.id_site='4056';if(tC.getCookie('tc_mode_test')==1){(function(){var tc_testmodescriptload=document.createElement('script');tc_testmodescriptload.type='text/javascript';tc_testmodescriptload.src='//manager.tagcommander.com/utils/test_mode_include.php?id=11&site=4056&type=load&rand='+Math.random()+'&version=';(document.getElementsByTagName('body')[0]||document.getElementsByTagName('head')[0]||document.getElementsByTagName('script')[0].parentNode).appendChild(tc_testmodescriptload);})();}else{
+if(tC.privacyCookieDisallowed){tC.setCookie('TCPID','',-1,'',tC.domain());}
+tC.id_site='4056';
 /*VARIABLES_BLOCK*/
-tC.internalvars_4056.initiators={};tC.internalvars_4056.listVar=[];
+tC.internalvars_4056.initiators=tC.internalvars_4056.initiators||{};tC.internalvars_4056_11={listVar:[]}
+
 /*END_VARIABLES_BLOCK*/
 
 
 /*DYNAMIC JS BLOCK 2*/
-
 
 /*END DYNAMIC JS BLOCK 2*/
 
 /*CUSTOM_JS_BLOCK2*/
 
 /*END_CUSTOM_JS_BLOCK2*/
-tC.container_4056_11.datastorage();}
+tC.container_4056_11.datastorage();
 
 //----------------------------------------------------
 
@@ -1034,8 +1653,9 @@ tC.container_4056_11.datastorage();}
 
 //----
 
-if(tC.getCookie('tc_mode_test')==1){(function(){var tc_testmodescriptexec=document.createElement('script');tc_testmodescriptexec.type='text/javascript';tc_testmodescriptexec.src='//manager.tagcommander.com/utils/test_mode_include.php?id=11&site=4056&type=exec&rand='+Math.random()+'&version=1.00';(document.getElementsByTagName('body')[0]||document.getElementsByTagName('head')[0]||document.getElementsByTagName('script')[0].parentNode).appendChild(tc_testmodescriptexec);})();(function(){setTimeout(function(){if(typeof top.tc_count!=='undefined'){top.tc_count++;}else{top.tc_count=1;}var tc_newscript=document.createElement('script');tc_newscript.type='text/javascript';tc_newscript.src='//manager.tagcommander.com/utils/livetest/bookmarklet.php?r='+Math.random()+'&nb='+top.tc_count+'&container=4056!11&version=1.00';(document.getElementsByTagName('body')[0]||document.getElementsByTagName('head')[0]||document.getElementsByTagName('script')[0].parentNode).appendChild(tc_newscript);},1000);})();}else{tC.launchTag(59,'Universal Analytics - eCommerce Enhanced - Conversion',1477,4056,11,10);if(typeof ga!="undefined"){ga('require','ec');var temp_concat=tc_vars["product_list"];for(var i=0;i<temp_concat.length;i++){var product=temp_concat[i];ga('ec:addProduct',{'id':product[tc_vars["product_id"]],'name':product[tc_vars["product_name"]],'sku':product[tc_vars["product_SKU"]],'category':product[tc_vars["product_cat"]],'price':product[tc_vars["product_unitprice"]],'quantity':product[tc_vars["product_quantity"]],'brand':product[tc_vars["product_brand"]]});}
-ga('ec:setAction','purchase',{'id':tc_vars["order__id"],'affiliation':tc_vars["affiliate"],'revenue':tc_vars["order_amount"],'shipping':tc_vars["shipping"],'tax':tc_vars["tax"]});}
 tC.extend({executeTag59_4056_11:function(el,p){if(typeof p=="undefined"){p={};}
-tc_array_events=tC.container_4056_11.init_tc_array_events(p);if(typeof ga!="undefined"){ga('require','ec');var temp_concat=tc_vars["product_list"];for(var i=0;i<temp_concat.length;i++){var product=temp_concat[i];ga('ec:addProduct',{'id':product[tc_vars["product_id"]],'name':product[tc_vars["product_name"]],'sku':product[tc_vars["product_SKU"]],'category':product[tc_vars["product_cat"]],'price':product[tc_vars["product_unitprice"]],'quantity':product[tc_vars["product_quantity"]],'brand':product[tc_vars["product_brand"]]});}
-ga('ec:setAction','purchase',{'id':tc_vars["order__id"],'affiliation':tc_vars["affiliate"],'revenue':tc_vars["order_amount"],'shipping':tc_vars["shipping"],'tax':tc_vars["tax"]});}}});}
+        tc_array_events=tC.container_4056_11.init_tc_array_events(p);if(typeof ga!="undefined"){ga('require','ec');var temp_concat=tc_vars["product_list"];for(var i=0;i<temp_concat.length;i++){var product=temp_concat[i];ga('ec:addProduct',{'id':product[tc_vars["product_id"]],'name':product[tc_vars["product_name"]],'sku':product[tc_vars["product_SKU"]],'category':product[tc_vars["product_cat"]],'price':product[tc_vars["product_unitprice"]],'quantity':product[tc_vars["product_quantity"]],'brand':product[tc_vars["product_brand"]]});}
+            ga('ec:setAction','purchase',{'id':tc_vars["order__id"],'affiliation':tc_vars["affiliate"],'revenue':tc_vars["order_amount"],'shipping':tc_vars["shipping"],'tax':tc_vars["tax"]});}}});tC.launchTag(59,'Universal Analytics - eCommerce Enhanced - Conversion',1477,4056,11,10);if(typeof ga!="undefined"){ga('require','ec');var temp_concat=tc_vars["product_list"];for(var i=0;i<temp_concat.length;i++){var product=temp_concat[i];ga('ec:addProduct',{'id':product[tc_vars["product_id"]],'name':product[tc_vars["product_name"]],'sku':product[tc_vars["product_SKU"]],'category':product[tc_vars["product_cat"]],'price':product[tc_vars["product_unitprice"]],'quantity':product[tc_vars["product_quantity"]],'brand':product[tc_vars["product_brand"]]});}
+    ga('ec:setAction','purchase',{'id':tc_vars["order__id"],'affiliation':tc_vars["affiliate"],'revenue':tc_vars["order_amount"],'shipping':tc_vars["shipping"],'tax':tc_vars["tax"]});}
+function tc_events_11(tc_elt,tc_id_event,tc_array_events){tc_array_events["id"]=tc_id_event;(function(){var l='product_id|product_name|product_unitprice|product_discount|product_url_img|product_cat1_name|product_cat2_name|product_cat3_name|product_qty|basket_id|id'.split('|');for(var k in l){if(!tc_array_events.hasOwnProperty(l[k])){tc_array_events[l[k]]='';}}})();if(tc_array_events["id"]=='18'){tC.launchTag('e18','add_to_cart','-1','4056','11');}}
+tC.onDomReady(function(){tC.container_4056_11.eventlisteners();});
