@@ -14,6 +14,31 @@ export default class TC_Wrapper {
         return this.instance;
     }
 
+    checkNested(obj, ...properties) {
+        return properties.reduce((prev, curr) => prev && prev[curr], obj) !== undefined;
+    }
+
+    waitForGlobals(...properties) {
+        return new Promise((resolve) => {
+            const checkVars = () => {
+                const allVarsExist = properties.every((property) => {
+                    // Split the property string into an array of nested properties
+                    const props = property.split('.');
+                    // Use the checkNested function to safely check for nested properties
+                    return this.checkNested(window, ...props);
+                });
+                if (allVarsExist) {
+                    resolve();
+                } else {
+                    setTimeout(checkVars, 500);
+                }
+            };
+
+            checkVars();
+        });
+    }
+
+
     /**
      * Add a container
      * The script URI correspond to the tag-commander script URL, it can either be a CDN URL or the path of your script
@@ -97,14 +122,10 @@ export default class TC_Wrapper {
      * @param {string} tcKey
      * @param {*} tcVar
      */
-    setTcVar(tcKey, tcVar) {
-        if(!window.tc_vars) {
-            return setTimeout(() => {
-                this.setTcVar(tcKey, tcVar);
-            }, 1000);
-        } else {
-            window.tc_vars[tcKey] = tcVar;
-        }
+    async setTcVar(tcKey, tcVar) {
+        await this.waitForGlobals('tc_vars');
+        this.logger.log('setTcVar', tcKey, tcVar);
+        window.tc_vars[tcKey] = tcVar;
     };
 
     /**
@@ -114,10 +135,12 @@ export default class TC_Wrapper {
      */
     setTcVars(vars) {
         this.logger.log('setTcVars', vars);
-        let listOfVars = Object.keys(vars);
+        const listOfVars = Object.keys(vars);
+        const listOfPromises = [];
         for(let i = 0, j = listOfVars.length; i < j ; i++) {
-            this.setTcVar(listOfVars[i], vars[listOfVars[i]]);
+            listOfPromises.push(this.setTcVar(listOfVars[i], vars[listOfVars[i]]));
         }
+        return Promise.all(listOfPromises);
     };
 
     /**
@@ -142,15 +165,10 @@ export default class TC_Wrapper {
      * Will reload all the containers
      * @param {object} options can contain some options in a form of an object
      */
-    reloadAllContainers(options = {}) {
-        if(!window.tC || !window.tC.container) {
-            return setTimeout(() => {
-                this.reloadAllContainers(options);
-            },1000);
-        } else {
-            this.logger.log('Reload all containers ', options);
-            window.tC.container.reload(options);
-        }
+    async reloadAllContainers(options = {}) {
+        await this.waitForGlobals('tC', 'tC.container');
+        this.logger.log('Reload all containers ', options);
+        window.tC.container.reload(options);
     };
 
     /**
@@ -159,8 +177,9 @@ export default class TC_Wrapper {
      * @param {number} containerId
      * @param {object} options can contain some options in a form of an object
      */
-    reloadContainer(siteId, containerId, options = {}) {
+    async reloadContainer(siteId, containerId, options = {}) {
         this.logger.log('Reload container ids: ' + siteId + ' idc: ' + containerId, typeof options === 'object' ? 'with options: ' + options : '');
+        await this.waitForGlobals( 'tC.container_' + siteId + '_' + containerId);
         window.tC['container_' + siteId + '_' + containerId].reload(options);
     };
 
@@ -169,34 +188,25 @@ export default class TC_Wrapper {
      * @param {string} eventLabel the name of your event
      * @param {HTMLElement} htmlElement the HTMLelement on which the event is attached
      * @param {object} data the data you want to transmit
+     * @param reloadCapture
      */
-    triggerEvent(eventLabel, htmlElement, data,reloadCapture=false) {
-        if (reloadCapture===true){
-          clearTimeout(reloadFunction)
-        }
-        else{
-          this.logger.log("triggerEvent", eventLabel, htmlElement, data);
-          if (window.tC != null) {
-            if (eventLabel in window.tC.event) {
-              window.tC.event[eventLabel](htmlElement, data);
-            }
-            if (!(eventLabel in window.tC.event)) {
-              var reloadFunction = setTimeout(() => {
-                this.triggerEvent(eventLabel, htmlElement, data,reloadCapture=true);
-              }, 1000);
-            }
-          }
-        }
-      };
+    async triggerEvent(eventLabel, htmlElement, data,reloadCapture= false) {
+        // reload capture only exists as a legacy parameter and is no longer used
+        // TODO: remove reloadCapture parameter
+        // BASTIEN: I did shrink this quite a bit to make it more readable, it works slightly different but safer in my opinion
+        await this.waitForGlobals('tC', 'tC.event', 'tC.event.' + eventLabel);
+        this.logger.log("triggerEvent", eventLabel, htmlElement, data);
+        window.tC.event[eventLabel](htmlElement, data);
+    };
 
-      trackPageLoad(options = {}) {
+      async trackPageLoad(options = {}) {
           const wrapper = TC_Wrapper.getInstance();
           if(options.tcVars){
-              wrapper.setTcVars(options.tcVars);
+              await wrapper.setTcVars(options.tcVars);
           }
-          wrapper.reloadAllContainers();
+          await wrapper.reloadAllContainers();
           if(options.event){
-              wrapper.triggerEvent(options.event.label, options.event.context || this, options.variables || {})
+              await wrapper.triggerEvent(options.event.label, options.event.context || this, options.variables || {})
           }
       };
 };
