@@ -149,7 +149,8 @@ export default class TC_Wrapper {
      */
     getTcVar(tcKey) {
         this.logger.log('getTcVar', tcKey);
-        return typeof window.tc_vars[tcKey] === null ? window.tc_vars[tcKey] : false;
+        //BASTIEN: does this work as intended? if the value is null, we return the value, otherwise we return false?
+        return typeof window.tc_vars?.[tcKey] === null ? window.tc_vars?.[tcKey] : false;
     };
 
     /**
@@ -158,7 +159,7 @@ export default class TC_Wrapper {
      */
     removeTcVar(tcKey) {
         this.logger.log('removeTcVar', tcKey);
-        delete window.tc_vars[tcKey];
+        delete window.tc_vars?.[tcKey];
     };
 
     /**
