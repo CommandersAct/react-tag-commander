@@ -89,27 +89,25 @@ function App() {
 }
 ```
 # Methods
-## Add/Remove containers
 
+Many methods are asynchronous. If you want to ensure that a method has been executed before continuing, you can use the `await` keyword. Please check the function definition to see if it is asynchronous.
 
-## Methods
-
-### Container Management
+## Container Management
    ```js
    // Adding a container
-   wrapper.addContainer('my-custom-id', '/url/to/container.js', 'head');
+   await wrapper.addContainer('my-custom-id', '/url/to/container.js', 'head');
 
    // Removing a container
    wrapper.removeContainer('my-custom-id');
    ```
 
-### Variable Management
+## Variable Management
    ```js
    // Set variables
-   wrapper.setTcVars({ env_template : "shop", ... });
+   await wrapper.setTcVars({ env_template : "shop", ... });
 
    // Update a single variable
-   wrapper.setTcVar('env_template', 'super_shop');
+   await wrapper.setTcVar('env_template', 'super_shop');
 
    // Get a variable
    const myVar = wrapper.getTcVar('VarKey');
@@ -118,7 +116,7 @@ function App() {
    wrapper.removeTcVar('VarKey');
    ```
 
-### Events
+## Events
 - Refer to the [base documentation on events](https://community.commandersact.com/tagcommander/user-manual/container-management/events) for an understanding of events in general. 
 - The method "triggerEvent" is the new name of the old method "captureEvent"; an alias has been added to ensure backward compatibility.
 
@@ -128,14 +126,14 @@ function App() {
   // eventLabel: Name of the event as defined in the container
   // htmlElement: Calling context. Usually the HTML element on which the event is triggered, but it can be the component.
   // data: event variables
-  wrapper.triggerEvent(eventLabel, htmlElement, data);
+  await wrapper.triggerEvent(eventLabel, htmlElement, data);
   ```
 
 ## Reloading Containers
 
 1. **Manual Reload**: Update your container after any variable change.
    ```js
-   wrapper.reloadContainer(siteId, containerId, options);
+   await wrapper.reloadContainer(siteId, containerId, options);
    ```
 
 2. **On Route Change**: Utilize the `trackPageLoad` function for updating on route changes.
