@@ -16,7 +16,7 @@ function Panier({ items, addQuantityItem, removeQuantityItem, checkOut, defaultS
     removeQuantityItem(index);
   };
 
-  const onClicCheckOut = (event, data) => {
+  const onClickCheckOut = (event, data) => {
     event.preventDefault();
     wrapper.captureEvent('cart_checkout', event.currentTarget, data);
     checkOut();
@@ -62,7 +62,7 @@ function Panier({ items, addQuantityItem, removeQuantityItem, checkOut, defaultS
           <button
             className="button green-500 buy-button"
             type="submit"
-            onClick={(event) => onClicCheckOut(event, items)}
+            onClick={(event) => onClickCheckOut(event, items)}
           >
             Buy
           </button>
