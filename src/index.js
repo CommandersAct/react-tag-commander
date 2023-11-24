@@ -13,7 +13,7 @@ export default class TC_Wrapper {
     }
 
     checkNested(obj, ...properties) {
-        return properties.reduce((prev, curr) => prev && prev[curr], obj) !== undefined;
+        return properties.reduce((prev, curr) => prev && prev[curr], obj) != null;
     }
 
     waitForGlobals(...properties) {
@@ -147,7 +147,6 @@ export default class TC_Wrapper {
      */
     getTcVar(tcKey) {
         this.logger.log('getTcVar', tcKey);
-        //BASTIEN: does this work as intended? if the value is null, we return the value, otherwise we return false?
         return typeof window.tc_vars?.[tcKey] === null ? window.tc_vars?.[tcKey] : false;
     };
 
@@ -165,7 +164,7 @@ export default class TC_Wrapper {
      * @param {object} options can contain some options in a form of an object
      */
     async reloadAllContainers(options = {}) {
-        await this.waitForGlobals('tC', 'tC.container');
+        await this.waitForGlobals( 'tC.container');
         this.logger.log('Reload all containers ', options);
         window.tC.container.reload(options);
     };
@@ -192,8 +191,7 @@ export default class TC_Wrapper {
     async triggerEvent(eventLabel, htmlElement, data,reloadCapture= false) {
         // reload capture only exists as a legacy parameter and is no longer used
         // TODO: remove reloadCapture parameter
-        // BASTIEN: I did shrink this quite a bit to make it more readable, it works slightly different but safer in my opinion
-        await this.waitForGlobals('tC', 'tC.event', 'tC.event.' + eventLabel);
+        await this.waitForGlobals( 'tC.event.' + eventLabel);
         this.logger.log("triggerEvent", eventLabel, htmlElement, data);
         window.tC.event[eventLabel](htmlElement, data);
     };
