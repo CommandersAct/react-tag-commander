@@ -147,7 +147,7 @@ export default class TC_Wrapper {
      */
     getTcVar(tcKey) {
         this.logger.log('getTcVar', tcKey);
-        return typeof window.tc_vars?.[tcKey] === null ? window.tc_vars?.[tcKey] : false;
+        return window.tc_vars?.[tcKey] ?? false;
     };
 
     /**
