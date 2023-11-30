@@ -1,18 +1,41 @@
 export default class TC_Wrapper {
 
+    static #instance = new TC_Wrapper();
+
     constructor() {
         this.setDebug(false);
         this.tcContainers = [];
-        this.instance = null;
         this.captureEvent = this.triggerEvent
     };
 
     static getInstance() {
-        if(!TC_Wrapper.instance) {
-            TC_Wrapper.instance = new TC_Wrapper();
-        }
-        return this.instance;
+        return TC_Wrapper.#instance;
     }
+
+    checkNested(obj, ...properties) {
+        return properties.reduce((prev, curr) => prev && prev[curr], obj) != null;
+    }
+
+    waitForGlobals(...properties) {
+        return new Promise((resolve) => {
+            const checkVars = () => {
+                const allVarsExist = properties.every((property) => {
+                    // Split the property string into an array of nested properties
+                    const props = property.split('.');
+                    // Use the checkNested function to safely check for nested properties
+                    return this.checkNested(window, ...props);
+                });
+                if(allVarsExist) {
+                    resolve();
+                } else {
+                    setTimeout(checkVars, 500);
+                }
+            };
+
+            checkVars();
+        });
+    }
+
 
     /**
      * Add a container
@@ -40,7 +63,7 @@ export default class TC_Wrapper {
             let updatedNode = node;
 
             if(!node || typeof node !== 'string'
-                ||  window.document.getElementsByTagName(node.toLowerCase())[0] == null) {
+                || window.document.getElementsByTagName(node.toLowerCase())[0] == null) {
 
                 this.logger.warn('The script will be placed in the head by default.');
                 updatedNode = 'head';
@@ -65,14 +88,14 @@ export default class TC_Wrapper {
         let containers = this.tcContainers.slice(0);
 
         for(let i = 0; i < containers.length; i++) {
-          if(containers[i].id === id) {
-            let node = containers[i].node.toLowerCase();
-            let parent = document.getElementsByTagName(node)[0];
-            if (parent && container && container.parentNode === parent) {
-                parent.removeChild(container);
+            if(containers[i].id === id) {
+                let node = containers[i].node.toLowerCase();
+                let parent = document.getElementsByTagName(node)[0];
+                if(parent && container && container.parentNode === parent) {
+                    parent.removeChild(container);
+                }
+                this.tcContainers.splice(i, 1);
             }
-            this.tcContainers.splice(i, 1);
-          }
         }
     };
 
@@ -82,13 +105,13 @@ export default class TC_Wrapper {
      */
     setDebug(boolean) {
         if(boolean) {
-          this.logger = window.console;
+            this.logger = window.console;
         } else {
             this.logger = {
-              log: function() {},
-              warn: function() {},
-              error: function() {}
-          };
+                log: function() {},
+                warn: function() {},
+                error: function() {}
+            };
         }
     };
 
@@ -97,14 +120,10 @@ export default class TC_Wrapper {
      * @param {string} tcKey
      * @param {*} tcVar
      */
-    setTcVar(tcKey, tcVar) {
-        if(!window.tc_vars) {
-            return setTimeout(() => {
-                this.setTcVar(tcKey, tcVar);
-            }, 1000);
-        } else {
-            window.tc_vars[tcKey] = tcVar;
-        }
+    async setTcVar(tcKey, tcVar) {
+        await this.waitForGlobals('tc_vars');
+        this.logger.log('setTcVar', tcKey, tcVar);
+        window.tc_vars[tcKey] = tcVar;
     };
 
     /**
@@ -114,10 +133,12 @@ export default class TC_Wrapper {
      */
     setTcVars(vars) {
         this.logger.log('setTcVars', vars);
-        let listOfVars = Object.keys(vars);
-        for(let i = 0, j = listOfVars.length; i < j ; i++) {
-            this.setTcVar(listOfVars[i], vars[listOfVars[i]]);
+        const listOfVars = Object.keys(vars);
+        const listOfPromises = [];
+        for(let i = 0, j = listOfVars.length; i < j; i++) {
+            listOfPromises.push(this.setTcVar(listOfVars[i], vars[listOfVars[i]]));
         }
+        return Promise.all(listOfPromises);
     };
 
     /**
@@ -126,7 +147,7 @@ export default class TC_Wrapper {
      */
     getTcVar(tcKey) {
         this.logger.log('getTcVar', tcKey);
-        return typeof window.tc_vars[tcKey] === null ? window.tc_vars[tcKey] : false;
+        return window.tc_vars?.[tcKey] ?? false;
     };
 
     /**
@@ -135,22 +156,17 @@ export default class TC_Wrapper {
      */
     removeTcVar(tcKey) {
         this.logger.log('removeTcVar', tcKey);
-        delete window.tc_vars[tcKey];
+        delete window.tc_vars?.[tcKey];
     };
 
     /**
      * Will reload all the containers
      * @param {object} options can contain some options in a form of an object
      */
-    reloadAllContainers(options = {}) {
-        if(!window.tC || !window.tC.container) {
-            return setTimeout(() => {
-                this.reloadAllContainers(options);
-            },1000);
-        } else {
-            this.logger.log('Reload all containers ', options);
-            window.tC.container.reload(options);
-        }
+    async reloadAllContainers(options = {}) {
+        await this.waitForGlobals('tC.container');
+        this.logger.log('Reload all containers ', options);
+        window.tC.container.reload(options);
     };
 
     /**
@@ -159,8 +175,9 @@ export default class TC_Wrapper {
      * @param {number} containerId
      * @param {object} options can contain some options in a form of an object
      */
-    reloadContainer(siteId, containerId, options = {}) {
+    async reloadContainer(siteId, containerId, options = {}) {
         this.logger.log('Reload container ids: ' + siteId + ' idc: ' + containerId, typeof options === 'object' ? 'with options: ' + options : '');
+        await this.waitForGlobals('tC.container_' + siteId + '_' + containerId);
         window.tC['container_' + siteId + '_' + containerId].reload(options);
     };
 
@@ -169,34 +186,24 @@ export default class TC_Wrapper {
      * @param {string} eventLabel the name of your event
      * @param {HTMLElement} htmlElement the HTMLelement on which the event is attached
      * @param {object} data the data you want to transmit
+     * @param reloadCapture
      */
-    triggerEvent(eventLabel, htmlElement, data,reloadCapture=false) {
-        if (reloadCapture===true){
-          clearTimeout(reloadFunction)
-        }
-        else{
-          this.logger.log("triggerEvent", eventLabel, htmlElement, data);
-          if (window.tC != null) {
-            if (eventLabel in window.tC.event) {
-              window.tC.event[eventLabel](htmlElement, data);
-            }
-            if (!(eventLabel in window.tC.event)) {
-              var reloadFunction = setTimeout(() => {
-                this.triggerEvent(eventLabel, htmlElement, data,reloadCapture=true);
-              }, 1000);
-            }
-          }
-        }
-      };
+    async triggerEvent(eventLabel, htmlElement, data, reloadCapture = false) {
+        // reload capture only exists as a legacy parameter and is no longer used
+        // TODO: remove reloadCapture parameter
+        await this.waitForGlobals('tC.event.' + eventLabel);
+        this.logger.log("triggerEvent", eventLabel, htmlElement, data);
+        window.tC.event[eventLabel](htmlElement, data);
+    };
 
-      trackPageLoad(options = {}) {
-          const wrapper = TC_Wrapper.getInstance();
-          if(options.tcVars){
-              wrapper.setTcVars(options.tcVars);
-          }
-          wrapper.reloadAllContainers();
-          if(options.event){
-              wrapper.triggerEvent(options.event.label, options.event.context || this, options.variables || {})
-          }
-      };
+    async trackPageLoad(options = {}) {
+        const wrapper = TC_Wrapper.getInstance();
+        if(options.tcVars) {
+            await wrapper.setTcVars(options.tcVars);
+        }
+        await wrapper.reloadAllContainers();
+        if(options.event) {
+            await wrapper.triggerEvent(options.event.label, options.event.context || this, options.variables || {})
+        }
+    };
 };
