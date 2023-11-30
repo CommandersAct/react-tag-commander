@@ -1,7 +1,5 @@
 export default class TC_Wrapper {
 
-    static #instance = new TC_Wrapper();
-
     constructor() {
         this.setDebug(false);
         this.tcContainers = [];
@@ -9,7 +7,10 @@ export default class TC_Wrapper {
     };
 
     static getInstance() {
-        return TC_Wrapper.#instance;
+        if(!TC_Wrapper.instance) {
+            TC_Wrapper.instance = new TC_Wrapper();
+        }
+        return TC_Wrapper.instance;
     }
 
     checkNested(obj, ...properties) {
