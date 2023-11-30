@@ -64,7 +64,6 @@ export default class TC_Wrapper {
 
             if(!node || typeof node !== 'string'
                 || window.document.getElementsByTagName(node.toLowerCase())[0] == null) {
-
                 this.logger.warn('The script will be placed in the head by default.');
                 updatedNode = 'head';
             }
@@ -147,7 +146,7 @@ export default class TC_Wrapper {
      */
     getTcVar(tcKey) {
         this.logger.log('getTcVar', tcKey);
-        return window.tc_vars?.[tcKey] ?? false;
+        return (window.tc_vars && window.tc_vars[tcKey] != null) ? window.tc_vars[tcKey] : false;
     };
 
     /**
@@ -156,7 +155,9 @@ export default class TC_Wrapper {
      */
     removeTcVar(tcKey) {
         this.logger.log('removeTcVar', tcKey);
-        delete window.tc_vars?.[tcKey];
+        if(window.tc_vars && window.tc_vars[tcKey] != null) {
+            delete window.tc_vars[tcKey];
+        }
     };
 
     /**
