@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "main": "./src/index.js",
   "repository": "https://github.com/TagCommander/react-tag-commander.git",
-  "author": "Lenoir jérémie",
+  "author": "CommandersAct",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.22.9",
