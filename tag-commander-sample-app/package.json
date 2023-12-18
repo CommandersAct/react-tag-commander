@@ -1,9 +1,10 @@
 {
   "name": "tag-commander-sample-app",
-  "private": true,
   "version": "1.0.0",
-  "repository": "https://github.com/commandersact/react-tag-commander.git",
+  "repository": "https://github.com/commandersact/react-tag-commander",
   "author": "CommandersAct",
+  "license": "MIT",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -2,7 +2,7 @@
   "name": "react-tag-commander",
   "version": "2.2.0",
   "main": "./src/index.js",
-  "repository": "https://github.com/TagCommander/react-tag-commander.git",
+  "repository": "https://github.com/commandersact/react-tag-commander",
   "author": "CommandersAct",
   "license": "MIT",
   "devDependencies": {
