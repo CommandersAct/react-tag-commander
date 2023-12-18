@@ -5,7 +5,7 @@ Integrate Tag Commander with your React applications seamlessly using the `react
 - [Official Tag Commander website](https://www.commandersact.com/fr/produits/tagcommander/)
 - **Note**: Familiarize yourself with [Tag Commander's primary documentation](https://community.commandersact.com/tagcommander/) before proceeding.
 
-## Table of Contents
+# Table of Contents
 - [Features](#features)
 - [Installation and Quick Start](#installation-and-quick-start)
 - [Methods](#methods)
@@ -17,15 +17,15 @@ Integrate Tag Commander with your React applications seamlessly using the `react
 - [License](#license)
 - [Development](#development)
 
-## Features
+# Features <a name="features">
 
 - Automatic page tracking
 - Event triggering
 - Supports multiple containers
 
-## Installation and Quick Start
+# Installation and Quick Start <a name="installation-and-quick-start"/>
 
-### Installation
+## Installation
 
 1. **Using NPM**:  
    ```sh
@@ -37,7 +37,7 @@ Integrate Tag Commander with your React applications seamlessly using the `react
    <script src="react-tag-commander/dist/index.es5.min.js"></script>
    ```
 
-### Import
+## Import
 
 1. **For ES6**:
    ```javascript
@@ -54,7 +54,7 @@ Integrate Tag Commander with your React applications seamlessly using the `react
    const TC_Wrapper = window.TC_Wrapper;
    ```
 
-### Setup
+## Setup
 
 1. **Initialize your Data Layer**: Set up your data layer early in your web application, preferably in a `<script>` block in the head.
    ```javascript
@@ -88,11 +88,11 @@ function App() {
   return ( tcReady ? <div>Containers loaded</div> : <div>Now loading</div> );
 }
 ```
-# Methods
+# Methods <a name="methods"/>
 
 Many methods are asynchronous. If you want to ensure that a method has been executed before continuing, you can use the `await` keyword. Please check the function definition to see if it is asynchronous.
 
-## Container Management
+## Container Management <a name="container-management"/>
    ```js
    // Adding a container
    await wrapper.addContainer('my-custom-id', '/url/to/container.js', 'head');
@@ -101,7 +101,7 @@ Many methods are asynchronous. If you want to ensure that a method has been exec
    wrapper.removeContainer('my-custom-id');
    ```
 
-## Variable Management
+## Variable Management <a name="variable-management"/>
    ```js
    // Set variables
    await wrapper.setTcVars({ env_template : "shop", ... });
@@ -116,7 +116,8 @@ Many methods are asynchronous. If you want to ensure that a method has been exec
    wrapper.removeTcVar('VarKey');
    ```
 
-## Events
+## Events <a name="events"/>
+
 - Refer to the [base documentation on events](https://community.commandersact.com/tagcommander/user-manual/container-management/events) for an understanding of events in general. 
 - The method "triggerEvent" is the new name of the old method "captureEvent"; an alias has been added to ensure backward compatibility.
 
@@ -129,7 +130,7 @@ Many methods are asynchronous. If you want to ensure that a method has been exec
   await wrapper.triggerEvent(eventLabel, htmlElement, data);
   ```
 
-## Reloading Containers
+# Reloading Containers <a name="reloading-containers"/>
 
 1. **Manual Reload**: Update your container after any variable change.
    ```js
@@ -137,22 +138,21 @@ Many methods are asynchronous. If you want to ensure that a method has been exec
    ```
 
 2. **On Route Change**: Utilize the `trackPageLoad` function for updating on route changes.
+    ```js
+    function SampleView() {
+      
+      /* States and other effects */
+      
+      useEffect(() => {
+        const wrapper = TC_Wrapper.getInstance();
+        wrapper.trackPageLoad({ tcVars: { page: 'home' }})
+      }, []);
+    
+      /* Render & other custom code */
+    }
+    ```
 
-```js
-function SampleView() {
-  
-  /* States and other effects */
-  
-  useEffect(() => {
-    const wrapper = TC_Wrapper.getInstance();
-    wrapper.trackPageLoad({ tcVars: { page: 'home' }})
-  }, []);
-
-  /* Render & other custom code */
-}
-```
-
-## Sample App
+# Sample App <a name="sample-app"/>
 
 To help you with your implementation we provided a sample application. To run it clone the repo then run:
 ```bash
@@ -161,10 +161,10 @@ yarn start
 ```
 Then, visit [http://localhost:3000](http://localhost:3000).
 
-## License
+# License <a name="license"/>
 This module uses the [MIT License](http://revolunet.mit-license.org). Contributions are welcome.
 
-## Development
+# Development <a name="development"/>
 
 After forking, set up your environment:
 

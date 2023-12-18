@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0
 }
@@ -20,6 +20,7 @@ nav.navbar {
   line-height: 80px;
   padding: 0 0 0 30px;
   width: 100%;
+  position: fixed;
   z-index: 10
 }
 
@@ -64,42 +65,22 @@ main {
   background-color: #fff;
   box-shadow: 0 0 10px 0 #555;
   margin: 0 auto;
-  padding: 20px;
+  padding: 100px 20px 20px 20px;
   width: 1024px;
   z-index: 0
 }
 
 nav + main {
-  padding: 100px 20px 20px
+  padding: 100px 20px 20px 20px;
 }
 
 pre {
-  background-color: #282828;
+  background-color: #1c1b1b;
   border-left: 20px solid #ed2186;
   box-shadow: 0 0 10px 0 #555;
   color: #fff;
   overflow-x: auto;
-  padding: 20px
-}
-
-pre code.comment {
-  color: #009688
-}
-
-pre code.keyword {
-  color: #2196f3
-}
-
-pre code.varible {
-  color: #b3e5fc
-}
-
-pre code.string {
-  color: #ff9800
-}
-
-pre code.method {
-  color: #ffc107
+  padding: 10px
 }
 
 button.button {
