@@ -17,13 +17,13 @@ Integrate Tag Commander with your React applications seamlessly using the `react
 - [License](#license)
 - [Development](#development)
 
-# Features <a name="features">
+# Features <a name="features"></a>
 
 - Automatic page tracking
 - Event triggering
 - Supports multiple containers
 
-# Installation and Quick Start <a name="installation-and-quick-start"/>
+# Installation and Quick Start <a name="installation-and-quick-start"></a>
 
 ## Installation
 
@@ -88,11 +88,11 @@ function App() {
   return ( tcReady ? <div>Containers loaded</div> : <div>Now loading</div> );
 }
 ```
-# Methods <a name="methods"/>
+# Methods <a name="methods"></a>
 
 Many methods are asynchronous. If you want to ensure that a method has been executed before continuing, you can use the `await` keyword. Please check the function definition to see if it is asynchronous.
 
-## Container Management <a name="container-management"/>
+## Container Management <a name="container-management"></a>
    ```js
    // Adding a container
    await wrapper.addContainer('my-custom-id', '/url/to/container.js', 'head');
@@ -101,7 +101,7 @@ Many methods are asynchronous. If you want to ensure that a method has been exec
    wrapper.removeContainer('my-custom-id');
    ```
 
-## Variable Management <a name="variable-management"/>
+## Variable Management <a name="variable-management"></a>
    ```js
    // Set variables
    await wrapper.setTcVars({ env_template : "shop", ... });
@@ -116,7 +116,7 @@ Many methods are asynchronous. If you want to ensure that a method has been exec
    wrapper.removeTcVar('VarKey');
    ```
 
-## Events <a name="events"/>
+## Events <a name="events"></a>
 
 - Refer to the [base documentation on events](https://community.commandersact.com/tagcommander/user-manual/container-management/events) for an understanding of events in general. 
 - The method "triggerEvent" is the new name of the old method "captureEvent"; an alias has been added to ensure backward compatibility.
@@ -130,7 +130,7 @@ Many methods are asynchronous. If you want to ensure that a method has been exec
   await wrapper.triggerEvent(eventLabel, htmlElement, data);
   ```
 
-# Reloading Containers <a name="reloading-containers"/>
+# Reloading Containers <a name="reloading-containers"></a>
 
 1. **Manual Reload**: Update your container after any variable change.
    ```js
@@ -152,7 +152,7 @@ Many methods are asynchronous. If you want to ensure that a method has been exec
     }
     ```
 
-# Sample App <a name="sample-app"/>
+# Sample App <a name="sample-app"></a>
 
 To help you with your implementation we provided a sample application. To run it clone the repo then run:
 ```bash
@@ -161,10 +161,10 @@ yarn start
 ```
 Then, visit [http://localhost:3000](http://localhost:3000).
 
-# License <a name="license"/>
+# License <a name="license"></a>
 This module uses the [MIT License](http://revolunet.mit-license.org). Contributions are welcome.
 
-# Development <a name="development"/>
+# Development <a name="development"></a>
 
 After forking, set up your environment:
 
