@@ -64,7 +64,7 @@ export default class TC_Wrapper {
             let updatedNode = node;
 
             if(!node || typeof node !== 'string'
-                || window.document.getElementsByTagName(node.toLowerCase())[0] == null) {
+                || document.getElementsByTagName(node.toLowerCase())[0] == null) {
                 this.logger.warn('The script will be placed in the head by default.');
                 updatedNode = 'head';
             }
@@ -75,7 +75,7 @@ export default class TC_Wrapper {
                 node: updatedNode
             });
 
-            window.document.getElementsByTagName(updatedNode.toLowerCase())[0].appendChild(tagContainer);
+            document.getElementsByTagName(updatedNode.toLowerCase())[0].appendChild(tagContainer);
         })
     };
 
@@ -105,7 +105,7 @@ export default class TC_Wrapper {
      */
     setDebug(boolean) {
         if(boolean) {
-            this.logger = window.console;
+            this.logger = console;
         } else {
             this.logger = {
                 log: function() {},
