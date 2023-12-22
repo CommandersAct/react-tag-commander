@@ -1,17 +1,25 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import TC_Wrapper from './index';
 
+const wrapperName = 'react';
+
+let wrapper;
+
 beforeEach(() => {
+  wrapper = new TC_Wrapper();
   // Mock globals
   global.window = {
     tC: {},
     tc_vars: {}
   };
   global.console = {
-    log: vi.fn()
+    log: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn()
   };
   global.document = {
     createElement: vi.fn(),
+    getElementsByTagName: vi.fn()
   };
 
   // Enable fake timers
@@ -27,8 +35,6 @@ describe('TC_Wrapper', () => {
   it(
     'waitForGlobals() should resolve as soon as global properties are available',
     async () => {
-      const wrapper = new TC_Wrapper();
-
       // Start waiting for 'someProperty'
       const waitForGlobalsPromise = wrapper.waitForGlobals('someProperty');
 
@@ -53,8 +59,68 @@ describe('TC_Wrapper', () => {
     }
   );
 
+  it('addContainer() should throw error for invalid id', async () => {
+    const invalidId = null; // or any invalid value
+    const url = 'http://example.com/script.js';
+    const node = 'body';
+
+    expect(() => wrapper.addContainer(invalidId, url, node)).toThrowError(
+      `[${wrapperName}-tag-commander]You should define the container id.`
+    );
+  });
+
+  it('addContainer() should throw error for non-string id', async () => {
+    const nonStringId = 123; // Non-string value
+    const url = 'http://example.com/script.js';
+    const node = 'body';
+
+    expect(() => wrapper.addContainer(nonStringId, url, node)).toThrowError(
+      `[${wrapperName}-tag-commander]The container id should be a string.`
+    );
+  });
+
+  it('addContainer() should throw error for invalid URL', async () => {
+    const id = 'someId';
+    const invalidUrl = null; // or any invalid value
+    const node = 'body';
+
+    expect(() => wrapper.addContainer(id, invalidUrl, node)).toThrowError(
+      `[${wrapperName}-tag-commander]Invalid container URL.`
+    );
+  });
+
+  it('addContainer() should default to the head node when an invalid node is provided', async () => {
+    wrapper.setDebug(true);
+
+    // Input variables
+    const id = 'someId';
+    const url = 'http://example.com/script.js';
+    const invalidNode = 'invalidNode';
+
+    // Mocks
+    const scriptElementMock = {
+      setAttribute: vi.fn(),
+      onload: vi.fn()
+    };
+    global.document.createElement.mockReturnValue(scriptElementMock);
+    global.document.getElementsByTagName.mockReturnValueOnce([]).mockReturnValueOnce([{ appendChild: vi.fn() }]); // Mock for invalid node and then for head
+
+    // Call function
+    const addContainerPromise = wrapper.addContainer(id, url, invalidNode);
+
+    // Simulate script loading
+    scriptElementMock.onload();
+
+    await addContainerPromise;
+
+    // Assertions
+    expect(global.document.getElementsByTagName).toHaveBeenNthCalledWith(1, invalidNode.toLowerCase());
+    expect(global.document.getElementsByTagName).toHaveBeenNthCalledWith(2, 'head');
+    expect(global.console.warn).toHaveBeenCalledWith('The script will be placed in the head by default.');
+    expect(wrapper.tcContainers[0].node).toEqual('head');
+  });
+
   it('addContainer() should add a container to the DOM', async () => {
-    const wrapper = new TC_Wrapper();
     wrapper.setDebug(true);
 
     // Input variables
@@ -76,6 +142,8 @@ describe('TC_Wrapper', () => {
     // Simulate script loading
     scriptElementMock.onload();
 
+    await addContainerPromise;
+
     // Assertions
     expect(global.document.createElement).toHaveBeenCalledWith('script');
     expect(global.document.createElement).toHaveBeenCalledTimes(1);
@@ -89,22 +157,119 @@ describe('TC_Wrapper', () => {
     expect(global.document.getElementsByTagName).toHaveBeenCalledTimes(3);
 
     expect(wrapper.tcContainers).toContainEqual({ id, uri: url, node });
-
-    await expect(addContainerPromise).resolves.toEqual(undefined);
-
-    expect.assertions(10);
   });
 
-  it('removeContainer()', async () => {
-    // TBD
+  it('removeContainer() should remove a container if it exists', () => {
+    wrapper.tcContainers = [{ id: 'existing-id', uri: 'some-url', node: 'body' }];
+
+    // Mocks
+    const parent = {
+      removeChild: vi.fn()
+    };
+    const containerElement = {
+      parentNode: parent
+    };
+    global.document = {
+      getElementById: vi.fn().mockImplementation((id) => {
+        if (id === 'existing-id') {
+          return containerElement;
+        }
+        return null;
+      }),
+      getElementsByTagName: vi.fn().mockReturnValue([parent])
+    };
+
+    // Call function
+    wrapper.removeContainer('existing-id');
+
+    // Assertions
+    expect(document.getElementById).toHaveBeenCalledWith('existing-id');
+    expect(containerElement.parentNode.removeChild).toHaveBeenCalledWith(containerElement);
+    expect(wrapper.tcContainers.length).toBe(0);
   });
 
-  it('setDebug()', async () => {
-    // TBD
+  it('removeContainer() should not remove a container if it does not exist', () => {
+    wrapper.tcContainers = [{ id: 'existing-id', uri: 'some-url', node: 'body' }];
+
+    // Mocks
+    const parent = {
+      removeChild: vi.fn()
+    };
+    const containerElement = {
+      parentNode: parent
+    };
+    global.document = {
+      getElementById: vi.fn().mockImplementation((id) => {
+        if (id === 'existing-id') {
+          return containerElement;
+        }
+        return null;
+      }),
+      getElementsByTagName: vi.fn().mockReturnValue([parent])
+    };
+
+    // Call function
+    wrapper.removeContainer('non-existing-id');
+
+    // Assertions
+    expect(document.getElementById).toHaveBeenCalledWith('non-existing-id');
+    expect(containerElement.parentNode.removeChild).not.toHaveBeenCalled();
+    expect(wrapper.tcContainers.length).toBe(1);
+  });
+
+  it('removeContainer() should handle the case where the container is not in the DOM', () => {
+    wrapper.tcContainers = [{ id: 'existing-id', uri: 'some-url', node: 'body' }];
+
+    // Mocks
+    const parent = {
+      removeChild: vi.fn()
+    };
+    const containerElement = {
+      parentNode: parent
+    };
+    global.document = {
+      getElementById: vi.fn().mockReturnValueOnce(null),
+      getElementsByTagName: vi.fn().mockReturnValue([parent])
+    };
+
+    // Call function
+    wrapper.removeContainer('existing-id');
+
+    // Assertions
+    expect(document.getElementById).toHaveBeenCalledWith('existing-id');
+    expect(containerElement.parentNode.removeChild).not.toHaveBeenCalled();
+    expect(wrapper.tcContainers.length).toBe(0);
+  });
+
+  it('setDebug() should enable logging when set to true', () => {
+    wrapper.setDebug(true);
+
+    // Trigger some logging
+    wrapper.logger.log('log message');
+    wrapper.logger.warn('warn message');
+    wrapper.logger.error('error message');
+
+    // Assertions to check if logging methods are called
+    expect(global.console.log).toHaveBeenCalledWith('log message');
+    expect(global.console.warn).toHaveBeenCalledWith('warn message');
+    expect(global.console.error).toHaveBeenCalledWith('error message');
+  });
+
+  it('setDebug() should disable logging when set to false', () => {
+    wrapper.setDebug(false);
+
+    // Trigger some logging
+    wrapper.logger.log('log message');
+    wrapper.logger.warn('warn message');
+    wrapper.logger.error('error message');
+
+    // Assertions to check that logging methods are not called
+    expect(global.console.log).not.toHaveBeenCalled();
+    expect(global.console.warn).not.toHaveBeenCalled();
+    expect(global.console.error).not.toHaveBeenCalled();
   });
 
   it('setTcVar() should set a variable', async () => {
-    const wrapper = new TC_Wrapper();
     wrapper.setDebug(true);
 
     // Input variables
@@ -130,7 +295,6 @@ describe('TC_Wrapper', () => {
   });
 
   it('setTcVars() should set multiple variables at once', async () => {
-    const wrapper = new TC_Wrapper();
     wrapper.setDebug(true);
 
     // Input variables
@@ -150,11 +314,10 @@ describe('TC_Wrapper', () => {
     expect(wrapper.setTcVar).toHaveBeenCalledWith('anotherKey', vars['anotherKey']);
     expect(wrapper.setTcVar).toHaveBeenCalledTimes(2);
 
-    expect(setTcVarsPromise).resolves.toEqual(Array(undefined, undefined));
+    await expect(setTcVarsPromise).resolves.toEqual(Array(undefined, undefined));
   });
 
   it('getTcVar() should return a value if it is available and false otherwise', () => {
-    const wrapper = new TC_Wrapper();
     wrapper.setDebug(true);
 
     // Input variables
@@ -177,7 +340,6 @@ describe('TC_Wrapper', () => {
   });
 
   it('removeTcVar() should remove a variable', () => {
-    const wrapper = new TC_Wrapper();
     wrapper.setDebug(true);
 
     // Input variable
@@ -197,7 +359,6 @@ describe('TC_Wrapper', () => {
   });
 
   it('reloadAllContainers() should reload all containers', async () => {
-    const wrapper = new TC_Wrapper();
     wrapper.setDebug(true);
 
     // Input variable
@@ -228,7 +389,6 @@ describe('TC_Wrapper', () => {
   });
 
   it('reloadContainer() should reload the specified container', async () => {
-    const wrapper = new TC_Wrapper();
     wrapper.setDebug(true);
 
     // Input variables
@@ -262,7 +422,6 @@ describe('TC_Wrapper', () => {
   });
 
   it('triggerEvent() should trigger an event correctly', async () => {
-    const wrapper = new TC_Wrapper();
     wrapper.setDebug(true);
 
     // Input variables
@@ -294,7 +453,66 @@ describe('TC_Wrapper', () => {
     expect.assertions(6);
   });
 
-  it('trackPageLoad()', async () => {
-    // TBD
+  it('trackPageLoad() should handle tcVars in options', async () => {
+    // Input variables
+    const options = {
+      tcVars: { key1: 'value1', key2: 'value2' }
+    };
+
+    // Mocks
+    wrapper.setTcVars = vi.fn().mockResolvedValue();
+    wrapper.reloadAllContainers = vi.fn().mockResolvedValue();
+    wrapper.triggerEvent = vi.fn().mockResolvedValue();
+
+    // Call function
+    await wrapper.trackPageLoad(options);
+
+    // Assertions
+    expect(wrapper.setTcVars).toHaveBeenCalledWith(options.tcVars);
+    expect(wrapper.reloadAllContainers).toHaveBeenCalled();
+    expect(wrapper.triggerEvent).not.toHaveBeenCalled();
+  });
+
+  it('trackPageLoad() should handle event in options', async () => {
+    // Input variables
+    const options = {
+      event: { label: 'testEvent', context: {} },
+      variables: { key: 'value' }
+    };
+
+    // Mocks
+    wrapper.setTcVars = vi.fn().mockResolvedValue();
+    wrapper.reloadAllContainers = vi.fn().mockResolvedValue();
+    wrapper.triggerEvent = vi.fn().mockResolvedValue();
+
+    // Call function
+    await wrapper.trackPageLoad(options);
+
+    // Assertions
+    expect(wrapper.triggerEvent).toHaveBeenCalledWith(options.event.label, options.event.context, options.variables);
+    expect(wrapper.reloadAllContainers).toHaveBeenCalled();
+    expect(wrapper.setTcVars).not.toHaveBeenCalled();
+  });
+
+  it('trackPageLoad() should handle both tcVars and event in options', async () => {
+    // Input variables
+    const options = {
+      tcVars: { key1: 'value1', key2: 'value2' },
+      event: { label: 'testEvent', context: {} },
+      variables: { key: 'value' }
+    };
+
+    // Mocks
+    wrapper.setTcVars = vi.fn().mockResolvedValue();
+    wrapper.reloadAllContainers = vi.fn().mockResolvedValue();
+    wrapper.triggerEvent = vi.fn().mockResolvedValue();
+
+    // Call function
+    await wrapper.trackPageLoad(options);
+
+    // Assertions
+    expect(wrapper.setTcVars).toHaveBeenCalledWith(options.tcVars);
+    expect(wrapper.reloadAllContainers).toHaveBeenCalled();
+    expect(wrapper.triggerEvent).toHaveBeenCalledWith(options.event.label, options.event.context, options.variables);
   });
 });
