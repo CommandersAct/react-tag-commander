@@ -1,3 +1,4 @@
+const wrapperName = 'react'
 export default class TC_Wrapper {
 
     constructor() {
@@ -47,13 +48,13 @@ export default class TC_Wrapper {
      */
     addContainer(id, url, node) {
         if(!id) {
-            throw new Error('[react-tag-commander]You should define the container id.')
+            throw new Error(`[${wrapperName}-tag-commander]You should define the container id.`);
         }
         if(typeof id !== 'string') {
-            throw new Error('[react-tag-commander]The container id should be a string.')
+            throw new Error(`[${wrapperName}-tag-commander]The container id should be a string.`);
         }
         if(!url || typeof url !== 'string') {
-            throw new Error('[react-tag-commander]Invalid container URL.')
+            throw new Error(`[${wrapperName}-tag-commander]Invalid container URL.`);
         }
         return new Promise(resolve => {
             let tagContainer = document.createElement('script');
@@ -199,13 +200,12 @@ export default class TC_Wrapper {
     };
 
     async trackPageLoad(options = {}) {
-        const wrapper = TC_Wrapper.getInstance();
         if(options.tcVars) {
-            await wrapper.setTcVars(options.tcVars);
+            await this.setTcVars(options.tcVars);
         }
-        await wrapper.reloadAllContainers();
+        await this.reloadAllContainers();
         if(options.event) {
-            await wrapper.triggerEvent(options.event.label, options.event.context || this, options.variables || {})
+            await this.triggerEvent(options.event.label, options.event.context || this, options.variables || {})
         }
     };
 };
