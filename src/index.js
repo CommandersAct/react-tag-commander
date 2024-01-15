@@ -1,3 +1,4 @@
+const wrapperName = 'react'
 export default class TC_Wrapper {
 
     constructor() {
@@ -47,13 +48,13 @@ export default class TC_Wrapper {
      */
     addContainer(id, url, node) {
         if(!id) {
-            throw new Error('[react-tag-commander]You should define the container id.')
+            throw new Error(`[${wrapperName}-tag-commander]You should define the container id.`);
         }
         if(typeof id !== 'string') {
-            throw new Error('[react-tag-commander]The container id should be a string.')
+            throw new Error(`[${wrapperName}-tag-commander]The container id should be a string.`);
         }
         if(!url || typeof url !== 'string') {
-            throw new Error('[react-tag-commander]Invalid container URL.')
+            throw new Error(`[${wrapperName}-tag-commander]Invalid container URL.`);
         }
         return new Promise(resolve => {
             let tagContainer = document.createElement('script');
@@ -64,7 +65,7 @@ export default class TC_Wrapper {
             let updatedNode = node;
 
             if(!node || typeof node !== 'string'
-                || window.document.getElementsByTagName(node.toLowerCase())[0] == null) {
+                || document.getElementsByTagName(node.toLowerCase())[0] == null) {
                 this.logger.warn('The script will be placed in the head by default.');
                 updatedNode = 'head';
             }
@@ -75,7 +76,7 @@ export default class TC_Wrapper {
                 node: updatedNode
             });
 
-            window.document.getElementsByTagName(updatedNode.toLowerCase())[0].appendChild(tagContainer);
+            document.getElementsByTagName(updatedNode.toLowerCase())[0].appendChild(tagContainer);
         })
     };
 
@@ -105,7 +106,7 @@ export default class TC_Wrapper {
      */
     setDebug(boolean) {
         if(boolean) {
-            this.logger = window.console;
+            this.logger = console;
         } else {
             this.logger = {
                 log: function() {},
@@ -199,13 +200,12 @@ export default class TC_Wrapper {
     };
 
     async trackPageLoad(options = {}) {
-        const wrapper = TC_Wrapper.getInstance();
         if(options.tcVars) {
-            await wrapper.setTcVars(options.tcVars);
+            await this.setTcVars(options.tcVars);
         }
-        await wrapper.reloadAllContainers();
+        await this.reloadAllContainers();
         if(options.event) {
-            await wrapper.triggerEvent(options.event.label, options.event.context || this, options.variables || {})
+            await this.triggerEvent(options.event.label, options.event.context || this, options.variables || {})
         }
     };
 };
