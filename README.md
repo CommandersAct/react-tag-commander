@@ -1,31 +1,32 @@
-# React-Tag-Commander Documentation
+# react-tag-commander
 
 Integrate CommandersAct's tag container with your React applications seamlessly using the `react-tag-commander` wrapper.
 
 - [Official CommandersAct's tag container website](https://community.commandersact.com/tagcommander/)
 - **Note**: Familiarize yourself with [CommandersAct's tag container's primary documentation](https://community.commandersact.com/tagcommander/) before proceeding.
 
-# Table of Contents
+## Table of Contents
 - [Features](#features)
 - [Installation and Quick Start](#installation-and-quick-start)
 - [Methods](#methods)
   - [Container Management](#container-management)
   - [Variable Management](#variable-management)
   - [Events](#events)
-- [Reloading Containers](#reloading-containers)
+  - [Reloading Containers](#reloading-containers)
+- [Server-side Rendering (SSR)](#server-side-rendering)
 - [Sample App](#sample-app)
 - [License](#license)
 - [Development](#development)
 
-# Features <a name="features"></a>
+## Features <a name="features"></a>
 
 - Automatic page tracking
 - Event triggering
 - Supports multiple containers
 
-# Installation and Quick Start <a name="installation-and-quick-start"></a>
+## Installation and Quick Start <a name="installation-and-quick-start"></a>
 
-## Installation
+### Installation
 
 1. **Using NPM**:  
    ```sh
@@ -37,7 +38,7 @@ Integrate CommandersAct's tag container with your React applications seamlessly 
    <script src="react-tag-commander/dist/index.es5.min.js"></script>
    ```
 
-## Import
+### Import
 
 1. **For ES6**:
    ```javascript
@@ -54,7 +55,7 @@ Integrate CommandersAct's tag container with your React applications seamlessly 
    const TC_Wrapper = window.TC_Wrapper;
    ```
 
-## Setup
+### Setup
 
 1. **Initialize your Data Layer**: Set up your data layer early in your web application, preferably in a `<script>` block in the head.
    ```javascript
@@ -69,73 +70,71 @@ Integrate CommandersAct's tag container with your React applications seamlessly 
 import React from "react";
 import TC_Wrapper from "react-tag-commander";
 
-const wrapper = TC_Wrapper.getInstance();
-
 function App() {
-
-  const [tcReady, setTcReady] = useState(false);
-
-  useEffect(() => {
-    Promise.all([
-      wrapper.addContainer('container_head', '/tag-commander-head.js', 'head'),
-      wrapper.addContainer('container_body', '/tag-commander-body.js', 'body')
-    ]).then(() => {
-      setIsReady(true);
-    });
-  }, []);
-
-
-  return ( tcReady ? <div>Containers loaded</div> : <div>Now loading</div> );
+    const [tcReady, setTcReady] = useState(false);
+    
+    useEffect(() => {
+        const wrapper = TC_Wrapper.getInstance();
+        Promise.all([
+            wrapper.addContainer('container_head', '/tag-commander-head.js', 'head'), 
+            wrapper.addContainer('container_body', '/tag-commander-body.js', 'body')
+        ]).then(() => {
+            setIsReady(true);
+        });
+    }, []);
+    
+    return ( tcReady ? <div>Containers loaded</div> : <div>Now loading</div> );
 }
 ```
-# Methods <a name="methods"></a>
+## Methods <a name="methods"></a>
 
 Many methods are asynchronous. If you want to ensure that a method has been executed before continuing, you can use the `await` keyword. Please check the function definition to see if it is asynchronous.
 
-## Container Management <a name="container-management"></a>
-   ```js
-   // Adding a container
-   await wrapper.addContainer('my-custom-id', '/url/to/container.js', 'head');
+### Container Management <a name="container-management"></a>
 
-   // Removing a container
-   wrapper.removeContainer('my-custom-id');
-   ```
+```js
+// Adding a container
+await wrapper.addContainer('my-custom-id', '/url/to/container.js', 'head');
 
-## Variable Management <a name="variable-management"></a>
-   ```js
-   // Set variables
-   await wrapper.setTcVars({ env_template : "shop", ... });
+// Removing a container
+wrapper.removeContainer('my-custom-id');
+```
 
-   // Update a single variable
-   await wrapper.setTcVar('env_template', 'super_shop');
+### Variable Management <a name="variable-management"></a>
 
-   // Get a variable
-   const myVar = wrapper.getTcVar('VarKey');
+```js
+// Set variables
+await wrapper.setTcVars({ env_template : "shop", ... });
 
-   // Remove a variable
-   wrapper.removeTcVar('VarKey');
-   ```
+// Update a single variable
+await wrapper.setTcVar('env_template', 'super_shop');
 
-## Events <a name="events"></a>
+// Get a variable
+const myVar = wrapper.getTcVar('VarKey');
+
+// Remove a variable
+wrapper.removeTcVar('VarKey');
+```
+
+### Events <a name="events"></a>
 
 - Refer to the [base documentation on events](https://community.commandersact.com/tagcommander/user-manual/container-management/events) for an understanding of events in general. 
 - The method "triggerEvent" is the new name of the old method "captureEvent"; an alias has been added to ensure backward compatibility.
 
+```js
+// Triggering an event
+// eventLabel: Name of the event as defined in the container
+// htmlElement: Calling context. Usually the HTML element on which the event is triggered, but it can be the component.
+// data: event variables
+await wrapper.triggerEvent(eventLabel, htmlElement, data);
+```
 
-  ```js
-  // Triggering an event
-  // eventLabel: Name of the event as defined in the container
-  // htmlElement: Calling context. Usually the HTML element on which the event is triggered, but it can be the component.
-  // data: event variables
-  await wrapper.triggerEvent(eventLabel, htmlElement, data);
-  ```
-
-# Reloading Containers <a name="reloading-containers"></a>
+### Reloading Containers <a name="reloading-containers"></a>
 
 1. **Manual Reload**: Update your container after any variable change.
-   ```js
-   await wrapper.reloadContainer(siteId, containerId, options);
-   ```
+    ```js
+    await wrapper.reloadContainer(siteId, containerId, options);
+    ```
 
 2. **On Route Change**: Utilize the `trackPageLoad` function for updating on route changes.
     ```js
@@ -152,7 +151,43 @@ Many methods are asynchronous. If you want to ensure that a method has been exec
     }
     ```
 
-# Sample App <a name="sample-app"></a>
+## Server-side Rendering (SSR) <a name="server-side-rendering"></a>
+
+`react-tag-commander` works seamlessly with frameworks utilizing Server-side Rendering (SSR) (for example [Next.js](https://nextjs.org/)).
+However, the wrapper is interacting with the DOM objects `document` and `window`, which are not available on the server.
+Therefore, you have to make sure that wrapper methods are only executed on the client-side.
+This can be achieved by using hooks like `useEffect`, `useCallback` or `useState` or, executing it in a callback function that doesn't run on the server, for example the `submit` function of a form.
+
+Examples:
+```js
+// Throws an 'window is not defined' error, as the code is executed on the server and trackPageLoad interacts with the window object.
+function SampleView() {
+    const wrapper = TC_Wrapper.getInstance();
+    wrapper.trackPageLoad({tcVars: {page: 'home'}})
+}
+```
+```js
+// Works as the code is executed on the client only
+function SampleView() {
+    useEffect(() => {
+        const wrapper = TC_Wrapper.getInstance();
+        wrapper.trackPageLoad({tcVars: {page: 'home'}})
+    }, []);
+}
+```
+
+Another option is to check whether `window` is defined before executing a method.
+```js
+function SampleView() {
+    if (typeof window !== 'undefined') {
+        // client-side-only code
+        const wrapper = TC_Wrapper.getInstance();
+        wrapper.trackPageLoad({tcVars: {page: 'home'}})
+    }
+}
+```
+
+## Sample App <a name="sample-app"></a>
 
 To help you with your implementation we provided a sample application. To run it clone the repo then run:
 ```bash
@@ -161,7 +196,8 @@ yarn start
 ```
 Then, visit [http://localhost:3000](http://localhost:3000).
 
-# License <a name="license"></a>
+## License <a name="license"></a>
+
 This module uses the [MIT License](http://revolunet.mit-license.org). Contributions are welcome.
 
 # Development <a name="development"></a>

@@ -1,4 +1,4 @@
-# CommandersAct's tag container sample app
+# react-tag-commander sample app
 
 Welcome to the CommandersAct's Tag Container sample app! This is a demo app showcasing the npm package `react-tag-commander`. The app sets variables in CommandersAct's tag container, tracks pageviews, and provides a holistic summary on how the package can be used in a React Single Page Application (SPA).
 
