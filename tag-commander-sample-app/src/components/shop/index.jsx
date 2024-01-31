@@ -13,7 +13,7 @@ const Shop = () => {
       ]})
   }, []);
 
-  const [items, setItems] = useState([{ id: 0, name: "TagCommander", price: 20, quantity: 1 }]);
+  const [items, setItems] = useState([{ id: 0, name: "Shop Item 2", price: 20, quantity: 1 }]);
   const defaultStoreCurrency = "€";
   const [isMsgDisplayed, setIsMsgDisplayed] = useState(false);
   const [currentId, setCurrentId] = useState(1);

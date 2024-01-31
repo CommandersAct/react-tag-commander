@@ -1,20 +1,19 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import TC_Wrapper from 'react-tag-commander';
-
-// Components
+import { useEffect, useState } from "react";
 import Navbar from "./components/layout/navbar/Navbar";
 import Dashboard from "./components/dashboard/index.jsx";
 import Home from "./components/home/index.jsx";
 import Shop from "./components/shop/index.jsx";
-import { useEffect, useState } from "react";
 
-const wrapper = TC_Wrapper.getInstance();
-wrapper.setDebug(true);
 function App() {
 
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    const wrapper = TC_Wrapper.getInstance();
+    wrapper.setDebug(true);
+
     Promise.all([
       wrapper.addContainer('container_head', '/tag-commander-head.js', 'head'),
       wrapper.addContainer('container_body', '/tag-commander-body.js', 'body'),

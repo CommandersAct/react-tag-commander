@@ -1,6 +1,6 @@
-# Tag Commander Sample App
+# react-tag-commander sample app
 
-Welcome to the Tag Commander Sample App! This is a demo app showcasing the npm package `react-tag-commander`. The app sets variables in Tag Commander, tracks pageviews, and provides a holistic summary on how the package can be used in a React Single Page Application (SPA).
+Welcome to the CommandersAct's Tag Container sample app! This is a demo app showcasing the npm package `react-tag-commander`. The app sets variables in CommandersAct's tag container, tracks pageviews, and provides a holistic summary on how the package can be used in a React Single Page Application (SPA).
 
 ## Table of Contents
 
@@ -12,11 +12,11 @@ Welcome to the Tag Commander Sample App! This is a demo app showcasing the npm p
 
 ## 1. Introduction
 
-`react-tag-commander` is an npm package designed to facilitate the integration of Tag Commander in your React applications. This sample shop showcases its potential and demonstrates how it can be implemented in a real-world application scenario.
+`react-tag-commander` is an npm package designed to facilitate the integration of CommandersAct's tag container in your React applications. This sample shop showcases its potential and demonstrates how it can be implemented in a real-world application scenario.
 
 ## 2. Features
 
-- Set variables in Tag Commander dynamically.
+- Set variables in CommandersAct's tag container dynamically.
 - Track pageviews efficiently.
 - Easily configure and customize your tags.
 

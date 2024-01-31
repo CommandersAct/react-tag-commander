@@ -1,9 +1,8 @@
-# React-Tag-Commander Documentation
+# react-tag-commander
 
-Integrate Tag Commander with your React applications seamlessly using the `react-tag-commander` wrapper.
+Integrate CommandersAct's tag container with your React applications seamlessly using the `react-tag-commander` wrapper.
 
-- [Official Tag Commander website](https://www.commandersact.com/fr/produits/tagcommander/)
-- **Note**: Familiarize yourself with [Tag Commander's primary documentation](https://community.commandersact.com/tagcommander/) before proceeding.
+- **Note**: Familiarize yourself with [CommandersAct's tag container's primary documentation](https://doc.commandersact.com/features/sources/sources-catalog/web/containers) before proceeding.
 
 ## Table of Contents
 - [Features](#features)
@@ -12,18 +11,20 @@ Integrate Tag Commander with your React applications seamlessly using the `react
   - [Container Management](#container-management)
   - [Variable Management](#variable-management)
   - [Events](#events)
-- [Reloading Containers](#reloading-containers)
+  - [Reloading Containers](#reloading-containers)
+- [Server-side Rendering (SSR)](#server-side-rendering)
 - [Sample App](#sample-app)
 - [License](#license)
 - [Development](#development)
+- [Contribute](#contribute)
 
-## Features
+## Features <a name="features"></a>
 
 - Automatic page tracking
 - Event triggering
 - Supports multiple containers
 
-## Installation and Quick Start
+## Installation and Quick Start <a name="installation-and-quick-start"></a>
 
 ### Installation
 
@@ -69,75 +70,90 @@ Integrate Tag Commander with your React applications seamlessly using the `react
 import React from "react";
 import TC_Wrapper from "react-tag-commander";
 
-const wrapper = TC_Wrapper.getInstance();
-
 function App() {
-
-  const [tcReady, setTcReady] = useState(false);
-
-  useEffect(() => {
-    Promise.all([
-      wrapper.addContainer('container_head', '/tag-commander-head.js', 'head'),
-      wrapper.addContainer('container_body', '/tag-commander-body.js', 'body')
-    ]).then(() => {
-      setIsReady(true);
-    });
-  }, []);
-
-
-  return ( tcReady ? <div>Containers loaded</div> : <div>Now loading</div> );
+    const [tcReady, setTcReady] = useState(false);
+    
+    useEffect(() => {
+        const wrapper = TC_Wrapper.getInstance();
+        Promise.all([
+            wrapper.addContainer('container_head', '/tag-commander-head.js', 'head'), 
+            wrapper.addContainer('container_body', '/tag-commander-body.js', 'body')
+        ]).then(() => {
+            setIsReady(true);
+        });
+    }, []);
+    
+    return ( tcReady ? <div>Containers loaded</div> : <div>Now loading</div> );
 }
 ```
-# Methods
+## Methods <a name="methods"></a>
 
 Many methods are asynchronous. If you want to ensure that a method has been executed before continuing, you can use the `await` keyword. Please check the function definition to see if it is asynchronous.
 
-## Container Management
-   ```js
-   // Adding a container
-   await wrapper.addContainer('my-custom-id', '/url/to/container.js', 'head');
+### Container Management <a name="container-management"></a>
 
-   // Removing a container
-   wrapper.removeContainer('my-custom-id');
-   ```
+```js
+// Adding a container
+await wrapper.addContainer('my-custom-id', '/url/to/container.js', 'head');
 
-## Variable Management
-   ```js
-   // Set variables
-   await wrapper.setTcVars({ env_template : "shop", ... });
+// Removing a container
+wrapper.removeContainer('my-custom-id');
+```
 
-   // Update a single variable
-   await wrapper.setTcVar('env_template', 'super_shop');
+### Variable Management <a name="variable-management"></a>
 
-   // Get a variable
-   const myVar = wrapper.getTcVar('VarKey');
+```js
+// Set variables
+await wrapper.setTcVars({ env_template : "shop", ... });
 
-   // Remove a variable
-   wrapper.removeTcVar('VarKey');
-   ```
+// Update a single variable
+await wrapper.setTcVar('env_template', 'super_shop');
 
-## Events
-- Refer to the [base documentation on events](https://community.commandersact.com/tagcommander/user-manual/container-management/events) for an understanding of events in general. 
+// Get a variable
+const myVar = wrapper.getTcVar('VarKey');
+
+// Remove a variable
+wrapper.removeTcVar('VarKey');
+```
+
+### Events <a name="events"></a>
+
+- Refer to the [base documentation on events](https://doc.commandersact.com/features/sources/sources-catalog/web/containers/user-guides-for-browser-side-platform/tags/rules/triggers) for an understanding of events in general. 
 - The method "triggerEvent" is the new name of the old method "captureEvent"; an alias has been added to ensure backward compatibility.
 
+```js
+// Triggering an event
+// eventLabel: Name of the event as defined in the container
+// htmlElement: Calling context. Usually the HTML element on which the event is triggered, but it can be the component.
+// data: event variables
+await wrapper.triggerEvent(eventLabel, htmlElement, data);
+```
 
-  ```js
-  // Triggering an event
-  // eventLabel: Name of the event as defined in the container
-  // htmlElement: Calling context. Usually the HTML element on which the event is triggered, but it can be the component.
-  // data: event variables
-  await wrapper.triggerEvent(eventLabel, htmlElement, data);
-  ```
+### Reloading Containers <a name="reloading-containers"></a>
 
-## Reloading Containers
+#### Manual Reload
+Update your container after any variable change.
+```js
+await wrapper.reloadContainer(siteId, containerId, options);
+```
 
-1. **Manual Reload**: Update your container after any variable change.
-   ```js
-   await wrapper.reloadContainer(siteId, containerId, options);
-   ```
+#### Exclusions
+You can state an exclusion array to your options object like below.
+```typescript
+const options = {
+        exclusions: [
+            'datastorage',
+            'deduplication',
+            'internalvars',
+            'privacy'
+        ]
+    };
+await wrapper.reloadContainer(siteId, containerId, options);
+```
+Please see the [container's documentation](https://doc.commandersact.com/features/sources/sources-catalog/web/containers/setup-guides-for-developers/spa-implementation-guide#id-2.how-to-implement-tagcommander-in-an-spa-environment) for other options.
 
-2. **On Route Change**: Utilize the `trackPageLoad` function for updating on route changes.
-
+#### On Route Change
+Utilize the `trackPageLoad` function for updating on route changes.
 ```js
 function SampleView() {
   
@@ -152,7 +168,43 @@ function SampleView() {
 }
 ```
 
-## Sample App
+## Server-side Rendering (SSR) <a name="server-side-rendering"></a>
+
+`react-tag-commander` works seamlessly with frameworks utilizing Server-side Rendering (SSR) (for example [Next.js](https://nextjs.org/)).
+However, the wrapper is interacting with the DOM objects `document` and `window`, which are not available on the server.
+Therefore, you have to make sure that wrapper methods are only executed on the client-side.
+This can be achieved by using hooks like `useEffect`, `useCallback` or `useState` or, executing it in a callback function that doesn't run on the server, for example the `submit` function of a form.
+
+Examples:
+```js
+// Throws an 'window is not defined' error, as the code is executed on the server and trackPageLoad interacts with the window object.
+function SampleView() {
+    const wrapper = TC_Wrapper.getInstance();
+    wrapper.trackPageLoad({tcVars: {page: 'home'}})
+}
+```
+```js
+// Works as the code is executed on the client only
+function SampleView() {
+    useEffect(() => {
+        const wrapper = TC_Wrapper.getInstance();
+        wrapper.trackPageLoad({tcVars: {page: 'home'}})
+    }, []);
+}
+```
+
+Another option is to check whether `window` is defined before executing a method.
+```js
+function SampleView() {
+    if (typeof window !== 'undefined') {
+        // client-side-only code
+        const wrapper = TC_Wrapper.getInstance();
+        wrapper.trackPageLoad({tcVars: {page: 'home'}})
+    }
+}
+```
+
+## Sample App <a name="sample-app"></a>
 
 To help you with your implementation we provided a sample application. To run it clone the repo then run:
 ```bash
@@ -161,15 +213,25 @@ yarn start
 ```
 Then, visit [http://localhost:3000](http://localhost:3000).
 
-## License
-This module uses the [MIT License](http://revolunet.mit-license.org). Contributions are welcome.
 
-## Development
+# Development <a name="development"></a>
 
 After forking, set up your environment:
 
-1. ```npm install```
+```bash
+npm install
+```
 
 Commands available:
 
-1. ```gulp```
+```bash
+gulp
+```
+
+# Contribute <a name="contribute"></a>
+
+To contribute to this project, please read the [CONTRIBUTE.md](CONTRIBUTE.md) file.
+
+## License <a name="license"></a>
+
+This module uses the [MIT License](http://revolunet.mit-license.org). Contributions are welcome.

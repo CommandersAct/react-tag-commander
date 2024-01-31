@@ -3,7 +3,7 @@ import logo from '../../assets/Tag-Commander.png'; // Tell webpack this JS file 
 
 function PageItem({ addToItems, defaultStoreCurrency }) {
   const [item, setItem] = useState({
-    name: "Month Subscription",
+    name: "Shop Item 1",
     price: 99,
     quantity: 1
   });

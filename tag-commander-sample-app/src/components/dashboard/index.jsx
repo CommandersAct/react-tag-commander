@@ -1,3 +1,4 @@
+import cycle from '../../assets/cycle.png'
 const Dashboard = () => {
   return (
     <main>
@@ -26,7 +27,7 @@ const Dashboard = () => {
               <div className="illustration">
                 <img width={ 440 }
                      height={ 330 }
-                     src="https://www.commandersact.com/wp-content/uploads/2016/10/cycle.png"
+                     src={cycle}
                      className="attachment-full size-full"
                      alt="Tag lifecycle management"/>
               </div>

@@ -1,9 +1,10 @@
 {
   "name": "tag-commander-sample-app",
-  "private": true,
   "version": "1.0.0",
-  "repository": "https://github.com/commandersact/react-tag-commander.git",
+  "repository": "https://github.com/commandersact/react-tag-commander",
   "author": "CommandersAct",
+  "license": "MIT",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,6 +15,9 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "highlight.js": "^11.9.0",
+    "marked": "^11.1.0",
+    "marked-highlight": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.2",
