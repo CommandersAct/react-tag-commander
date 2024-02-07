@@ -1,6 +1,6 @@
 {
   "name": "react-tag-commander",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "main": "./src/index.js",
   "repository": "https://github.com/commandersact/react-tag-commander",
   "author": "CommandersAct",
