@@ -1,22 +1,24 @@
 {
   "name": "react-tag-commander",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "main": "./src/index.js",
   "repository": "https://github.com/commandersact/react-tag-commander",
   "author": "CommandersAct",
   "license": "MIT",
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "devDependencies": {
-    "@babel/cli": "^7.22.9",
-    "@babel/core": "^7.22.9",
-    "@babel/preset-env": "^7.22.9",
-    "@babel/preset-react": "^7.22.5",
-    "gulp": "^4.0.2",
+    "@babel/cli": "^7.29.7",
+    "@babel/core": "^7.29.7",
+    "@babel/preset-env": "^7.29.7",
+    "@babel/preset-react": "^7.29.7",
+    "gulp": "^5.0.1",
     "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-minify": "^3.1.0",
-    "prettier": "^3.1.1",
-    "vitest": "^1.0.4",
-    "webpack-cli": "^5.1.4"
+    "prettier": "^3.9.4",
+    "vitest": "^4.1.9"
   },
   "scripts": {
     "build": "gulp",

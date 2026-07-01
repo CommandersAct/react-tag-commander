@@ -54,9 +54,7 @@ describe('TC_Wrapper', () => {
 
       expect.assertions(3);
     },
-    {
-      timeout: 50
-    }
+    50
   );
 
   it('addContainer() should throw error for invalid id', async () => {
@@ -64,7 +62,7 @@ describe('TC_Wrapper', () => {
     const url = 'http://example.com/script.js';
     const node = 'body';
 
-    expect(() => wrapper.addContainer(invalidId, url, node)).toThrowError(
+    expect(() => wrapper.addContainer(invalidId, url, node)).toThrow(
       `[${wrapperName}-tag-commander]You should define the container id.`
     );
   });
@@ -74,7 +72,7 @@ describe('TC_Wrapper', () => {
     const url = 'http://example.com/script.js';
     const node = 'body';
 
-    expect(() => wrapper.addContainer(nonStringId, url, node)).toThrowError(
+    expect(() => wrapper.addContainer(nonStringId, url, node)).toThrow(
       `[${wrapperName}-tag-commander]The container id should be a string.`
     );
   });
@@ -84,7 +82,7 @@ describe('TC_Wrapper', () => {
     const invalidUrl = null; // or any invalid value
     const node = 'body';
 
-    expect(() => wrapper.addContainer(id, invalidUrl, node)).toThrowError(
+    expect(() => wrapper.addContainer(id, invalidUrl, node)).toThrow(
       `[${wrapperName}-tag-commander]Invalid container URL.`
     );
   });
