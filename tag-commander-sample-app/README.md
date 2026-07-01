@@ -51,13 +51,21 @@ npm -v
    npm install
    ```
 
-4. **Run the application**:
+4. **Build the application**:
+
+   ```bash
+   npm run build
+   ```
+
+5. **Run the application**:
 
    ```bash
    npm run preview
    ```
 
    The application should now be running at `http://localhost:4173`.
+
+   Alternatively, for local development with hot reload, skip the build step and run `npm run dev` instead.
 
 ## 4. Usage Examples
 
