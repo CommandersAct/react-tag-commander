@@ -4,12 +4,6 @@ const babel = require('gulp-babel');
 const concat = require('gulp-concat');
 const babelConfig = require('./babel.config.json');
 
-function scripts(cb) {
-    src('./lib/*.js')
-      .pipe(dest('./dist/'));
-    cb();
-}
-
 function buildEs5(cb) {
     console.log("building es5 lib");
     // converting to ES5
@@ -43,7 +37,6 @@ function buildEs6(cb) {
     cb();
 }
 
-exports.scripts = scripts;
 exports.buildEs5 = buildEs5;
 exports.buildEs6 = buildEs6;
-exports.default = series(scripts, buildEs5, buildEs6);
+exports.default = series(buildEs5, buildEs6);
